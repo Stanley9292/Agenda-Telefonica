@@ -11,6 +11,7 @@ package agenda.telefonica;
  */
 public abstract class NrTel {
     private String numar;
+    static final int lungimeNumar = 10;
     
     //constructor cu parametru
     public NrTel(String numar){
@@ -18,7 +19,7 @@ public abstract class NrTel {
     }
     
     //getter NrTel
-    public String getNumar(){
+    public String getNrTel(){
         return numar;
     }
     
@@ -31,6 +32,10 @@ public abstract class NrTel {
     @Override
     public String toString(){
         return "Numarul de telefon este " + numar;
+    }
+
+    public int compareTo(NrTel nrTel) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
         
     

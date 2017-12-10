@@ -11,6 +11,8 @@ package agenda.telefonica;
  */
 public class NrFix extends NrTel {
     private String fix;
+    private static final String formatFix = "02";
+    
 
     //constructor
     public NrFix(String fix) {
@@ -19,8 +21,15 @@ public class NrFix extends NrTel {
     }
     
     //getter pentru clasa Fix
-    public String getFix(){
-        return fix;
+    public String getFix()throws Exception{
+        if((fix == null) || (fix.length() != lungimeNumar)){
+            throw new Exception("fixul introdus este unul gresit!");
+        }
+        if(fix.startsWith(formatFix)){
+            return fix;
+        }else{
+            throw new Exception("Formatul introdus este unul gresit!");
+        }
     }
     
     //setter pentru clasa Fix
@@ -30,7 +39,7 @@ public class NrFix extends NrTel {
     
     @Override
     public String toString(){
-        return "Numarul fix este " + fix;
+        return "fixul fix este " + fix;
     }
     
 }

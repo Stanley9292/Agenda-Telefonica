@@ -12,12 +12,12 @@ package agenda.telefonica;
 public class Abonat {
     private String nume;
     private String prenume;
-    private long CNP;
+    private String CNP;
     private NrTel numarTelefon;
     //camp de tip NrTel
     
     //constructor cu parametrii
-    public Abonat(String nume, String prenume, long CNP){
+    public Abonat(String nume, String prenume, String CNP){
         this.nume = nume;
         this.prenume = prenume;
         this.CNP = CNP;
@@ -32,7 +32,7 @@ public class Abonat {
         return prenume;
     }
     
-    public long getCNP(){
+    public String getCNP(){
         return CNP;
     }
     
@@ -49,7 +49,7 @@ public class Abonat {
         this.prenume = prenume;
     }
     
-    public void setCNP(long CNP){
+    public void setCNP(String CNP){
         this.CNP = CNP;
     }
     

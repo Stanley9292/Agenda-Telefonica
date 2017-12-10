@@ -11,6 +11,7 @@ package agenda.telefonica;
  */
 public class NrMobil extends NrTel {
     private String mobil;
+    private static final String formatMobil = "07";
 
     //constructor NrMobil
     public NrMobil(String mobil) {
@@ -19,8 +20,15 @@ public class NrMobil extends NrTel {
     }
     
     //getter NrMobil
-    public String getNrMobil(){
-        return mobil;
+    public String getNrMobil() throws Exception {
+        if((mobil == null) || (mobil.length() != lungimeNumar)){
+            throw new Exception("fixul introdus este unul gresit!");
+        }
+        if(mobil.startsWith(formatMobil)){
+            return mobil;
+        }else{
+            throw new Exception("Formatul introdus este unul gresit!");
+        }
     }
     
     //setter NrMobil
