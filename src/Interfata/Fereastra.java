@@ -5,6 +5,21 @@
  */
 package interfata;
 
+import agenda.telefonica.Abonat;
+import agenda.telefonica.NrTel;
+import bazadedate.Conectare;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Stan
@@ -14,10 +29,27 @@ public class Fereastra extends javax.swing.JFrame {
     /**
      * Creates new form Fereastra
      */
+    
+    
+    
     public Fereastra() {
         initComponents();
+        afiseaza_tabela();
     }
-
+    
+    public void afiseaza_tabela(){
+        ArrayList<Abonat> list = Conectare.afisareDinBazadeDate();
+        DefaultTableModel model = (DefaultTableModel) tabela.getModel();
+        Object[] row = new Object[4];
+        
+        for(int i = 0; i<list.size(); i++){
+            row[0] = list.get(i).getNume();
+            row[1] = list.get(i).getPrenume();
+            row[2] = list.get(i).getCNP();
+            row[3] = list.get(i).getNrTel();
+            model.addRow(row);
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -44,9 +76,10 @@ public class Fereastra extends javax.swing.JFrame {
         lPrenume = new javax.swing.JLabel();
         lCNP = new javax.swing.JLabel();
         lTelefon = new javax.swing.JLabel();
-        buttonGroup2 = new javax.swing.ButtonGroup();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabela = new javax.swing.JTable();
+        bCautare = new javax.swing.JButton();
+        bAdauga = new javax.swing.JButton();
         MenuBar = new javax.swing.JMenuBar();
         File = new javax.swing.JMenu();
         Save = new javax.swing.JMenuItem();
@@ -175,23 +208,14 @@ public class Fereastra extends javax.swing.JFrame {
                 .addGroup(Adaugare_abonatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(tTelefon)
                     .addComponent(lTelefon, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(28, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         tabela.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
                 "Nume", "Prenume", "CNP", "Numar Telefon"
@@ -208,6 +232,15 @@ public class Fereastra extends javax.swing.JFrame {
         tabela.setColumnSelectionAllowed(true);
         jScrollPane1.setViewportView(tabela);
         tabela.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+
+        bCautare.setText("Cautare");
+
+        bAdauga.setText("Adauga");
+        bAdauga.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bAdaugaActionPerformed(evt);
+            }
+        });
 
         File.setText("File");
 
@@ -264,13 +297,23 @@ public class Fereastra extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 694, Short.MAX_VALUE)
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(65, 65, 65)
+                .addComponent(bAdauga)
+                .addGap(97, 97, 97)
+                .addComponent(bCautare)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 263, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(bCautare)
+                    .addComponent(bAdauga))
+                .addGap(24, 24, 24))
         );
 
         pack();
@@ -291,6 +334,11 @@ public class Fereastra extends javax.swing.JFrame {
     private void OpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OpenActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_OpenActionPerformed
+
+    private void bAdaugaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAdaugaActionPerformed
+        Adaugare_abonat.setVisible(true);
+        //setVisible(false);
+    }//GEN-LAST:event_bAdaugaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -341,10 +389,11 @@ public class Fereastra extends javax.swing.JFrame {
     private javax.swing.JPanel Ordonare_abonati;
     private javax.swing.JMenuItem Save;
     private javax.swing.JMenu Sterge;
+    private javax.swing.JButton bAdauga;
     private javax.swing.JButton bAdaugare;
+    private javax.swing.JButton bCautare;
     private javax.swing.JButton bIesire;
     private javax.swing.JButton bOKOrdonare;
-    private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lCNP;
     private javax.swing.JLabel lNume;

@@ -6,18 +6,36 @@
 package Interfata;
 
 import agenda.telefonica.Abonat;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.swing.JTable;
+import javax.swing.table.AbstractTableModel;
 
 /**
  *
  * @author Stan
  */
-public class OrdoneazaAbonat {
-    private List<Abonat> lista;
+public class OrdoneazaAbonat extends AbstractTableModel{
+    private List<Abonat> lista = new ArrayList<>();
+
+    @Override
+    public int getRowCount() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public int getColumnCount() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Object getValueAt(int i, int i1) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     enum CriteriuOrdonare{DUPA_NUME, DUPA_PRENUME, DUPA_CNP, DUPA_NUMARTELEFON};
     Map<CriteriuOrdonare, Comparator<Abonat>> comparatori = new HashMap<>();
     
@@ -48,6 +66,10 @@ public class OrdoneazaAbonat {
             return a1.getNrTel().compareTo(a2.getNrTel());
         }
     }; 
+    
+    private void ordoneaza(CriteriuOrdonare c){
+        Collections.sort(lista, comparatori.get(c));
+    }
     
     //reimprospatare jtable
     protected void regenerateTable(){

@@ -5,30 +5,47 @@
  */
 package bazadedate;
 
-import java.sql.Connection;
+import agenda.telefonica.Abonat;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.sql.Statement;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author Stan
  */
 public class Conectare {
-    private static String db = "agenda";
-    private static String user = "agenda";
-    private static String pass = "agenda1";
-    private static String url = "" + db;
-    private static Connection Conn;
     
-    public static Connection getConnection() throws SQLException {
-        try{
-            Class.forName("com.mysql.jdbc.Driver"); //incaracarea driver-ului
-            Conn = DriverManager.getConnection(url,user,pass); //deschiderea conexiunii la baza de date
-        } catch (Exception e) {
-            System.err.println("Conexiunea nu s-a putut realiza.");
-        }
-        return Conn;
+    private static String db = "jdbc:mysql://localhost/agenda_telefonica";
+    private static String user = "root";
+    private static String pass = "root";
+    private static String url = "" + db;
+    
+    public static ArrayList<Abonat> afisareDinBazadeDate(){
+        
+            ArrayList<agenda.telefonica.Abonat> lista_abonati = new ArrayList<>();
+
+            try {
+                java.sql.Connection c = DriverManager.getConnection(db, user, pass);
+                String query1 = "Select * FROM agenda";
+                Statement st = c.createStatement();
+                ResultSet rs = st.executeQuery(query1);
+                agenda.telefonica.Abonat abonat;
+                //agenda.telefonica.NrTel nrTel;
+
+                while(rs.next()){
+                    abonat = new Abonat(rs.getString("nume"), rs.getString("prenume"), rs.getString("CNP"));
+                    //nrTel = new NrTel(rs.getString("telefon")) {};
+                   lista_abonati.add(abonat);
+
+                }
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, ex);
+            }
+            return lista_abonati;
     }
+    
 }
