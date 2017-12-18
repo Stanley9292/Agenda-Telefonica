@@ -59,12 +59,6 @@ public class Fereastra extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        Ordonare_abonati = new javax.swing.JPanel();
-        rNume = new javax.swing.JRadioButton();
-        rPrenume = new javax.swing.JRadioButton();
-        rCNP = new javax.swing.JRadioButton();
-        rTelefon = new javax.swing.JRadioButton();
-        bOKOrdonare = new javax.swing.JButton();
         Adaugare_abonat = new javax.swing.JPanel();
         tNume = new javax.swing.JTextField();
         bAdaugare = new javax.swing.JButton();
@@ -91,58 +85,6 @@ public class Fereastra extends javax.swing.JFrame {
         Modifica = new javax.swing.JMenu();
         Help = new javax.swing.JMenu();
         Inregistrare = new javax.swing.JMenuItem();
-
-        rNume.setText("Nume");
-
-        rPrenume.setText("Prenume");
-
-        rCNP.setText("CNP");
-
-        rTelefon.setText("Numar de telefon");
-
-        bOKOrdonare.setText("Ordoneaza");
-        bOKOrdonare.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bOKOrdonareActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout Ordonare_abonatiLayout = new javax.swing.GroupLayout(Ordonare_abonati);
-        Ordonare_abonati.setLayout(Ordonare_abonatiLayout);
-        Ordonare_abonatiLayout.setHorizontalGroup(
-            Ordonare_abonatiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(Ordonare_abonatiLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(Ordonare_abonatiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(Ordonare_abonatiLayout.createSequentialGroup()
-                        .addComponent(rNume)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(Ordonare_abonatiLayout.createSequentialGroup()
-                        .addGroup(Ordonare_abonatiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(rPrenume)
-                            .addComponent(rCNP)
-                            .addComponent(rTelefon))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
-                        .addComponent(bOKOrdonare)))
-                .addContainerGap())
-        );
-        Ordonare_abonatiLayout.setVerticalGroup(
-            Ordonare_abonatiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(Ordonare_abonatiLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(rNume)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(Ordonare_abonatiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(Ordonare_abonatiLayout.createSequentialGroup()
-                        .addComponent(rPrenume)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(rCNP))
-                    .addGroup(Ordonare_abonatiLayout.createSequentialGroup()
-                        .addGap(11, 11, 11)
-                        .addComponent(bOKOrdonare)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(rTelefon))
-        );
 
         bAdaugare.setText("Adaugare");
         bAdaugare.setToolTipText("");
@@ -327,10 +269,6 @@ public class Fereastra extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_bAdaugareActionPerformed
 
-    private void bOKOrdonareActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bOKOrdonareActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_bOKOrdonareActionPerformed
-
     private void OpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OpenActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_OpenActionPerformed
@@ -386,23 +324,17 @@ public class Fereastra extends javax.swing.JFrame {
     private javax.swing.JMenuBar MenuBar;
     private javax.swing.JMenu Modifica;
     private javax.swing.JMenuItem Open;
-    private javax.swing.JPanel Ordonare_abonati;
     private javax.swing.JMenuItem Save;
     private javax.swing.JMenu Sterge;
     private javax.swing.JButton bAdauga;
     private javax.swing.JButton bAdaugare;
     private javax.swing.JButton bCautare;
     private javax.swing.JButton bIesire;
-    private javax.swing.JButton bOKOrdonare;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lCNP;
     private javax.swing.JLabel lNume;
     private javax.swing.JLabel lPrenume;
     private javax.swing.JLabel lTelefon;
-    private javax.swing.JRadioButton rCNP;
-    private javax.swing.JRadioButton rNume;
-    private javax.swing.JRadioButton rPrenume;
-    private javax.swing.JRadioButton rTelefon;
     private javax.swing.JTextField tCNP;
     private javax.swing.JTextField tNume;
     private javax.swing.JTextField tPrenume;
