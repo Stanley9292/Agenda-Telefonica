@@ -5,6 +5,18 @@
  */
 package Interfata;
 
+import agenda.telefonica.Abonat;
+import static bazadedate.Conectare.verifyConnection;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import javax.print.attribute.standard.RequestingUserName;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author AGStan
@@ -17,7 +29,6 @@ public class LoginForm extends javax.swing.JFrame {
     public LoginForm() {
         initComponents();
     }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -38,14 +49,29 @@ public class LoginForm extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         bLogare.setText("Log in");
+        bLogare.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bLogareActionPerformed(evt);
+            }
+        });
 
         lUser.setText("User");
 
         lParola.setText("Parola");
 
         bRefresh.setText("Refresh");
+        bRefresh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bRefreshActionPerformed(evt);
+            }
+        });
 
         bIesire.setText("Iesire");
+        bIesire.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bIesireActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -77,21 +103,51 @@ public class LoginForm extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lUser))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(tParola, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lParola))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lParola)
+                    .addComponent(tParola, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(bLogare)
                     .addComponent(bRefresh))
                 .addGap(18, 18, 18)
                 .addComponent(bIesire)
-                .addContainerGap(30, Short.MAX_VALUE))
+                .addGap(30, 30, 30))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void bLogareActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bLogareActionPerformed
+     try{
+         Connection c = verifyConnection();
+         String sql = "Select * from user where username = ? and password = ?";
+         PreparedStatement pst = c.prepareStatement(sql);
+         pst.setString(1, tUser.getText());
+         pst.setString(2, tParola.getText());
+         ResultSet rs = pst.executeQuery();
+         if(rs.next()){
+             JOptionPane.showMessageDialog(null, "Username si parola corecte! Bine ati venit!");
+         }
+         else{
+             JOptionPane.showMessageDialog(null, "Username si parola incorecte!");
+         }
+         c.close();
+     }
+     catch(SQLException e){
+         JOptionPane.showMessageDialog(null, e);
+     }
+    }//GEN-LAST:event_bLogareActionPerformed
+
+    private void bRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bRefreshActionPerformed
+        tUser.setText("");
+        tParola.setText("");
+    }//GEN-LAST:event_bRefreshActionPerformed
+
+    private void bIesireActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bIesireActionPerformed
+        System.exit(1);
+    }//GEN-LAST:event_bIesireActionPerformed
 
     /**
      * @param args the command line arguments

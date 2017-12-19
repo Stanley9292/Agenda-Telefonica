@@ -56,19 +56,19 @@
                   <Component id="tUser" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="lUser" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="tParola" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
-                  <Component id="lParola" alignment="3" min="-2" max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="lParola" min="-2" max="-2" attributes="0"/>
+                  <Component id="tParola" min="-2" pref="21" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="bLogare" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="bRefresh" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="bIesire" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="30" max="32767" attributes="0"/>
+              <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -82,6 +82,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Log in"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bLogareActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="lUser">
       <Properties>
@@ -97,11 +100,17 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Refresh"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bRefreshActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="bIesire">
       <Properties>
         <Property name="text" type="java.lang.String" value="Iesire"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bIesireActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

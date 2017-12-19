@@ -5,4 +5,3 @@ interfata.Fereastra$6
 interfata.Fereastra$1
 interfata.Fereastra$2
 interfata.Fereastra
-interfata.Fereastra$7

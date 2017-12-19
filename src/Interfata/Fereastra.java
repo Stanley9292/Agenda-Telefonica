@@ -274,7 +274,8 @@ public class Fereastra extends javax.swing.JFrame {
     }//GEN-LAST:event_OpenActionPerformed
 
     private void bAdaugaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAdaugaActionPerformed
-        Adaugare_abonat.setVisible(true);
+        //OrdonareAbonat a = new OrdonareAbonat();
+        //a.setVisible(true);
         //setVisible(false);
     }//GEN-LAST:event_bAdaugaActionPerformed
 
