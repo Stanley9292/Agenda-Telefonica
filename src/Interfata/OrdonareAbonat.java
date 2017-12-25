@@ -27,6 +27,7 @@ public class OrdonareAbonat extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         rNume = new javax.swing.JRadioButton();
         rPrenume = new javax.swing.JRadioButton();
         rCNP = new javax.swing.JRadioButton();
@@ -35,12 +36,16 @@ public class OrdonareAbonat extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        buttonGroup1.add(rNume);
         rNume.setText("Nume");
 
+        buttonGroup1.add(rPrenume);
         rPrenume.setText("Prenume");
 
+        buttonGroup1.add(rCNP);
         rCNP.setText("CNP");
 
+        buttonGroup1.add(rTelefon);
         rTelefon.setText("Numar de telefon");
 
         bOKOrdonare.setText("Ordoneaza");
@@ -126,6 +131,7 @@ public class OrdonareAbonat extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bOKOrdonare;
+    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JRadioButton rCNP;
     private javax.swing.JRadioButton rNume;
     private javax.swing.JRadioButton rPrenume;

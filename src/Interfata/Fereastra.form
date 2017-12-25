@@ -2,114 +2,6 @@
 
 <Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <NonVisualComponents>
-    <Container class="javax.swing.JPanel" name="Adaugare_abonat">
-
-      <Layout>
-        <DimensionLayout dim="0">
-          <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="lNume" alignment="0" max="32767" attributes="0"/>
-                      <Component id="lPrenume" alignment="0" max="32767" attributes="0"/>
-                      <Component id="lCNP" max="32767" attributes="0"/>
-                      <Component id="lTelefon" alignment="0" max="32767" attributes="0"/>
-                  </Group>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="tTelefon" pref="80" max="32767" attributes="0"/>
-                      <Component id="tPrenume" max="32767" attributes="0"/>
-                      <Component id="tNume" max="32767" attributes="0"/>
-                      <Component id="tCNP" max="32767" attributes="0"/>
-                  </Group>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="bIesire" max="32767" attributes="0"/>
-                      <Component id="bAdaugare" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
-              </Group>
-          </Group>
-        </DimensionLayout>
-        <DimensionLayout dim="1">
-          <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="tNume" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
-                      <Component id="lNume" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="bAdaugare" min="-2" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="tPrenume" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="lPrenume" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                  </Group>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="bIesire" min="-2" max="-2" attributes="0"/>
-                      <Group type="103" alignment="0" groupAlignment="3" attributes="0">
-                          <Component id="tCNP" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="lCNP" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
-                      </Group>
-                  </Group>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="tTelefon" max="32767" attributes="0"/>
-                      <Component id="lTelefon" max="32767" attributes="0"/>
-                  </Group>
-                  <EmptySpace max="32767" attributes="0"/>
-              </Group>
-          </Group>
-        </DimensionLayout>
-      </Layout>
-      <SubComponents>
-        <Component class="javax.swing.JTextField" name="tNume">
-        </Component>
-        <Component class="javax.swing.JButton" name="bAdaugare">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Adaugare"/>
-            <Property name="toolTipText" type="java.lang.String" value=""/>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bAdaugareActionPerformed"/>
-          </Events>
-        </Component>
-        <Component class="javax.swing.JButton" name="bIesire">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Iesire"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JTextField" name="tPrenume">
-        </Component>
-        <Component class="javax.swing.JTextField" name="tCNP">
-        </Component>
-        <Component class="javax.swing.JTextField" name="tTelefon">
-        </Component>
-        <Component class="javax.swing.JLabel" name="lNume">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Nume"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JLabel" name="lPrenume">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Prenume"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JLabel" name="lCNP">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="CNP"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JLabel" name="lTelefon">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Numar telefon"/>
-          </Properties>
-        </Component>
-      </SubComponents>
-    </Container>
     <Menu class="javax.swing.JMenuBar" name="MenuBar">
       <SubComponents>
         <Menu class="javax.swing.JMenu" name="File">
@@ -214,8 +106,10 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="65" max="-2" attributes="0"/>
               <Component id="bAdauga" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="97" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="60" max="-2" attributes="0"/>
               <Component id="bCautare" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="47" max="-2" attributes="0"/>
+              <Component id="bOrdonare" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
@@ -229,6 +123,7 @@
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="bCautare" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="bAdauga" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="bOrdonare" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
           </Group>
@@ -246,15 +141,21 @@
         <Component class="javax.swing.JTable" name="tabela">
           <Properties>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-              <Table columnCount="4" rowCount="0">
+              <Table columnCount="5" rowCount="0">
                 <Column editable="true" title="Nume" type="java.lang.String"/>
                 <Column editable="true" title="Prenume" type="java.lang.String"/>
                 <Column editable="true" title="CNP" type="java.lang.String"/>
-                <Column editable="true" title="Numar Telefon" type="java.lang.String"/>
+                <Column editable="true" title="Numar Fix" type="java.lang.String"/>
+                <Column editable="true" title="Numar Mobil" type="java.lang.String"/>
               </Table>
             </Property>
             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
               <TableColumnModel selectionModel="1">
+                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                  <Title/>
+                  <Editor/>
+                  <Renderer/>
+                </Column>
                 <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                   <Title/>
                   <Editor/>
@@ -297,6 +198,11 @@
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bAdaugaActionPerformed"/>
       </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="bOrdonare">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Ordonare"/>
+      </Properties>
     </Component>
   </SubComponents>
 </Form>

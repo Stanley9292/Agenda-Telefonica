@@ -63,7 +63,7 @@ public class OrdoneazaAbonat extends AbstractTableModel{
     Comparator<Abonat> dupaNrTel = new Comparator<Abonat>() {
         @Override
         public int compare(Abonat a1, Abonat a2) {
-            return a1.getNrTel().compareTo(a2.getNrTel());
+            return a1.getNrFix().compareTo(a2.getNrFix());
         }
     }; 
     

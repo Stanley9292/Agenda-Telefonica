@@ -3,11 +3,15 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/C:/Users/Stan/Desktop/Java/Programe/Agenda-Telefonica-master/nbproject/build-impl.xml</file>
+            <file>file:/C:/Users/Stan/Desktop/Java/Programe/Agenda-Telefonica-master/src/agenda/telefonica/NrTel.java</file>
             <file>file:/C:/Users/Stan/Desktop/Java/Programe/Agenda-Telefonica-master/src/Interfata/LoginForm.java</file>
-            <file>file:/C:/Users/Stan/Desktop/Java/Programe/Agenda-Telefonica-master/src/Interfata/OrdonareAbonat.java</file>
+            <file>file:/C:/Users/Stan/Desktop/Java/Programe/Agenda-Telefonica-master/src/agenda/telefonica/Abonat.java</file>
+            <file>file:/C:/Users/Stan/Desktop/Java/Programe/Agenda-Telefonica-master/src/bazadedate/Conectare.java</file>
             <file>file:/C:/Users/Stan/Desktop/Java/Programe/Agenda-Telefonica-master/src/Interfata/AdaugareAbonat.java</file>
+            <file>file:/C:/Users/Stan/Desktop/Java/Programe/Agenda-Telefonica-master/src/agenda/telefonica/NrFix.java</file>
             <file>file:/C:/Users/Stan/Desktop/Java/Programe/Agenda-Telefonica-master/src/Interfata/Fereastra.java</file>
-            <file>file:/C:/Users/Stan/Desktop/Java/Programe/Agenda-Telefonica-master/src/Interfata/OrdoneazaAbonat.java</file>
+            <file>file:/C:/Users/Stan/Desktop/Java/Programe/Agenda-Telefonica-master/src/agenda/telefonica/NrMobil.java</file>
         </group>
     </open-files>
 </project-private>

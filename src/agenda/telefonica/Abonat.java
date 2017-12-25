@@ -5,6 +5,8 @@
  */
 package agenda.telefonica;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Stan
@@ -13,15 +15,36 @@ public class Abonat {
     private String nume;
     private String prenume;
     private String CNP;
-    private NrTel numarTelefon;
+    private NrFix nrFix;
+    private NrMobil nrMobil;
+    
     //camp de tip NrTel
     
     //constructor cu parametrii
     public Abonat(String nume, String prenume, String CNP){
+         if (nume == null || nume.length() == 0 || prenume == null || prenume.length() == 0) {
+            JOptionPane.showMessageDialog(null, "Numele si prenumele nu pot lipsi!");        
+        }
+        if(!nume.matches("[A-Za-z \\-]+") || !prenume.matches("[A-Za-z \\-]+")){
+            JOptionPane.showMessageDialog(null, "Numele nu pare de om!");
+        }
+        if(CNP.length() != 13){
+            JOptionPane.showMessageDialog(null, "CNP-ul introdus trebuie sa aiba 13 caractere");
+        }
         this.nume = nume;
         this.prenume = prenume;
         this.CNP = CNP;
     }
+    
+    public Abonat(String nume, String prenume, String CNP, String nrFix, String nrMobil){
+        this.nume = nume;
+        this.prenume = prenume;
+        this.CNP = CNP;
+        this.nrFix = new NrFix(nrFix);
+        this.nrMobil = new NrMobil(nrMobil);
+    }
+    
+    
     
     //getteri
     public String getNume(){
@@ -36,8 +59,12 @@ public class Abonat {
         return CNP;
     }
     
-    public NrTel getNrTel(){
-        return numarTelefon;
+    public NrFix getNrFix(){
+        return nrFix;
+    }
+    
+    public NrMobil getNrMobil(){
+        return nrMobil;
     }
     
     //setteri
@@ -53,9 +80,7 @@ public class Abonat {
         this.CNP = CNP;
     }
     
-    public void setNrTel(NrTel numarTelefon){
-        this.numarTelefon = numarTelefon;
-    }
+   
     
     @Override
     public String toString(){

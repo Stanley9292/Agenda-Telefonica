@@ -34,29 +34,4 @@ public class Conectare {
         }
         return con;
     }
-    
-    public static ArrayList<Abonat> afisareDinBazadeDate(){
-        
-            ArrayList<agenda.telefonica.Abonat> lista_abonati = new ArrayList<>();
-
-            try {
-                Connection c = verifyConnection();
-                String query1 = "Select * FROM agenda";
-                Statement st = c.createStatement();
-                ResultSet rs = st.executeQuery(query1);
-                agenda.telefonica.Abonat abonat;
-                //agenda.telefonica.NrTel nrTel;
-
-                while(rs.next()){
-                    abonat = new Abonat(rs.getString("nume"), rs.getString("prenume"), rs.getString("CNP"));
-                    //nrTel = new NrTel(rs.getString("telefon")) {};
-                   lista_abonati.add(abonat);
-
-                }
-            } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(null, ex);
-            }
-            return lista_abonati;
-    }
-    
 }

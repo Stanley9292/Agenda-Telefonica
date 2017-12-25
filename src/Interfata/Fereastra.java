@@ -7,7 +7,10 @@ package interfata;
 
 import agenda.telefonica.Abonat;
 import agenda.telefonica.NrTel;
+import agenda.telefonica.NrFix;
+import agenda.telefonica.NrMobil;
 import bazadedate.Conectare;
+import static bazadedate.Conectare.verifyConnection;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -38,17 +41,46 @@ public class Fereastra extends javax.swing.JFrame {
     }
     
     public void afiseaza_tabela(){
-        ArrayList<Abonat> list = Conectare.afisareDinBazadeDate();
+        ArrayList<Abonat> list = extrageDinBazadeDate();
         DefaultTableModel model = (DefaultTableModel) tabela.getModel();
-        Object[] row = new Object[4];
+        Object[] row = new Object[5];
         
         for(int i = 0; i<list.size(); i++){
             row[0] = list.get(i).getNume();
             row[1] = list.get(i).getPrenume();
             row[2] = list.get(i).getCNP();
-            row[3] = list.get(i).getNrTel();
+            row[3] = list.get(i).getNrFix();
+            row[4] = list.get(i).getNrMobil();
             model.addRow(row);
         }
+    }
+    
+        public static ArrayList<Abonat> extrageDinBazadeDate(){
+        
+            ArrayList<agenda.telefonica.Abonat> lista_abonati = new ArrayList<>();
+            
+            try {
+                Connection c = verifyConnection();
+                String query1 = "Select * FROM agenda";
+                Statement st = c.createStatement();
+                ResultSet rs = st.executeQuery(query1);
+                agenda.telefonica.Abonat abonat;
+                //agenda.telefonica.NrTel nrTel;
+
+                while(rs.next()){
+                    String nume = rs.getString("nume");
+                    String prenume = rs.getString("prenume");
+                    String CNP = rs.getString("CNP");
+                    String nrFix = rs.getString("Numar_Fix");
+                    String nrMobil = rs.getString("Numar_Mobil");
+                    abonat = new Abonat(nume, prenume, CNP, nrFix, nrMobil);
+                    lista_abonati.add(abonat);
+
+                }
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, ex);
+            }
+            return lista_abonati;
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -59,21 +91,11 @@ public class Fereastra extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        Adaugare_abonat = new javax.swing.JPanel();
-        tNume = new javax.swing.JTextField();
-        bAdaugare = new javax.swing.JButton();
-        bIesire = new javax.swing.JButton();
-        tPrenume = new javax.swing.JTextField();
-        tCNP = new javax.swing.JTextField();
-        tTelefon = new javax.swing.JTextField();
-        lNume = new javax.swing.JLabel();
-        lPrenume = new javax.swing.JLabel();
-        lCNP = new javax.swing.JLabel();
-        lTelefon = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabela = new javax.swing.JTable();
         bCautare = new javax.swing.JButton();
         bAdauga = new javax.swing.JButton();
+        bOrdonare = new javax.swing.JButton();
         MenuBar = new javax.swing.JMenuBar();
         File = new javax.swing.JMenu();
         Save = new javax.swing.JMenuItem();
@@ -86,73 +108,6 @@ public class Fereastra extends javax.swing.JFrame {
         Help = new javax.swing.JMenu();
         Inregistrare = new javax.swing.JMenuItem();
 
-        bAdaugare.setText("Adaugare");
-        bAdaugare.setToolTipText("");
-        bAdaugare.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bAdaugareActionPerformed(evt);
-            }
-        });
-
-        bIesire.setText("Iesire");
-
-        lNume.setText("Nume");
-
-        lPrenume.setText("Prenume");
-
-        lCNP.setText("CNP");
-
-        lTelefon.setText("Numar telefon");
-
-        javax.swing.GroupLayout Adaugare_abonatLayout = new javax.swing.GroupLayout(Adaugare_abonat);
-        Adaugare_abonat.setLayout(Adaugare_abonatLayout);
-        Adaugare_abonatLayout.setHorizontalGroup(
-            Adaugare_abonatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(Adaugare_abonatLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(Adaugare_abonatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lNume, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lPrenume, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lCNP, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lTelefon, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(Adaugare_abonatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(tTelefon, javax.swing.GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE)
-                    .addComponent(tPrenume)
-                    .addComponent(tNume)
-                    .addComponent(tCNP))
-                .addGap(18, 18, 18)
-                .addGroup(Adaugare_abonatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(bIesire, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(bAdaugare))
-                .addGap(13, 13, 13))
-        );
-        Adaugare_abonatLayout.setVerticalGroup(
-            Adaugare_abonatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(Adaugare_abonatLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(Adaugare_abonatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(tNume, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lNume))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(Adaugare_abonatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(bAdaugare)
-                    .addGroup(Adaugare_abonatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(tPrenume, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(lPrenume)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(Adaugare_abonatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(bIesire)
-                    .addGroup(Adaugare_abonatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(tCNP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(lCNP, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(Adaugare_abonatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(tTelefon)
-                    .addComponent(lTelefon, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         tabela.setModel(new javax.swing.table.DefaultTableModel(
@@ -160,11 +115,11 @@ public class Fereastra extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Nume", "Prenume", "CNP", "Numar Telefon"
+                "Nume", "Prenume", "CNP", "Numar Fix", "Numar Mobil"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -183,6 +138,8 @@ public class Fereastra extends javax.swing.JFrame {
                 bAdaugaActionPerformed(evt);
             }
         });
+
+        bOrdonare.setText("Ordonare");
 
         File.setText("File");
 
@@ -242,8 +199,10 @@ public class Fereastra extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(65, 65, 65)
                 .addComponent(bAdauga)
-                .addGap(97, 97, 97)
+                .addGap(60, 60, 60)
                 .addComponent(bCautare)
+                .addGap(47, 47, 47)
+                .addComponent(bOrdonare)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -254,7 +213,8 @@ public class Fereastra extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(bCautare)
-                    .addComponent(bAdauga))
+                    .addComponent(bAdauga)
+                    .addComponent(bOrdonare))
                 .addGap(24, 24, 24))
         );
 
@@ -265,17 +225,13 @@ public class Fereastra extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_SaveActionPerformed
 
-    private void bAdaugareActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAdaugareActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_bAdaugareActionPerformed
-
     private void OpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OpenActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_OpenActionPerformed
 
     private void bAdaugaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAdaugaActionPerformed
-        //OrdonareAbonat a = new OrdonareAbonat();
-        //a.setVisible(true);
+        AdaugareAbonat a = new AdaugareAbonat();
+        a.setVisible(true);
         //setVisible(false);
     }//GEN-LAST:event_bAdaugaActionPerformed
 
@@ -317,7 +273,6 @@ public class Fereastra extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu Abonati;
     private javax.swing.JMenu Adauga;
-    private javax.swing.JPanel Adaugare_abonat;
     private javax.swing.JMenu Cauta;
     private javax.swing.JMenu File;
     private javax.swing.JMenu Help;
@@ -328,18 +283,9 @@ public class Fereastra extends javax.swing.JFrame {
     private javax.swing.JMenuItem Save;
     private javax.swing.JMenu Sterge;
     private javax.swing.JButton bAdauga;
-    private javax.swing.JButton bAdaugare;
     private javax.swing.JButton bCautare;
-    private javax.swing.JButton bIesire;
+    private javax.swing.JButton bOrdonare;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JLabel lCNP;
-    private javax.swing.JLabel lNume;
-    private javax.swing.JLabel lPrenume;
-    private javax.swing.JLabel lTelefon;
-    private javax.swing.JTextField tCNP;
-    private javax.swing.JTextField tNume;
-    private javax.swing.JTextField tPrenume;
-    private javax.swing.JTextField tTelefon;
     private javax.swing.JTable tabela;
     // End of variables declaration//GEN-END:variables
 }

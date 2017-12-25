@@ -5,6 +5,8 @@
  */
 package agenda.telefonica;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author AGStan
@@ -16,19 +18,19 @@ public class NrMobil extends NrTel {
     //constructor NrMobil
     public NrMobil(String mobil) {
         super(mobil);
-        this.mobil = mobil;
+        if((mobil == null) || (mobil.length() != lungimeNumar)){
+            JOptionPane.showMessageDialog(null, "Lungimea numarului introdus trebuie sa fie de 10 caractere");
+        }
+        if(mobil.startsWith(formatMobil)){
+            this.mobil = mobil;
+        }else{
+            JOptionPane.showMessageDialog(null, "Formatul introdus este unul gresit! Trebuie sa inceapa cu 07");
+        }
     }
     
     //getter NrMobil
-    public String getNrMobil() throws Exception {
-        if((mobil == null) || (mobil.length() != lungimeNumar)){
-            throw new Exception("fixul introdus este unul gresit!");
-        }
-        if(mobil.startsWith(formatMobil)){
-            return mobil;
-        }else{
-            throw new Exception("Formatul introdus este unul gresit!");
-        }
+    public String getMobil() throws Exception {
+        return mobil;
     }
     
     //setter NrMobil
@@ -39,6 +41,6 @@ public class NrMobil extends NrTel {
     //override la metoda toString()
     @Override
     public String toString(){
-        return "Numarul mobil este " + mobil;
+        return mobil;
     }
 }
