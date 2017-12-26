@@ -41,7 +41,7 @@ public class AdaugareAbonat extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        Adaugare_abonat = new javax.swing.JPanel();
+        interfataAdaugare = new javax.swing.JPanel();
         tNume = new javax.swing.JTextField();
         bAdaugare = new javax.swing.JButton();
         bIesire = new javax.swing.JButton();
@@ -55,6 +55,7 @@ public class AdaugareAbonat extends javax.swing.JFrame {
         bRefresh = new javax.swing.JButton();
         tNumarFix = new javax.swing.JTextField();
         lTelefonFix = new javax.swing.JLabel();
+        bCautare = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -90,60 +91,73 @@ public class AdaugareAbonat extends javax.swing.JFrame {
 
         lTelefonFix.setText("Telefon Fix");
 
-        javax.swing.GroupLayout Adaugare_abonatLayout = new javax.swing.GroupLayout(Adaugare_abonat);
-        Adaugare_abonat.setLayout(Adaugare_abonatLayout);
-        Adaugare_abonatLayout.setHorizontalGroup(
-            Adaugare_abonatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(Adaugare_abonatLayout.createSequentialGroup()
+        bCautare.setText("Cautare");
+        bCautare.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bCautareActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout interfataAdaugareLayout = new javax.swing.GroupLayout(interfataAdaugare);
+        interfataAdaugare.setLayout(interfataAdaugareLayout);
+        interfataAdaugareLayout.setHorizontalGroup(
+            interfataAdaugareLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(interfataAdaugareLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(Adaugare_abonatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(interfataAdaugareLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lNume, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(lPrenume, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(lCNP, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(lTelefonMobil, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(lTelefonFix, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(Adaugare_abonatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(interfataAdaugareLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(tNumarMobil, javax.swing.GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE)
                     .addComponent(tPrenume)
                     .addComponent(tNume)
                     .addComponent(tCNP)
                     .addComponent(tNumarFix, javax.swing.GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
-                .addGroup(Adaugare_abonatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(interfataAdaugareLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(bIesire, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(bAdaugare, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(bRefresh, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(bRefresh, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(bCautare, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(13, 13, 13))
         );
-        Adaugare_abonatLayout.setVerticalGroup(
-            Adaugare_abonatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(Adaugare_abonatLayout.createSequentialGroup()
+        interfataAdaugareLayout.setVerticalGroup(
+            interfataAdaugareLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(interfataAdaugareLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(Adaugare_abonatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(interfataAdaugareLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lNume)
                     .addComponent(tNume))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
-                .addGroup(Adaugare_abonatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(interfataAdaugareLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(bAdaugare)
-                    .addGroup(Adaugare_abonatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addGroup(interfataAdaugareLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(tPrenume, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(lPrenume)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(Adaugare_abonatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(tCNP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lCNP, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(bRefresh))
-                .addGap(6, 6, 6)
-                .addGroup(Adaugare_abonatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(Adaugare_abonatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(tNumarMobil)
-                        .addComponent(bIesire))
-                    .addComponent(lTelefonMobil, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(Adaugare_abonatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(tNumarFix)
-                    .addComponent(lTelefonFix, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(interfataAdaugareLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(interfataAdaugareLayout.createSequentialGroup()
+                        .addGroup(interfataAdaugareLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(tCNP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lCNP, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(bCautare))
+                        .addGap(6, 6, 6)
+                        .addGroup(interfataAdaugareLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(tNumarMobil, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lTelefonMobil, javax.swing.GroupLayout.DEFAULT_SIZE, 23, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(interfataAdaugareLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(tNumarFix)
+                            .addComponent(lTelefonFix, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(interfataAdaugareLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(bRefresh)
+                        .addGap(6, 6, 6)
+                        .addComponent(bIesire)))
                 .addContainerGap())
         );
 
@@ -155,14 +169,14 @@ public class AdaugareAbonat extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(19, 19, 19)
-                .addComponent(Adaugare_abonat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(interfataAdaugare, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(35, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(Adaugare_abonat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(interfataAdaugare, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -185,9 +199,13 @@ public class AdaugareAbonat extends javax.swing.JFrame {
              pst.setString(3, tCNP.getText());
              pst.setString(4, tNumarMobil.getText());
              pst.setString(5, tNumarFix.getText());
-            ;
-             pst.executeUpdate();
-             JOptionPane.showMessageDialog(null, "Datele au fost inserate cu succes!");
+             if(fix.verificareNrTel(tNumarFix.getText()) || mobil.verificareNrTel(tNumarMobil.getText())){
+                 pst.executeUpdate();
+                JOptionPane.showMessageDialog(null, "Datele au fost inserate cu succes!");
+             }else{
+                 JOptionPane.showMessageDialog(null, "Date nu au fost inserate! Ceva ati gresit!");
+             }
+             
         }
         catch (SQLException ex) {
                 JOptionPane.showMessageDialog(null, ex);
@@ -207,6 +225,10 @@ public class AdaugareAbonat extends javax.swing.JFrame {
     private void bIesireActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bIesireActionPerformed
         System.exit(0);
     }//GEN-LAST:event_bIesireActionPerformed
+
+    private void bCautareActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCautareActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_bCautareActionPerformed
 
     /**
      * @param args the command line arguments
@@ -244,10 +266,11 @@ public class AdaugareAbonat extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel Adaugare_abonat;
     private javax.swing.JButton bAdaugare;
+    private javax.swing.JButton bCautare;
     private javax.swing.JButton bIesire;
     private javax.swing.JButton bRefresh;
+    private javax.swing.JPanel interfataAdaugare;
     private javax.swing.JLabel lCNP;
     private javax.swing.JLabel lNume;
     private javax.swing.JLabel lPrenume;

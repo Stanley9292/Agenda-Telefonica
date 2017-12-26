@@ -25,7 +25,7 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
-              <Component id="Adaugare_abonat" min="-2" max="-2" attributes="0"/>
+              <Component id="interfataAdaugare" min="-2" max="-2" attributes="0"/>
               <EmptySpace pref="35" max="32767" attributes="0"/>
           </Group>
       </Group>
@@ -34,14 +34,14 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="Adaugare_abonat" min="-2" max="-2" attributes="0"/>
+              <Component id="interfataAdaugare" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Container class="javax.swing.JPanel" name="Adaugare_abonat">
+    <Container class="javax.swing.JPanel" name="interfataAdaugare">
 
       <Layout>
         <DimensionLayout dim="0">
@@ -68,6 +68,7 @@
                       <Component id="bIesire" alignment="0" max="32767" attributes="0"/>
                       <Component id="bAdaugare" alignment="0" max="32767" attributes="0"/>
                       <Component id="bRefresh" max="32767" attributes="0"/>
+                      <Component id="bCautare" alignment="0" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
               </Group>
@@ -90,23 +91,30 @@
                       </Group>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="tCNP" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="lCNP" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
-                      <Component id="bRefresh" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Group type="103" alignment="0" groupAlignment="3" attributes="0">
-                          <Component id="tNumarMobil" alignment="3" max="32767" attributes="0"/>
-                          <Component id="bIesire" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" attributes="0">
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="tCNP" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="lCNP" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
+                              <Component id="bCautare" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="tNumarMobil" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="lTelefonMobil" alignment="0" pref="23" max="32767" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="tNumarFix" alignment="3" max="32767" attributes="0"/>
+                              <Component id="lTelefonFix" alignment="3" max="32767" attributes="0"/>
+                          </Group>
                       </Group>
-                      <Component id="lTelefonMobil" alignment="0" max="32767" attributes="0"/>
-                  </Group>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="tNumarFix" alignment="3" max="32767" attributes="0"/>
-                      <Component id="lTelefonFix" alignment="3" max="32767" attributes="0"/>
+                      <Group type="102" attributes="0">
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                          <Component id="bRefresh" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
+                          <Component id="bIesire" min="-2" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -176,6 +184,14 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Telefon Fix"/>
           </Properties>
+        </Component>
+        <Component class="javax.swing.JButton" name="bCautare">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Cautare"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bCautareActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

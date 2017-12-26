@@ -13,21 +13,12 @@ import javax.swing.JOptionPane;
  */
 public class NrFix extends NrTel {
     private String fix;
-    private static final String formatFix = "021";
-    
 
     //constructor
     public NrFix(String fix) {
         super(fix);
+        this.fix = fix;
         
-        if((fix == null) || (fix.length() != lungimeNumar)){
-            JOptionPane.showMessageDialog(null, "Fixul introdus este unul gresit!");
-        }
-        if(fix.startsWith(formatFix)){
-            this.fix = fix;
-        }else{
-            JOptionPane.showMessageDialog(null, "Formatul introdus este unul gresit! Trebuie sa inceapa cu 021.");
-        }    
     }
     
     //getter pentru clasa Fix
@@ -43,6 +34,20 @@ public class NrFix extends NrTel {
     @Override
     public String toString(){
         return fix;
+    }
+
+    public boolean verificareNrTel(String fix) {
+        if((fix == null) || (fix.length() != lungimeNumar)){
+            JOptionPane.showMessageDialog(null, "Fixul introdus este unul gresit!");
+            return false;
+        }
+        if(fix.startsWith(formatFix)){
+             return true;
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "Formatul introdus este unul gresit! Trebuie sa inceapa cu 021.");
+            return false;
+        }
     }
     
 }

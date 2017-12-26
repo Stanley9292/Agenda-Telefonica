@@ -12,9 +12,10 @@ package agenda.telefonica;
 public abstract class NrTel {
     private String numar;
     static final int lungimeNumar = 10;
-    private static final String identificareNumarFix = "02";
-    private static final String identificareNumarMobil = "07";
-
+    static final String formatMobil = "07";
+    static final String formatFix = "021";
+    
+    public abstract boolean verificareNrTel(String numar);
     
     //constructor cu parametru
     public NrTel(String numar){
@@ -31,18 +32,7 @@ public abstract class NrTel {
         this.numar = numar;
     }
 
-    public NrTel getTipNumarTel(String numarTel) throws Exception {
-	if((numarTel==null) || (numarTel.length() != lungimeNumar)) {
-		throw new Exception("Formatul numarului introdus este incorect!");
-        }
-	if(numarTel.startsWith(identificareNumarMobil)){
-		return new NrMobil(numarTel);
-	} else if(numarTel.startsWith(identificareNumarFix)){
-			return new NrFix(numarTel);
-	} else {
-		throw new Exception("Formatul numarului introdus este incorect!");
-	}
-    }
+    
     
     //override metoda toString
     @Override

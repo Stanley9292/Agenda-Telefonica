@@ -13,19 +13,11 @@ import javax.swing.JOptionPane;
  */
 public class NrMobil extends NrTel {
     private String mobil;
-    private static final String formatMobil = "07";
 
     //constructor NrMobil
     public NrMobil(String mobil) {
         super(mobil);
-        if((mobil == null) || (mobil.length() != lungimeNumar)){
-            JOptionPane.showMessageDialog(null, "Lungimea numarului introdus trebuie sa fie de 10 caractere");
-        }
-        if(mobil.startsWith(formatMobil)){
-            this.mobil = mobil;
-        }else{
-            JOptionPane.showMessageDialog(null, "Formatul introdus este unul gresit! Trebuie sa inceapa cu 07");
-        }
+        this.mobil = mobil;
     }
     
     //getter NrMobil
@@ -42,5 +34,19 @@ public class NrMobil extends NrTel {
     @Override
     public String toString(){
         return mobil;
+    }
+
+    @Override
+    public boolean verificareNrTel(String mobil) {
+        if((mobil == null) || (mobil.length() != lungimeNumar)){
+            JOptionPane.showMessageDialog(null, "Lungimea numarului introdus trebuie sa fie de 10 caractere");
+            return false;
+        }
+        if(mobil.startsWith(formatMobil)){
+            return true;
+        }else{
+            JOptionPane.showMessageDialog(null, "Formatul introdus este unul gresit! Trebuie sa inceapa cu 07");
+            return false;
+        }
     }
 }
