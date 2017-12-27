@@ -9,10 +9,12 @@ import agenda.telefonica.Abonat;
 import agenda.telefonica.NrTel;
 import agenda.telefonica.NrFix;
 import agenda.telefonica.NrMobil;
+import Interfata.AdaugareAbonat;
 import bazadedate.Conectare;
 import static bazadedate.Conectare.verifyConnection;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -33,9 +35,9 @@ public class CarteDeTelefon extends javax.swing.JFrame {
     /**
      * Creates new form Fereastra
      */
-    private DefaultTableModel model;
-    private JTable tabelpopulat = new JTable();
-    private int randSelectat = 0;
+    //private DefaultTableModel model;
+    //private JTable tabelpopulat = new JTable();
+    //private int randSelectat = 0;
     
     public CarteDeTelefon() {
         initComponents();
@@ -57,7 +59,7 @@ public class CarteDeTelefon extends javax.swing.JFrame {
         }
     }
     
-        public static ArrayList<Abonat> extrageDinBazadeDate(){
+    public static ArrayList<Abonat> extrageDinBazadeDate(){
         
             ArrayList<agenda.telefonica.Abonat> lista_abonati = new ArrayList<>();
             
@@ -77,7 +79,6 @@ public class CarteDeTelefon extends javax.swing.JFrame {
                     String nrMobil = rs.getString("Numar_Mobil");
                     abonat = new Abonat(nume, prenume, CNP, nrFix, nrMobil);
                     lista_abonati.add(abonat);
-
                 }
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(null, ex);
@@ -95,8 +96,11 @@ public class CarteDeTelefon extends javax.swing.JFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         tabela = new javax.swing.JTable();
+        butoanePrincipale = new javax.swing.JPanel();
         bAdauga = new javax.swing.JButton();
         bOrdonare = new javax.swing.JButton();
+        bStergere = new javax.swing.JButton();
+        bActualizare = new javax.swing.JButton();
         MenuBar = new javax.swing.JMenuBar();
         File = new javax.swing.JMenu();
         Save = new javax.swing.JMenuItem();
@@ -127,14 +131,12 @@ public class CarteDeTelefon extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
-        tabela.setColumnSelectionAllowed(true);
         tabela.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tabelaMouseClicked(evt);
             }
         });
         jScrollPane1.setViewportView(tabela);
-        tabela.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
 
         bAdauga.setText("Adauga");
         bAdauga.addActionListener(new java.awt.event.ActionListener() {
@@ -144,6 +146,43 @@ public class CarteDeTelefon extends javax.swing.JFrame {
         });
 
         bOrdonare.setText("Ordonare");
+
+        bStergere.setText("Stergere");
+        bStergere.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bStergereActionPerformed(evt);
+            }
+        });
+
+        bActualizare.setText("Actualizare");
+
+        javax.swing.GroupLayout butoanePrincipaleLayout = new javax.swing.GroupLayout(butoanePrincipale);
+        butoanePrincipale.setLayout(butoanePrincipaleLayout);
+        butoanePrincipaleLayout.setHorizontalGroup(
+            butoanePrincipaleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, butoanePrincipaleLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(bAdauga)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(bOrdonare)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(bStergere)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(bActualizare)
+                .addGap(22, 22, 22))
+        );
+        butoanePrincipaleLayout.setVerticalGroup(
+            butoanePrincipaleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(butoanePrincipaleLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(butoanePrincipaleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(butoanePrincipaleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(bOrdonare)
+                        .addComponent(bAdauga)
+                        .addComponent(bStergere))
+                    .addComponent(bActualizare))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
         File.setText("File");
 
@@ -206,10 +245,8 @@ public class CarteDeTelefon extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 694, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
-                .addGap(255, 255, 255)
-                .addComponent(bAdauga)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(bOrdonare)
+                .addGap(160, 160, 160)
+                .addComponent(butoanePrincipale, javax.swing.GroupLayout.PREFERRED_SIZE, 345, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -217,11 +254,9 @@ public class CarteDeTelefon extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(bOrdonare)
-                    .addComponent(bAdauga))
-                .addGap(24, 24, 24))
+                .addGap(18, 18, 18)
+                .addComponent(butoanePrincipale, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(43, Short.MAX_VALUE))
         );
 
         pack();
@@ -236,9 +271,7 @@ public class CarteDeTelefon extends javax.swing.JFrame {
     }//GEN-LAST:event_OpenActionPerformed
 
     private void bAdaugaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAdaugaActionPerformed
-        AdaugareAbonat a = new AdaugareAbonat();
-        a.setVisible(true);
-        //setVisible(false);
+        new Interfata.AdaugareAbonat().setVisible(true);
     }//GEN-LAST:event_bAdaugaActionPerformed
 
     private void tabelaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaMouseClicked
@@ -247,9 +280,37 @@ public class CarteDeTelefon extends javax.swing.JFrame {
     }//GEN-LAST:event_tabelaMouseClicked
 
     private void InregistrareActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InregistrareActionPerformed
-        OrdonareAbonat o = new Interfata.OrdonareAbonat();
-        o.setVisible(true);
+        new Interfata.LoginForm().setVisible(true);
     }//GEN-LAST:event_InregistrareActionPerformed
+
+    private void bStergereActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bStergereActionPerformed
+         try{
+             Connection c = verifyConnection();      
+             int row = tabela.getSelectedRow();
+             
+             //extragere numar ID din baza de date 
+             //String queryID = "Select id  FROM agenda WHERE id=" + (row-1);
+             //Statement st = c.createStatement();
+             //ResultSet rs = st.executeQuery(queryID);
+             //String result = rs.getString(queryID);
+             
+             
+             String value = tabela.getModel().getValueAt(row, 0).toString();
+             String query = "DELETE FROM agenda WHERE id=" + row;
+             PreparedStatement pst = c.prepareStatement(query);
+             pst.executeUpdate();
+
+             DefaultTableModel model = (DefaultTableModel)tabela.getModel();
+             model.setRowCount(0);
+             afiseaza_tabela();
+             JOptionPane.showMessageDialog(null, "Stergere reusita!");
+         }
+         catch(Exception e){
+             JOptionPane.showMessageDialog(null, e);
+         }
+      
+         
+    }//GEN-LAST:event_bStergereActionPerformed
 
     /**
      * @param args the command line arguments
@@ -283,6 +344,7 @@ public class CarteDeTelefon extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new CarteDeTelefon().setVisible(true);
+                //new Interfata.AdaugareAbonat().setVisible(true);
             }
         });
     }
@@ -299,9 +361,12 @@ public class CarteDeTelefon extends javax.swing.JFrame {
     private javax.swing.JMenuItem Open;
     private javax.swing.JMenuItem Save;
     private javax.swing.JMenu Sterge;
+    private javax.swing.JButton bActualizare;
     private javax.swing.JButton bAdauga;
     private javax.swing.JButton bOrdonare;
+    private javax.swing.JButton bStergere;
+    private javax.swing.JPanel butoanePrincipale;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tabela;
+    protected javax.swing.JTable tabela;
     // End of variables declaration//GEN-END:variables
 }

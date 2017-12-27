@@ -18,6 +18,8 @@ import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -30,6 +32,46 @@ public class AdaugareAbonat extends javax.swing.JFrame {
      */
     public AdaugareAbonat() {
         initComponents();
+    }
+    
+    public JTextField getNumeText(){
+         return tNume;
+    }
+    
+    public void setNumeText(JTextField tNume){
+        this.tNume = tNume;
+    }
+    
+    public JTextField getPrenumeText(){
+        return tPrenume;
+    }
+    
+    public void setPrenumeText(JTextField tPrenume){
+        this.tPrenume = tPrenume;
+    }
+    
+     public JTextField getCNPText(){
+        return tCNP;
+    }
+    
+    public void setCNPText(JTextField tCNP){
+        this.tCNP = tCNP;
+    }
+    
+     public JTextField getNumarMobilText(){
+        return tNumarMobil;
+    }
+    
+    public void setNumarMobilText(JTextField tNumarMobil){
+        this.tNumarMobil = tNumarMobil;
+    }
+    
+     public JTextField getNumarFixText(){
+        return tNumarFix;
+    }
+    
+    public void setNumarFixText(JTextField tNumarFix){
+        this.tNumarFix = tNumarFix;
     }
 
     /**
@@ -201,7 +243,8 @@ public class AdaugareAbonat extends javax.swing.JFrame {
              pst.setString(5, tNumarFix.getText());
              if(fix.verificareNrTel(tNumarFix.getText()) || mobil.verificareNrTel(tNumarMobil.getText())){
                  pst.executeUpdate();
-                JOptionPane.showMessageDialog(null, "Datele au fost inserate cu succes!");
+                 JOptionPane.showMessageDialog(null, "Datele au fost inserate cu succes!");                 
+                 
              }else{
                  JOptionPane.showMessageDialog(null, "Date nu au fost inserate! Ceva ati gresit!");
              }
