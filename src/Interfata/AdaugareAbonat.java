@@ -241,6 +241,7 @@ public class AdaugareAbonat extends javax.swing.JFrame {
              pst.setString(3, tCNP.getText());
              pst.setString(4, tNumarMobil.getText());
              pst.setString(5, tNumarFix.getText());
+             
              if(fix.verificareNrTel(tNumarFix.getText()) || mobil.verificareNrTel(tNumarMobil.getText())){
                  pst.executeUpdate();
                  JOptionPane.showMessageDialog(null, "Datele au fost inserate cu succes!");                 
@@ -252,7 +253,8 @@ public class AdaugareAbonat extends javax.swing.JFrame {
         }
         catch (SQLException ex) {
                 JOptionPane.showMessageDialog(null, ex);
-            } catch (Exception ex) {                       
+            }   
+        catch (Exception ex) {                       
             Logger.getLogger(AdaugareAbonat.class.getName()).log(Level.SEVERE, null, ex);
         }                       
     }//GEN-LAST:event_bAdaugareActionPerformed

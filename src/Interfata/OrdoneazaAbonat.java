@@ -19,8 +19,10 @@ import javax.swing.table.AbstractTableModel;
  *
  * @author Stan
  */
-public class OrdoneazaAbonat extends AbstractTableModel{
+public class OrdoneazaAbonat extends AbstractTableModel implements Comparable<String>{
     private List<Abonat> lista = new ArrayList<>();
+    enum CriteriuOrdonare{DUPA_NUME, DUPA_PRENUME, DUPA_CNP, DUPA_NUMARTELEFON};
+    Map<CriteriuOrdonare, Comparator<Abonat>> comparatori = new HashMap<>();
 
     @Override
     public int getRowCount() {
@@ -36,8 +38,14 @@ public class OrdoneazaAbonat extends AbstractTableModel{
     public Object getValueAt(int i, int i1) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    enum CriteriuOrdonare{DUPA_NUME, DUPA_PRENUME, DUPA_CNP, DUPA_NUMARTELEFON};
-    Map<CriteriuOrdonare, Comparator<Abonat>> comparatori = new HashMap<>();
+
+    @Override
+    public int compareTo(String o) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+   
+    
     
     Comparator<Abonat> dupaNume = new Comparator<Abonat>() {
         @Override

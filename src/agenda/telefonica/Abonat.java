@@ -86,5 +86,9 @@ public class Abonat {
     public String toString(){
         return "Numele este " + nume + ",prenumele este " + prenume + " ,CNP-ul este " + CNP;
     }
+
+    public void setIndex(int i) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }

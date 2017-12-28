@@ -105,6 +105,7 @@ public class CarteDeTelefon extends javax.swing.JFrame {
         File = new javax.swing.JMenu();
         Save = new javax.swing.JMenuItem();
         Open = new javax.swing.JMenuItem();
+        Exit = new javax.swing.JMenuItem();
         Abonati = new javax.swing.JMenu();
         Adauga = new javax.swing.JMenu();
         Cauta = new javax.swing.JMenu();
@@ -146,6 +147,11 @@ public class CarteDeTelefon extends javax.swing.JFrame {
         });
 
         bOrdonare.setText("Ordonare");
+        bOrdonare.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bOrdonareActionPerformed(evt);
+            }
+        });
 
         bStergere.setText("Stergere");
         bStergere.addActionListener(new java.awt.event.ActionListener() {
@@ -155,6 +161,11 @@ public class CarteDeTelefon extends javax.swing.JFrame {
         });
 
         bActualizare.setText("Actualizare");
+        bActualizare.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bActualizareActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout butoanePrincipaleLayout = new javax.swing.GroupLayout(butoanePrincipale);
         butoanePrincipale.setLayout(butoanePrincipaleLayout);
@@ -203,6 +214,15 @@ public class CarteDeTelefon extends javax.swing.JFrame {
             }
         });
         File.add(Open);
+
+        Exit.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_E, java.awt.event.InputEvent.CTRL_MASK));
+        Exit.setText("Exit");
+        Exit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ExitActionPerformed(evt);
+            }
+        });
+        File.add(Exit);
 
         MenuBar.add(File);
 
@@ -294,16 +314,25 @@ public class CarteDeTelefon extends javax.swing.JFrame {
              //ResultSet rs = st.executeQuery(queryID);
              //String result = rs.getString(queryID);
              
+             int valoareMesaj = JOptionPane.showConfirmDialog(rootPane, "Doriti stergerea abonatului?", "Confirmati stergerea", JOptionPane.YES_NO_OPTION);				
              
-             String value = tabela.getModel().getValueAt(row, 0).toString();
-             String query = "DELETE FROM agenda WHERE id=" + row;
-             PreparedStatement pst = c.prepareStatement(query);
-             pst.executeUpdate();
-
+             if (valoareMesaj == JOptionPane.YES_OPTION) {
+                String nume = tabela.getModel().getValueAt(row, 0).toString();
+                String prenume = tabela.getModel().getValueAt(row, 1).toString();
+                String CNP = tabela.getModel().getValueAt(row, 2).toString();
+               
+                String query = "DELETE FROM agenda WHERE nume= '" + nume + "' AND prenume=  '" + prenume + "' AND cnp= '" + CNP + "';";
+                PreparedStatement pst = c.prepareStatement(query);
+                pst.executeUpdate();
+                JOptionPane.showMessageDialog(null, "Stergere reusita!");
+             }
+             else{
+                 JOptionPane.showMessageDialog(null, "Abonatul nu a fost sters!");
+             }
+             //refresh la tabela
              DefaultTableModel model = (DefaultTableModel)tabela.getModel();
              model.setRowCount(0);
              afiseaza_tabela();
-             JOptionPane.showMessageDialog(null, "Stergere reusita!");
          }
          catch(Exception e){
              JOptionPane.showMessageDialog(null, e);
@@ -311,6 +340,20 @@ public class CarteDeTelefon extends javax.swing.JFrame {
       
          
     }//GEN-LAST:event_bStergereActionPerformed
+
+    private void bActualizareActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bActualizareActionPerformed
+        DefaultTableModel model = (DefaultTableModel)tabela.getModel();
+        model.setRowCount(0);
+        afiseaza_tabela();
+    }//GEN-LAST:event_bActualizareActionPerformed
+
+    private void bOrdonareActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bOrdonareActionPerformed
+        tabela.setAutoCreateRowSorter(true);
+    }//GEN-LAST:event_bOrdonareActionPerformed
+
+    private void ExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExitActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_ExitActionPerformed
 
     /**
      * @param args the command line arguments
@@ -353,6 +396,7 @@ public class CarteDeTelefon extends javax.swing.JFrame {
     private javax.swing.JMenu Abonati;
     private javax.swing.JMenu Adauga;
     private javax.swing.JMenu Cauta;
+    private javax.swing.JMenuItem Exit;
     private javax.swing.JMenu File;
     private javax.swing.JMenu Help;
     private javax.swing.JMenuItem Inregistrare;
@@ -367,6 +411,6 @@ public class CarteDeTelefon extends javax.swing.JFrame {
     private javax.swing.JButton bStergere;
     private javax.swing.JPanel butoanePrincipale;
     private javax.swing.JScrollPane jScrollPane1;
-    protected javax.swing.JTable tabela;
+    private javax.swing.JTable tabela;
     // End of variables declaration//GEN-END:variables
 }
