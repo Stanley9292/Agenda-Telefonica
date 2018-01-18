@@ -39,7 +39,7 @@ public class NrMobil extends NrTel {
     @Override
     public boolean verificareNrTel(String mobil) {
         if((mobil == null) || (mobil.length() != lungimeNumar)){
-            JOptionPane.showMessageDialog(null, "Lungimea numarului introdus trebuie sa fie de 10 caractere");
+            JOptionPane.showMessageDialog(null, "Lungimea numarului mobil introdus trebuie sa fie de 10 caractere!");
             return false;
         }
         if(mobil.startsWith(formatMobil)){

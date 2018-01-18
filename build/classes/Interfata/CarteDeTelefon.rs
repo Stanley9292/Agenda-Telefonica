@@ -1,6 +1,10 @@
+interfata.CarteDeTelefon$11
+interfata.CarteDeTelefon$9
+interfata.CarteDeTelefon$10
 interfata.CarteDeTelefon
 interfata.CarteDeTelefon$6
 interfata.CarteDeTelefon$5
+interfata.CarteDeTelefon$8
 interfata.CarteDeTelefon$7
 interfata.CarteDeTelefon$2
 interfata.CarteDeTelefon$1

@@ -44,8 +44,6 @@ public class Abonat {
         this.nrMobil = new NrMobil(nrMobil);
     }
     
-    
-    
     //getteri
     public String getNume(){
         return nume;

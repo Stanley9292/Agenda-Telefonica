@@ -38,7 +38,7 @@ public class NrFix extends NrTel {
 
     public boolean verificareNrTel(String fix) {
         if((fix == null) || (fix.length() != lungimeNumar)){
-            JOptionPane.showMessageDialog(null, "Fixul introdus este unul gresit!");
+            JOptionPane.showMessageDialog(null, "Lungimea numarului fix introdus trebuie sa fie de 10 caractere!");
             return false;
         }
         if(fix.startsWith(formatFix)){

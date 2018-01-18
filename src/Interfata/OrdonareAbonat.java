@@ -5,18 +5,82 @@
  */
 package Interfata;
 
+import agenda.telefonica.Abonat;
+import Interfata.CarteDeTelefon;
+import com.sun.xml.internal.ws.api.pipe.FiberContextSwitchInterceptor;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 /**
  *
  * @author AGStan
  */
-public class OrdonareAbonat extends javax.swing.JFrame {
+public class OrdonareAbonat extends javax.swing.JFrame{
 
+    CarteDeTelefon c;
+    ArrayList<Abonat> lista= new ArrayList<Abonat>();
+    enum CriteriuOrdonare{DUPA_NUME, DUPA_PRENUME, DUPA_CNP, DUPA_FIX, DUPA_MOBIL};
+    Map<CriteriuOrdonare, Comparator<Abonat>> comparatori = new HashMap<>();
+    
+    
+    public OrdonareAbonat(){
+        Comparator<Abonat> dupaNume = new Comparator<Abonat>() {
+        @Override
+        public int compare(Abonat a1, Abonat a2) {
+            return a1.getNume().compareTo(a2.getNume());
+        }
+    };
+    
+    Comparator<Abonat> dupaPrenume = new Comparator<Abonat>() {
+        @Override
+        public int compare(Abonat a1, Abonat a2) {
+            return a1.getPrenume().compareTo(a2.getPrenume());
+        }
+    };
+    
+    Comparator<Abonat> dupaCNP = new Comparator<Abonat>() {
+        @Override
+        public int compare(Abonat a1, Abonat a2) {
+            return a1.getCNP().compareTo(a2.getCNP());
+        }
+    };
+    
+    Comparator<Abonat> dupaNrFix = new Comparator<Abonat>() {
+        @Override
+        public int compare(Abonat a1, Abonat a2) {
+            return a1.getNrFix().compareTo(a2.getNrFix());
+        }
+    }; 
+    
+     Comparator<Abonat> dupaNrMobil = new Comparator<Abonat>() {
+        @Override
+        public int compare(Abonat a1, Abonat a2) {
+            return a1.getNrMobil().compareTo(a2.getNrMobil());
+        }
+    }; 
+     comparatori.put(CriteriuOrdonare.DUPA_NUME, dupaNume);
+     comparatori.put(CriteriuOrdonare.DUPA_PRENUME, dupaPrenume);
+     comparatori.put(CriteriuOrdonare.DUPA_CNP, dupaCNP);
+     comparatori.put(CriteriuOrdonare.DUPA_FIX, dupaNrFix);
+     comparatori.put(CriteriuOrdonare.DUPA_MOBIL, dupaNrMobil);
+    }  
+     
+    private void ordoneaza(CriteriuOrdonare c){
+           Collections.sort(lista, comparatori.get(c));
+    }
+    
+    //reimprospatare jtable
+    public void regenerate_table(){
+        //afiseaza_tabela();
+    }
+    
     /**
      * Creates new form OrdonareAbonat
      */
-    public OrdonareAbonat() {
-        initComponents();
-    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -27,32 +91,55 @@ public class OrdonareAbonat extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        buttonGroup1 = new javax.swing.ButtonGroup();
+        buttonGroup = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         rNume = new javax.swing.JRadioButton();
         rPrenume = new javax.swing.JRadioButton();
         rCNP = new javax.swing.JRadioButton();
-        rTelefon = new javax.swing.JRadioButton();
-        bOKOrdonare = new javax.swing.JButton();
+        rTelefonFix = new javax.swing.JRadioButton();
+        rTelefonMobil = new javax.swing.JRadioButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        buttonGroup1.add(rNume);
+        buttonGroup.add(rNume);
         rNume.setText("Nume");
-
-        buttonGroup1.add(rPrenume);
-        rPrenume.setText("Prenume");
-
-        buttonGroup1.add(rCNP);
-        rCNP.setText("CNP");
-
-        buttonGroup1.add(rTelefon);
-        rTelefon.setText("Numar de telefon");
-
-        bOKOrdonare.setText("Ordoneaza");
-        bOKOrdonare.addActionListener(new java.awt.event.ActionListener() {
+        rNume.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bOKOrdonareActionPerformed(evt);
+                rNumeActionPerformed(evt);
+            }
+        });
+
+        buttonGroup.add(rPrenume);
+        rPrenume.setText("Prenume");
+        rPrenume.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rPrenumeActionPerformed(evt);
+            }
+        });
+
+        buttonGroup.add(rCNP);
+        rCNP.setText("CNP");
+        rCNP.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rCNPActionPerformed(evt);
+            }
+        });
+
+        buttonGroup.add(rTelefonFix);
+        rTelefonFix.setActionCommand("Numar fix");
+        rTelefonFix.setLabel("Numar fix");
+        rTelefonFix.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rTelefonFixActionPerformed(evt);
+            }
+        });
+
+        buttonGroup.add(rTelefonMobil);
+        rTelefonMobil.setActionCommand("Numar fix");
+        rTelefonMobil.setLabel("Numar mobil");
+        rTelefonMobil.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rTelefonMobilActionPerformed(evt);
             }
         });
 
@@ -61,9 +148,9 @@ public class OrdonareAbonat extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(136, 136, 136)
-                .addComponent(bOKOrdonare)
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(rTelefonMobil, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
                     .addContainerGap()
@@ -71,15 +158,14 @@ public class OrdonareAbonat extends javax.swing.JFrame {
                         .addComponent(rNume)
                         .addComponent(rPrenume)
                         .addComponent(rCNP)
-                        .addComponent(rTelefon))
-                    .addContainerGap(124, Short.MAX_VALUE)))
+                        .addComponent(rTelefonFix, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(45, 45, 45)
-                .addComponent(bOKOrdonare)
-                .addContainerGap(42, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(105, Short.MAX_VALUE)
+                .addComponent(rTelefonMobil))
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
                     .addGap(8, 8, 8)
@@ -89,8 +175,8 @@ public class OrdonareAbonat extends javax.swing.JFrame {
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                     .addComponent(rCNP)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(rTelefon)
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(rTelefonFix)
+                    .addContainerGap(25, Short.MAX_VALUE)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -98,23 +184,41 @@ public class OrdonareAbonat extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(19, 19, 19)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(18, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addGap(15, 15, 15)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void bOKOrdonareActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bOKOrdonareActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_bOKOrdonareActionPerformed
+    private void rNumeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rNumeActionPerformed
+        ordoneaza(CriteriuOrdonare.DUPA_NUME);
+    }//GEN-LAST:event_rNumeActionPerformed
+
+    private void rPrenumeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rPrenumeActionPerformed
+        ordoneaza(CriteriuOrdonare.DUPA_PRENUME);
+    }//GEN-LAST:event_rPrenumeActionPerformed
+
+    private void rCNPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rCNPActionPerformed
+        ordoneaza(CriteriuOrdonare.DUPA_CNP);
+    }//GEN-LAST:event_rCNPActionPerformed
+
+    private void rTelefonFixActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rTelefonFixActionPerformed
+        ordoneaza(CriteriuOrdonare.DUPA_FIX);
+    }//GEN-LAST:event_rTelefonFixActionPerformed
+
+    private void rTelefonMobilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rTelefonMobilActionPerformed
+        ordoneaza(CriteriuOrdonare.DUPA_MOBIL);
+    }//GEN-LAST:event_rTelefonMobilActionPerformed
 
     /**
      * @param args the command line arguments
@@ -152,12 +256,12 @@ public class OrdonareAbonat extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton bOKOrdonare;
-    private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.ButtonGroup buttonGroup;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JRadioButton rCNP;
     private javax.swing.JRadioButton rNume;
     private javax.swing.JRadioButton rPrenume;
-    private javax.swing.JRadioButton rTelefon;
+    private javax.swing.JRadioButton rTelefonFix;
+    private javax.swing.JRadioButton rTelefonMobil;
     // End of variables declaration//GEN-END:variables
 }

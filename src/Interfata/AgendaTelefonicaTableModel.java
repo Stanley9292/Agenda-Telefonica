@@ -10,12 +10,13 @@ import agenda.telefonica.NrFix;
 import agenda.telefonica.NrMobil;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author AGStan
  */
-public class AgendaTelefonicaTableModel extends AbstractTableModel {
+public class AgendaTelefonicaTableModel extends DefaultTableModel {
     private static final int COLUMN_NUME = 0;
     private static final int COLUMN_PRENUME = 1;
     private static final int COLUMN_CNP = 2;

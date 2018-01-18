@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package interfata;
+package Interfata;
 
 import agenda.telefonica.Abonat;
 import agenda.telefonica.NrTel;
@@ -19,12 +19,25 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import bazadedate.Interogari;
+import javax.swing.JButton;
 
 /**
  *
@@ -34,19 +47,25 @@ public class CarteDeTelefon extends javax.swing.JFrame {
 
     /**
      * Creates new form Fereastra
-     */
-    //private DefaultTableModel model;
-    //private JTable tabelpopulat = new JTable();
-    //private int randSelectat = 0;
+     */ 
+     public void ActivareButoane(){
+        bAdauga.setEnabled(true);
+        bStergere.setEnabled(true);
+        bActualizare.setEnabled(true);
+        bOrdonare.setEnabled(true);
+    }
     
     public CarteDeTelefon() {
         initComponents();
         afiseaza_tabela();
     }
     
+   
+    
     public void afiseaza_tabela(){
         ArrayList<Abonat> list = extrageDinBazadeDate();
         DefaultTableModel model = (DefaultTableModel) tabela.getModel();
+        tabela.setAutoCreateRowSorter(true);
         Object[] row = new Object[5];
         
         for(int i = 0; i<list.size(); i++){
@@ -58,17 +77,24 @@ public class CarteDeTelefon extends javax.swing.JFrame {
             model.addRow(row);
         }
     }
+   
+    public void refreshTabela(){
+         DefaultTableModel model = (DefaultTableModel)tabela.getModel();
+         model.setRowCount(0);
+         afiseaza_tabela();
+    }
+        
     
-    public static ArrayList<Abonat> extrageDinBazadeDate(){
+    public ArrayList<Abonat> extrageDinBazadeDate(){
         
             ArrayList<agenda.telefonica.Abonat> lista_abonati = new ArrayList<>();
+            agenda.telefonica.Abonat abonat;
             
             try {
                 Connection c = verifyConnection();
                 String query1 = "Select * FROM agenda";
                 Statement st = c.createStatement();
-                ResultSet rs = st.executeQuery(query1);
-                agenda.telefonica.Abonat abonat;
+                ResultSet rs = st.executeQuery(query1);  
                 //agenda.telefonica.NrTel nrTel;
 
                 while(rs.next()){
@@ -85,6 +111,44 @@ public class CarteDeTelefon extends javax.swing.JFrame {
             }
             return lista_abonati;
     }
+    
+    public void SlideShow_Reclame(){
+        new Thread(){
+            int count;
+            public void run(){
+                try{
+                    while(true){
+                        switch(count){
+                            //case :
+                        }
+                    }
+                }
+                catch(Exception e){
+                    
+                }
+            }
+        }.start();
+    }
+    
+   
+
+    public JButton getbStergere() {
+        return bStergere;
+    }
+
+    public JButton getbActualizare() {
+        return bActualizare;
+    }
+
+    public JButton getbOrdonare() {
+        return bOrdonare;
+    }
+
+    public JButton getbAdauga() {
+        return bAdauga;
+    }
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -101,6 +165,22 @@ public class CarteDeTelefon extends javax.swing.JFrame {
         bOrdonare = new javax.swing.JButton();
         bStergere = new javax.swing.JButton();
         bActualizare = new javax.swing.JButton();
+        tCautare = new javax.swing.JTextField();
+        bCautare = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tabela1 = new javax.swing.JTable();
+        interfataEditare = new javax.swing.JPanel();
+        tNume = new javax.swing.JTextField();
+        bEditare = new javax.swing.JButton();
+        tPrenume = new javax.swing.JTextField();
+        tCNP = new javax.swing.JTextField();
+        tNumarMobil = new javax.swing.JTextField();
+        lNume = new javax.swing.JLabel();
+        lPrenume = new javax.swing.JLabel();
+        lCNP = new javax.swing.JLabel();
+        lTelefonMobil = new javax.swing.JLabel();
+        tNumarFix = new javax.swing.JTextField();
+        lTelefonFix = new javax.swing.JLabel();
         MenuBar = new javax.swing.JMenuBar();
         File = new javax.swing.JMenu();
         Save = new javax.swing.JMenuItem();
@@ -140,6 +220,7 @@ public class CarteDeTelefon extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tabela);
 
         bAdauga.setText("Adauga");
+        bAdauga.setEnabled(false);
         bAdauga.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bAdaugaActionPerformed(evt);
@@ -147,6 +228,7 @@ public class CarteDeTelefon extends javax.swing.JFrame {
         });
 
         bOrdonare.setText("Ordonare");
+        bOrdonare.setEnabled(false);
         bOrdonare.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bOrdonareActionPerformed(evt);
@@ -154,6 +236,7 @@ public class CarteDeTelefon extends javax.swing.JFrame {
         });
 
         bStergere.setText("Stergere");
+        bStergere.setEnabled(false);
         bStergere.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bStergereActionPerformed(evt);
@@ -161,9 +244,18 @@ public class CarteDeTelefon extends javax.swing.JFrame {
         });
 
         bActualizare.setText("Actualizare");
+        bActualizare.setEnabled(false);
         bActualizare.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bActualizareActionPerformed(evt);
+            }
+        });
+
+        bCautare.setText("Cautare");
+        bCautare.setEnabled(false);
+        bCautare.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bCautareActionPerformed(evt);
             }
         });
 
@@ -171,28 +263,130 @@ public class CarteDeTelefon extends javax.swing.JFrame {
         butoanePrincipale.setLayout(butoanePrincipaleLayout);
         butoanePrincipaleLayout.setHorizontalGroup(
             butoanePrincipaleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, butoanePrincipaleLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(butoanePrincipaleLayout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(bAdauga)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(bOrdonare)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(bStergere)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(bActualizare)
-                .addGap(22, 22, 22))
+                .addComponent(bActualizare, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(85, 85, 85)
+                .addComponent(tCautare, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(bCautare, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(22, Short.MAX_VALUE))
         );
         butoanePrincipaleLayout.setVerticalGroup(
             butoanePrincipaleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(butoanePrincipaleLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(butoanePrincipaleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(butoanePrincipaleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(bOrdonare)
-                        .addComponent(bAdauga)
-                        .addComponent(bStergere))
-                    .addComponent(bActualizare))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(butoanePrincipaleLayout.createSequentialGroup()
+                        .addGroup(butoanePrincipaleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(tCautare, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(bCautare))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(butoanePrincipaleLayout.createSequentialGroup()
+                        .addGroup(butoanePrincipaleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(bAdauga)
+                            .addComponent(bOrdonare)
+                            .addComponent(bStergere)
+                            .addComponent(bActualizare))
+                        .addContainerGap())))
+        );
+
+        tabela1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Nume", "Prenume", "CNP", "Numar Fix", "Numar Mobil"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        tabela1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabela1MouseClicked(evt);
+            }
+        });
+        jScrollPane2.setViewportView(tabela1);
+
+        bEditare.setText("Editare");
+        bEditare.setToolTipText("");
+        bEditare.setEnabled(false);
+        bEditare.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bEditareActionPerformed(evt);
+            }
+        });
+
+        lNume.setText("Nume");
+
+        lPrenume.setText("Prenume");
+
+        lCNP.setText("CNP");
+
+        lTelefonMobil.setText("Telefon Mobil");
+
+        lTelefonFix.setText("Telefon Fix");
+
+        javax.swing.GroupLayout interfataEditareLayout = new javax.swing.GroupLayout(interfataEditare);
+        interfataEditare.setLayout(interfataEditareLayout);
+        interfataEditareLayout.setHorizontalGroup(
+            interfataEditareLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(interfataEditareLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(interfataEditareLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lNume, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lPrenume, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lCNP, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lTelefonMobil, javax.swing.GroupLayout.DEFAULT_SIZE, 157, Short.MAX_VALUE)
+                    .addComponent(lTelefonFix, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(interfataEditareLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(tNumarMobil, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 129, Short.MAX_VALUE)
+                    .addComponent(tNumarFix, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(tPrenume)
+                    .addComponent(tCNP)
+                    .addComponent(tNume))
+                .addGap(18, 18, 18)
+                .addComponent(bEditare)
+                .addGap(13, 13, 13))
+        );
+        interfataEditareLayout.setVerticalGroup(
+            interfataEditareLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(interfataEditareLayout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addGroup(interfataEditareLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lNume)
+                    .addComponent(tNume))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(interfataEditareLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tPrenume, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lPrenume))
+                .addGap(2, 2, 2)
+                .addGroup(interfataEditareLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tCNP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lCNP, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(bEditare))
+                .addGap(6, 6, 6)
+                .addGroup(interfataEditareLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(tNumarMobil, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lTelefonMobil, javax.swing.GroupLayout.DEFAULT_SIZE, 23, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(interfataEditareLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tNumarFix)
+                    .addComponent(lTelefonFix, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         File.setText("File");
@@ -260,28 +454,43 @@ public class CarteDeTelefon extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 694, Short.MAX_VALUE)
-                .addContainerGap())
             .addGroup(layout.createSequentialGroup()
-                .addGap(160, 160, 160)
-                .addComponent(butoanePrincipale, javax.swing.GroupLayout.PREFERRED_SIZE, 345, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1)
+                    .addComponent(butoanePrincipale, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(interfataEditare, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(jScrollPane2)
+                    .addContainerGap()))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(butoanePrincipale, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(43, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(interfataEditare, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(37, Short.MAX_VALUE))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(21, 21, 21)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(241, Short.MAX_VALUE)))
         );
 
-        pack();
+        setSize(new java.awt.Dimension(688, 509));
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    
     private void SaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaveActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_SaveActionPerformed
@@ -294,11 +503,6 @@ public class CarteDeTelefon extends javax.swing.JFrame {
         new Interfata.AdaugareAbonat().setVisible(true);
     }//GEN-LAST:event_bAdaugaActionPerformed
 
-    private void tabelaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaMouseClicked
-        int i = tabela.getSelectedRow();
-        TableModel model = tabela.getModel();
-    }//GEN-LAST:event_tabelaMouseClicked
-
     private void InregistrareActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InregistrareActionPerformed
         new Interfata.LoginForm().setVisible(true);
     }//GEN-LAST:event_InregistrareActionPerformed
@@ -306,33 +510,23 @@ public class CarteDeTelefon extends javax.swing.JFrame {
     private void bStergereActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bStergereActionPerformed
          try{
              Connection c = verifyConnection();      
-             int row = tabela.getSelectedRow();
-             
-             //extragere numar ID din baza de date 
-             //String queryID = "Select id  FROM agenda WHERE id=" + (row-1);
-             //Statement st = c.createStatement();
-             //ResultSet rs = st.executeQuery(queryID);
-             //String result = rs.getString(queryID);
-             
+             int row = tabela.getSelectedRow();            
              int valoareMesaj = JOptionPane.showConfirmDialog(rootPane, "Doriti stergerea abonatului?", "Confirmati stergerea", JOptionPane.YES_NO_OPTION);				
              
              if (valoareMesaj == JOptionPane.YES_OPTION) {
                 String nume = tabela.getModel().getValueAt(row, 0).toString();
                 String prenume = tabela.getModel().getValueAt(row, 1).toString();
                 String CNP = tabela.getModel().getValueAt(row, 2).toString();
-               
-                String query = "DELETE FROM agenda WHERE nume= '" + nume + "' AND prenume=  '" + prenume + "' AND cnp= '" + CNP + "';";
-                PreparedStatement pst = c.prepareStatement(query);
+                PreparedStatement pst = c.prepareStatement(Interogari.queryStergere(nume, prenume, CNP));
                 pst.executeUpdate();
                 JOptionPane.showMessageDialog(null, "Stergere reusita!");
              }
              else{
                  JOptionPane.showMessageDialog(null, "Abonatul nu a fost sters!");
              }
-             //refresh la tabela
-             DefaultTableModel model = (DefaultTableModel)tabela.getModel();
-             model.setRowCount(0);
-             afiseaza_tabela();
+             
+             refreshTabela();
+            
          }
          catch(Exception e){
              JOptionPane.showMessageDialog(null, e);
@@ -342,18 +536,118 @@ public class CarteDeTelefon extends javax.swing.JFrame {
     }//GEN-LAST:event_bStergereActionPerformed
 
     private void bActualizareActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bActualizareActionPerformed
-        DefaultTableModel model = (DefaultTableModel)tabela.getModel();
-        model.setRowCount(0);
-        afiseaza_tabela();
+        refreshTabela();
     }//GEN-LAST:event_bActualizareActionPerformed
 
     private void bOrdonareActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bOrdonareActionPerformed
-        tabela.setAutoCreateRowSorter(true);
+        //tabela.setAutoCreateRowSorter(true);
+        new Interfata.OrdonareAbonat().setVisible(true);
     }//GEN-LAST:event_bOrdonareActionPerformed
 
     private void ExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExitActionPerformed
         System.exit(0);
     }//GEN-LAST:event_ExitActionPerformed
+
+    public String getCautareText(){
+        return tCautare.getText();
+    }
+    
+    private void bCautareActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCautareActionPerformed
+        String textCautat = tCautare.getText();
+        ArrayList<agenda.telefonica.Abonat> lista_abonati = new ArrayList<>();
+        agenda.telefonica.Abonat abonat;
+        
+        try{
+            
+            if(textCautat != null & textCautat.length() > 0){
+                String sqlQuery = "SELECT Nume, Prenume, CNP, Numar_Mobil, Numar_Fix FROM agenda"
+                            + " WHERE Nume like '%" + textCautat + "%'"
+                            + "OR Prenume like '%" + textCautat + "%'" 
+                            + "OR CNP like '%" + textCautat + "%'"
+                            + "OR Numar_Fix like '%" + textCautat + "%'"
+                            + "OR Numar_Mobil like '%" + textCautat + "%'";
+                String sqlRezultate = "SELECT COUNT(*) as rezultate FROM ( "
+                                      + sqlQuery + " ) as inregistrari";
+                
+                
+                Connection c = verifyConnection();
+                Statement st = c.createStatement();
+                ResultSet rsRezultate = st.executeQuery(sqlRezultate); 
+                rsRezultate.next();
+                rsRezultate.close();
+                
+                ResultSet rs = st.executeQuery(sqlQuery);
+               
+                while(rs.next()){
+                    String nume = rs.getString("nume");
+                    String prenume = rs.getString("prenume");
+                    String CNP = rs.getString("CNP");
+                    String nrFix = rs.getString("Numar_Fix");
+                    String nrMobil = rs.getString("Numar_Mobil");
+                    abonat = new Abonat(nume, prenume, CNP, nrFix, nrMobil);
+                    lista_abonati.add(abonat);
+                }
+                int rezultate = lista_abonati.size();
+                if(rezultate > 1){
+                   JOptionPane.showMessageDialog(null, "Am gasit: " + rezultate + " rezultate."); 
+                }else{
+                   JOptionPane.showMessageDialog(null, "Niciun rezultat gasit!");
+                }
+
+            }else{
+                JOptionPane.showMessageDialog(null, "Completati campul de cautare");
+                }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Eroare: " + ex.getMessage());
+        }
+    }//GEN-LAST:event_bCautareActionPerformed
+
+    private void tabela1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabela1MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tabela1MouseClicked
+
+    private void tabelaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaMouseClicked
+        int i = tabela.getSelectedRow();
+        TableModel model = tabela.getModel();
+    }//GEN-LAST:event_tabelaMouseClicked
+
+    private void bEditareActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bEditareActionPerformed
+        try{
+            Connection c = verifyConnection();
+            int row = tabela.getSelectedRow();
+            //String value = (tabela.getModel().getValueAt(row, 0).toString());
+            String nume = tabela.getModel().getValueAt(row, 0).toString();
+            String prenume = tabela.getModel().getValueAt(row, 1).toString();
+            String CNP = tabela.getModel().getValueAt(row, 2).toString();                        
+            PreparedStatement pst = c.prepareStatement(Interogari.queryEditare(nume, prenume, CNP));
+
+            Abonat abonat = new Abonat(tNume.getText(), tPrenume.getText(), tCNP.getText());
+            NrMobil mobil = new NrMobil(tNumarMobil.getText());
+            NrFix fix = new NrFix(tNumarFix.getText());
+
+            pst.setString(1, tNume.getText());
+            pst.setString(2, tPrenume.getText());
+            pst.setString(3, tCNP.getText());
+            pst.setString(4, tNumarMobil.getText());
+            pst.setString(5, tNumarFix.getText());
+
+            if(fix.verificareNrTel(tNumarFix.getText()) && mobil.verificareNrTel(tNumarMobil.getText())){
+                pst.executeUpdate();
+                JOptionPane.showMessageDialog(null, "Randul " + row + " a fost editat cu succes.");
+                refreshTabela();
+            }else{
+                JOptionPane.showMessageDialog(null, "Date nu au fost inserate! Ceva ati gresit!");
+            }
+
+        }
+        catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, ex);
+        }
+        catch (Exception ex) {
+            Logger.getLogger(AdaugareAbonat.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_bEditareActionPerformed
 
     /**
      * @param args the command line arguments
@@ -386,12 +680,17 @@ public class CarteDeTelefon extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
+                try{
+                    Thread.sleep(2000);
+                }catch (InterruptedException ex) {
+                    Logger.getLogger(CarteDeTelefon.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 new CarteDeTelefon().setVisible(true);
-                //new Interfata.AdaugareAbonat().setVisible(true);
+                
             }
         });
     }
-
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu Abonati;
     private javax.swing.JMenu Adauga;
@@ -407,10 +706,26 @@ public class CarteDeTelefon extends javax.swing.JFrame {
     private javax.swing.JMenu Sterge;
     private javax.swing.JButton bActualizare;
     private javax.swing.JButton bAdauga;
+    private javax.swing.JButton bCautare;
+    private javax.swing.JButton bEditare;
     private javax.swing.JButton bOrdonare;
     private javax.swing.JButton bStergere;
     private javax.swing.JPanel butoanePrincipale;
+    private javax.swing.JPanel interfataEditare;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JLabel lCNP;
+    private javax.swing.JLabel lNume;
+    private javax.swing.JLabel lPrenume;
+    private javax.swing.JLabel lTelefonFix;
+    private javax.swing.JLabel lTelefonMobil;
+    private javax.swing.JTextField tCNP;
+    private javax.swing.JTextField tCautare;
+    private javax.swing.JTextField tNumarFix;
+    private javax.swing.JTextField tNumarMobil;
+    private javax.swing.JTextField tNume;
+    private javax.swing.JTextField tPrenume;
     private javax.swing.JTable tabela;
+    private javax.swing.JTable tabela1;
     // End of variables declaration//GEN-END:variables
 }
