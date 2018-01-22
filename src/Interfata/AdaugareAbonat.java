@@ -34,46 +34,6 @@ public class AdaugareAbonat extends javax.swing.JFrame {
     public AdaugareAbonat() {
         initComponents();
     }
-    
-    public JTextField getNumeText(){
-         return tNume;
-    }
-    
-    public void setNumeText(JTextField tNume){
-        this.tNume = tNume;
-    }
-    
-    public JTextField getPrenumeText(){
-        return tPrenume;
-    }
-    
-    public void setPrenumeText(JTextField tPrenume){
-        this.tPrenume = tPrenume;
-    }
-    
-     public JTextField getCNPText(){
-        return tCNP;
-    }
-    
-    public void setCNPText(JTextField tCNP){
-        this.tCNP = tCNP;
-    }
-    
-     public JTextField getNumarMobilText(){
-        return tNumarMobil;
-    }
-    
-    public void setNumarMobilText(JTextField tNumarMobil){
-        this.tNumarMobil = tNumarMobil;
-    }
-    
-     public JTextField getNumarFixText(){
-        return tNumarFix;
-    }
-    
-    public void setNumarFixText(JTextField tNumarFix){
-        this.tNumarFix = tNumarFix;
-    }
 
     /**
      * This method is called from within the constructor to initialize the form.

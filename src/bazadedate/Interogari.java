@@ -24,4 +24,13 @@ public class Interogari {
     public static String queryStergere(String nume, String prenume, String CNP){
         return "DELETE FROM agenda WHERE nume= '" + nume + "' AND prenume=  '" + prenume + "' AND cnp= '" + CNP + "';";
     }
+    
+    public static  String queryCautare(String textCautat){
+        return "SELECT Nume, Prenume, CNP, Numar_Mobil, Numar_Fix FROM agenda"
+                            + " WHERE Nume like '%" + textCautat + "%'"
+                            + "OR Prenume like '%" + textCautat + "%'" 
+                            + "OR CNP like '%" + textCautat + "%'"
+                            + "OR Numar_Fix like '%" + textCautat + "%'"
+                            + "OR Numar_Mobil like '%" + textCautat + "%'";
+    }
 }

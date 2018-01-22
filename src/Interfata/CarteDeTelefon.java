@@ -19,25 +19,16 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import bazadedate.Interogari;
 import javax.swing.JButton;
+import Interfata.AbstractCarteDeTelefonActionListener;
+import javax.swing.JTextField;
 
 /**
  *
@@ -48,19 +39,18 @@ public class CarteDeTelefon extends javax.swing.JFrame {
     /**
      * Creates new form Fereastra
      */ 
-     public void ActivareButoane(){
-        bAdauga.setEnabled(true);
-        bStergere.setEnabled(true);
-        bActualizare.setEnabled(true);
-        bOrdonare.setEnabled(true);
-    }
     
-    public CarteDeTelefon() {
+    private final ActionListenerFactory actionListenerFactory;
+    
+      public CarteDeTelefon() {
         initComponents();
         afiseaza_tabela();
+        actionListenerFactory = new ActionListenerFactory(this);
     }
-    
-   
+       
+    public ActionListenerFactory getActionListenerFactory() {
+        return actionListenerFactory;
+    }
     
     public void afiseaza_tabela(){
         ArrayList<Abonat> list = extrageDinBazadeDate();
@@ -130,7 +120,13 @@ public class CarteDeTelefon extends javax.swing.JFrame {
         }.start();
     }
     
-   
+    public JButton getbCautare(){
+        return bCautare;
+    }
+    
+    public JButton getbEditare() {
+        return bEditare;
+    }
 
     public JButton getbStergere() {
         return bStergere;
@@ -148,6 +144,14 @@ public class CarteDeTelefon extends javax.swing.JFrame {
         return bAdauga;
     }
     
+    public JTextField gettUser(){
+        return tUser;
+    }
+    
+    public JTextField gettParola(){
+        return tParola;
+    }
+    
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -158,6 +162,7 @@ public class CarteDeTelefon extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jCheckBoxMenuItem1 = new javax.swing.JCheckBoxMenuItem();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabela = new javax.swing.JTable();
         butoanePrincipale = new javax.swing.JPanel();
@@ -167,8 +172,6 @@ public class CarteDeTelefon extends javax.swing.JFrame {
         bActualizare = new javax.swing.JButton();
         tCautare = new javax.swing.JTextField();
         bCautare = new javax.swing.JButton();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        tabela1 = new javax.swing.JTable();
         interfataEditare = new javax.swing.JPanel();
         tNume = new javax.swing.JTextField();
         bEditare = new javax.swing.JButton();
@@ -181,6 +184,14 @@ public class CarteDeTelefon extends javax.swing.JFrame {
         lTelefonMobil = new javax.swing.JLabel();
         tNumarFix = new javax.swing.JTextField();
         lTelefonFix = new javax.swing.JLabel();
+        loginPanel = new javax.swing.JPanel();
+        tParola = new javax.swing.JTextField();
+        lUser = new javax.swing.JLabel();
+        tUser = new javax.swing.JTextField();
+        lParola = new javax.swing.JLabel();
+        bLogare = new javax.swing.JButton();
+        bRefresh = new javax.swing.JButton();
+        bIesire = new javax.swing.JButton();
         MenuBar = new javax.swing.JMenuBar();
         File = new javax.swing.JMenu();
         Save = new javax.swing.JMenuItem();
@@ -193,6 +204,9 @@ public class CarteDeTelefon extends javax.swing.JFrame {
         Modifica = new javax.swing.JMenu();
         Help = new javax.swing.JMenu();
         Inregistrare = new javax.swing.JMenuItem();
+
+        jCheckBoxMenuItem1.setSelected(true);
+        jCheckBoxMenuItem1.setText("jCheckBoxMenuItem1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -276,49 +290,23 @@ public class CarteDeTelefon extends javax.swing.JFrame {
                 .addComponent(tCautare, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(bCautare, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addContainerGap(212, Short.MAX_VALUE))
         );
         butoanePrincipaleLayout.setVerticalGroup(
             butoanePrincipaleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(butoanePrincipaleLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(butoanePrincipaleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(butoanePrincipaleLayout.createSequentialGroup()
-                        .addGroup(butoanePrincipaleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(tCautare, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(bCautare))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(butoanePrincipaleLayout.createSequentialGroup()
-                        .addGroup(butoanePrincipaleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(bAdauga)
-                            .addComponent(bOrdonare)
-                            .addComponent(bStergere)
-                            .addComponent(bActualizare))
-                        .addContainerGap())))
+                    .addGroup(butoanePrincipaleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(tCautare, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(bCautare))
+                    .addGroup(butoanePrincipaleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(bAdauga)
+                        .addComponent(bOrdonare)
+                        .addComponent(bStergere)
+                        .addComponent(bActualizare)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-
-        tabela1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Nume", "Prenume", "CNP", "Numar Fix", "Numar Mobil"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-        });
-        tabela1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tabela1MouseClicked(evt);
-            }
-        });
-        jScrollPane2.setViewportView(tabela1);
 
         bEditare.setText("Editare");
         bEditare.setToolTipText("");
@@ -389,6 +377,83 @@ public class CarteDeTelefon extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        lUser.setText("User");
+
+        lParola.setText("Parola");
+
+        bLogare.setText("Log in");
+        bLogare.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bLogareActionPerformed(evt);
+            }
+        });
+
+        bRefresh.setText("Refresh");
+        bRefresh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bRefreshActionPerformed(evt);
+            }
+        });
+
+        bIesire.setText("Iesire");
+        bIesire.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bIesireActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout loginPanelLayout = new javax.swing.GroupLayout(loginPanel);
+        loginPanel.setLayout(loginPanelLayout);
+        loginPanelLayout.setHorizontalGroup(
+            loginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(loginPanelLayout.createSequentialGroup()
+                .addGroup(loginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(loginPanelLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(loginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, loginPanelLayout.createSequentialGroup()
+                                .addComponent(lUser, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
+                            .addGroup(loginPanelLayout.createSequentialGroup()
+                                .addComponent(lParola, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(12, 12, 12)))
+                        .addGroup(loginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(tParola, javax.swing.GroupLayout.DEFAULT_SIZE, 124, Short.MAX_VALUE)
+                            .addComponent(tUser)))
+                    .addGroup(loginPanelLayout.createSequentialGroup()
+                        .addGap(24, 24, 24)
+                        .addGroup(loginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(loginPanelLayout.createSequentialGroup()
+                                .addComponent(bRefresh)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(bLogare, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(loginPanelLayout.createSequentialGroup()
+                                .addGap(77, 77, 77)
+                                .addComponent(bIesire, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        loginPanelLayout.setVerticalGroup(
+            loginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(loginPanelLayout.createSequentialGroup()
+                .addGap(7, 7, 7)
+                .addGroup(loginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lUser)
+                    .addComponent(tUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(20, 20, 20)
+                .addGroup(loginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lParola)
+                    .addComponent(tParola, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(23, 23, 23)
+                .addGroup(loginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(bLogare)
+                    .addComponent(bRefresh))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(bIesire)
+                .addContainerGap(47, Short.MAX_VALUE))
+        );
+
+        loginPanel.setVisible(false);
+
         File.setText("File");
 
         Save.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
@@ -457,36 +522,33 @@ public class CarteDeTelefon extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1)
-                    .addComponent(butoanePrincipale, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(interfataEditare, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(116, 116, 116)
+                        .addComponent(loginPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(butoanePrincipale, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1))
                 .addContainerGap())
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(jScrollPane2)
-                    .addContainerGap()))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(butoanePrincipale, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(interfataEditare, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(37, Short.MAX_VALUE))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(21, 21, 21)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(241, Short.MAX_VALUE)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(interfataEditare, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(25, 25, 25)
+                        .addComponent(loginPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(35, Short.MAX_VALUE))
         );
 
-        setSize(new java.awt.Dimension(688, 509));
+        setSize(new java.awt.Dimension(878, 562));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -504,14 +566,14 @@ public class CarteDeTelefon extends javax.swing.JFrame {
     }//GEN-LAST:event_bAdaugaActionPerformed
 
     private void InregistrareActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InregistrareActionPerformed
-        new Interfata.LoginForm().setVisible(true);
+      loginPanel.setVisible(true);
     }//GEN-LAST:event_InregistrareActionPerformed
 
     private void bStergereActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bStergereActionPerformed
          try{
              Connection c = verifyConnection();      
              int row = tabela.getSelectedRow();            
-             int valoareMesaj = JOptionPane.showConfirmDialog(rootPane, "Doriti stergerea abonatului?", "Confirmati stergerea", JOptionPane.YES_NO_OPTION);				
+             int valoareMesaj = JOptionPane.showConfirmDialog(rootPane, "Doriti stergerea abonatului?", "Confirmati stergerea?", JOptionPane.YES_NO_OPTION);				
              
              if (valoareMesaj == JOptionPane.YES_OPTION) {
                 String nume = tabela.getModel().getValueAt(row, 0).toString();
@@ -559,24 +621,19 @@ public class CarteDeTelefon extends javax.swing.JFrame {
         
         try{
             
-            if(textCautat != null & textCautat.length() > 0){
-                String sqlQuery = "SELECT Nume, Prenume, CNP, Numar_Mobil, Numar_Fix FROM agenda"
-                            + " WHERE Nume like '%" + textCautat + "%'"
-                            + "OR Prenume like '%" + textCautat + "%'" 
-                            + "OR CNP like '%" + textCautat + "%'"
-                            + "OR Numar_Fix like '%" + textCautat + "%'"
-                            + "OR Numar_Mobil like '%" + textCautat + "%'";
-                String sqlRezultate = "SELECT COUNT(*) as rezultate FROM ( "
-                                      + sqlQuery + " ) as inregistrari";
-                
-                
+            if(textCautat != null & textCautat.length() > 0){            
                 Connection c = verifyConnection();
+                PreparedStatement pst = c.prepareStatement(Interogari.queryCautare(textCautat));
+                String sqlRezultate = "SELECT COUNT(*) as rezultate FROM ( "
+                                      + Interogari.queryCautare(textCautat) + " ) as inregistrari";
+                
+               
                 Statement st = c.createStatement();
                 ResultSet rsRezultate = st.executeQuery(sqlRezultate); 
                 rsRezultate.next();
                 rsRezultate.close();
                 
-                ResultSet rs = st.executeQuery(sqlQuery);
+                ResultSet rs = st.executeQuery(Interogari.queryCautare(textCautat));
                
                 while(rs.next()){
                     String nume = rs.getString("nume");
@@ -602,10 +659,6 @@ public class CarteDeTelefon extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Eroare: " + ex.getMessage());
         }
     }//GEN-LAST:event_bCautareActionPerformed
-
-    private void tabela1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabela1MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tabela1MouseClicked
 
     private void tabelaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaMouseClicked
         int i = tabela.getSelectedRow();
@@ -649,6 +702,38 @@ public class CarteDeTelefon extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_bEditareActionPerformed
 
+    private void bLogareActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bLogareActionPerformed
+        try{
+            Connection c = verifyConnection();
+            String sql = "Select * from user where username = ? and password = ?";
+            PreparedStatement pst = c.prepareStatement(sql);
+            pst.setString(1, tUser.getText());
+            pst.setString(2, tParola.getText());
+            ResultSet rs = pst.executeQuery();
+            if(rs.next()){
+                JOptionPane.showMessageDialog(null, "Username si parola corecte! Bine ati venit!");
+                loginPanel.setVisible(false);
+                getActionListenerFactory().getActivareInput().activareInput();
+            }
+            else{
+                JOptionPane.showMessageDialog(null, "Username si parola incorecte!");
+            }
+            c.close();
+        }
+        catch(SQLException e){
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }//GEN-LAST:event_bLogareActionPerformed
+
+    private void bRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bRefreshActionPerformed
+        tUser.setText("");
+        tParola.setText("");
+    }//GEN-LAST:event_bRefreshActionPerformed
+
+    private void bIesireActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bIesireActionPerformed
+        setVisible(false);
+    }//GEN-LAST:event_bIesireActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -686,7 +771,6 @@ public class CarteDeTelefon extends javax.swing.JFrame {
                     Logger.getLogger(CarteDeTelefon.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 new CarteDeTelefon().setVisible(true);
-                
             }
         });
     }
@@ -708,24 +792,31 @@ public class CarteDeTelefon extends javax.swing.JFrame {
     private javax.swing.JButton bAdauga;
     private javax.swing.JButton bCautare;
     private javax.swing.JButton bEditare;
+    private javax.swing.JButton bIesire;
+    private javax.swing.JButton bLogare;
     private javax.swing.JButton bOrdonare;
+    private javax.swing.JButton bRefresh;
     private javax.swing.JButton bStergere;
     private javax.swing.JPanel butoanePrincipale;
     private javax.swing.JPanel interfataEditare;
+    private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lCNP;
     private javax.swing.JLabel lNume;
+    private javax.swing.JLabel lParola;
     private javax.swing.JLabel lPrenume;
     private javax.swing.JLabel lTelefonFix;
     private javax.swing.JLabel lTelefonMobil;
+    private javax.swing.JLabel lUser;
+    private javax.swing.JPanel loginPanel;
     private javax.swing.JTextField tCNP;
     private javax.swing.JTextField tCautare;
     private javax.swing.JTextField tNumarFix;
     private javax.swing.JTextField tNumarMobil;
     private javax.swing.JTextField tNume;
+    private javax.swing.JTextField tParola;
     private javax.swing.JTextField tPrenume;
+    private javax.swing.JTextField tUser;
     private javax.swing.JTable tabela;
-    private javax.swing.JTable tabela1;
     // End of variables declaration//GEN-END:variables
 }
