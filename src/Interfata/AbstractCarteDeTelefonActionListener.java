@@ -26,6 +26,7 @@ public abstract class AbstractCarteDeTelefonActionListener {
         carteDeTelefon.getbAdauga().setEnabled(true);
         carteDeTelefon.getbStergere().setEnabled(true);
         carteDeTelefon.getbOrdonare().setEnabled(true);
+        carteDeTelefon.getbActualizare().setEnabled(true);
     }
     
     public void dezactivareInput(){
@@ -34,6 +35,7 @@ public abstract class AbstractCarteDeTelefonActionListener {
         carteDeTelefon.getbAdauga().setEnabled(false);
         carteDeTelefon.getbStergere().setEnabled(false);
         carteDeTelefon.getbOrdonare().setEnabled(false);
+        carteDeTelefon.getbActualizare().setEnabled(false);
     }
     
 }

@@ -24,7 +24,7 @@ public class AgendaTelefonicaTableModel extends DefaultTableModel {
     private static final int COLUMN_NUMAR_MOBIL = 4;
     
     private String[] columnNames = {"Nume", "Prenume", "CNP", "Numar fix", "Numar mobil"};
-    private List<Abonat> listaAbonati;
+    private List listaAbonati;
      
     public AgendaTelefonicaTableModel(List<Abonat> listaAbonati) {
         this.listaAbonati = listaAbonati;
@@ -60,7 +60,7 @@ public class AgendaTelefonicaTableModel extends DefaultTableModel {
  
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        Abonat a = listaAbonati.get(rowIndex);
+        Abonat a = (Abonat) listaAbonati.get(rowIndex);
         Object returnValue = null;
          
         switch (columnIndex) {
@@ -87,7 +87,7 @@ public class AgendaTelefonicaTableModel extends DefaultTableModel {
      
     @Override
     public void setValueAt(Object value, int rowIndex, int columnIndex) {
-        Abonat a = listaAbonati.get(rowIndex);
+        Abonat a = (Abonat) listaAbonati.get(rowIndex);
         if (columnIndex == COLUMN_NUME) {
             a.setIndex((int) value);
         }      

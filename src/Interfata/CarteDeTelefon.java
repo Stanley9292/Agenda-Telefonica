@@ -29,6 +29,7 @@ import bazadedate.Interogari;
 import javax.swing.JButton;
 import Interfata.AbstractCarteDeTelefonActionListener;
 import javax.swing.JTextField;
+import javax.swing.table.AbstractTableModel;
 
 /**
  *
@@ -43,8 +44,7 @@ public class CarteDeTelefon extends javax.swing.JFrame {
     private final ActionListenerFactory actionListenerFactory;
     
       public CarteDeTelefon() {
-        initComponents();
-        afiseaza_tabela();
+        initComponents();     
         actionListenerFactory = new ActionListenerFactory(this);
     }
        
@@ -52,8 +52,8 @@ public class CarteDeTelefon extends javax.swing.JFrame {
         return actionListenerFactory;
     }
     
-    public void afiseaza_tabela(){
-        ArrayList<Abonat> list = extrageDinBazadeDate();
+    public void afiseaza_tabela(ArrayList lista_abonati){
+        ArrayList<Abonat> list = lista_abonati;
         DefaultTableModel model = (DefaultTableModel) tabela.getModel();
         tabela.setAutoCreateRowSorter(true);
         Object[] row = new Object[5];
@@ -69,14 +69,58 @@ public class CarteDeTelefon extends javax.swing.JFrame {
     }
    
     public void refreshTabela(){
-         DefaultTableModel model = (DefaultTableModel)tabela.getModel();
-         model.setRowCount(0);
-         afiseaza_tabela();
+        DefaultTableModel model = (DefaultTableModel)tabela.getModel();
+        model.setRowCount(0);
     }
         
-    
-    public ArrayList<Abonat> extrageDinBazadeDate(){
+    public void cautareAbonat(){
+        String textCautat = tCautare.getText();
+        ArrayList<agenda.telefonica.Abonat> lista_abonati = new ArrayList<>();
+        agenda.telefonica.Abonat abonat;
         
+        try{
+            
+            if(textCautat != null & textCautat.length() > 0){            
+                Connection c = verifyConnection();
+                PreparedStatement pst = c.prepareStatement(Interogari.queryCautare(textCautat));
+                String sqlRezultate = "SELECT COUNT(*) as rezultate FROM ( "
+                                      + Interogari.queryCautare(textCautat) + " ) as inregistrari";
+                
+               
+                Statement st = c.createStatement();
+                ResultSet rsRezultate = st.executeQuery(sqlRezultate); 
+                rsRezultate.next();
+                rsRezultate.close();
+                
+                ResultSet rs = st.executeQuery(Interogari.queryCautare(textCautat));
+               
+                while(rs.next()){
+                    String nume = rs.getString("nume");
+                    String prenume = rs.getString("prenume");
+                    String CNP = rs.getString("CNP");
+                    String nrFix = rs.getString("Numar_Fix");
+                    String nrMobil = rs.getString("Numar_Mobil");
+                    abonat = new Abonat(nume, prenume, CNP, nrFix, nrMobil);
+                    lista_abonati.add(abonat);
+                }
+                int rezultate = lista_abonati.size();
+                if(rezultate >= 1){
+                   JOptionPane.showMessageDialog(null, "Am gasit: " + rezultate + " rezultate."); 
+                }else{
+                   JOptionPane.showMessageDialog(null, "Niciun rezultat gasit!");
+                }
+            }else{
+                JOptionPane.showMessageDialog(null, "Completati campul de cautare");
+                }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Eroare: " + ex.getMessage());
+        }
+        refreshTabela();
+        afiseaza_tabela(lista_abonati);
+    }
+    
+    public ArrayList<Abonat> extrageDinBazadeDate(){      
             ArrayList<agenda.telefonica.Abonat> lista_abonati = new ArrayList<>();
             agenda.telefonica.Abonat abonat;
             
@@ -85,7 +129,6 @@ public class CarteDeTelefon extends javax.swing.JFrame {
                 String query1 = "Select * FROM agenda";
                 Statement st = c.createStatement();
                 ResultSet rs = st.executeQuery(query1);  
-                //agenda.telefonica.NrTel nrTel;
 
                 while(rs.next()){
                     String nume = rs.getString("nume");
@@ -101,6 +144,8 @@ public class CarteDeTelefon extends javax.swing.JFrame {
             }
             return lista_abonati;
     }
+    
+    
     
     public void SlideShow_Reclame(){
         new Thread(){
@@ -257,7 +302,7 @@ public class CarteDeTelefon extends javax.swing.JFrame {
             }
         });
 
-        bActualizare.setText("Actualizare");
+        bActualizare.setText("Refresh tabela");
         bActualizare.setEnabled(false);
         bActualizare.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -285,8 +330,8 @@ public class CarteDeTelefon extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(bStergere)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(bActualizare, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(85, 85, 85)
+                .addComponent(bActualizare)
+                .addGap(76, 76, 76)
                 .addComponent(tCautare, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(bCautare, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -599,6 +644,7 @@ public class CarteDeTelefon extends javax.swing.JFrame {
 
     private void bActualizareActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bActualizareActionPerformed
         refreshTabela();
+        afiseaza_tabela(extrageDinBazadeDate());
     }//GEN-LAST:event_bActualizareActionPerformed
 
     private void bOrdonareActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bOrdonareActionPerformed
@@ -610,72 +656,38 @@ public class CarteDeTelefon extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_ExitActionPerformed
 
-    public String getCautareText(){
-        return tCautare.getText();
-    }
     
     private void bCautareActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCautareActionPerformed
-        String textCautat = tCautare.getText();
-        ArrayList<agenda.telefonica.Abonat> lista_abonati = new ArrayList<>();
-        agenda.telefonica.Abonat abonat;
-        
-        try{
-            
-            if(textCautat != null & textCautat.length() > 0){            
-                Connection c = verifyConnection();
-                PreparedStatement pst = c.prepareStatement(Interogari.queryCautare(textCautat));
-                String sqlRezultate = "SELECT COUNT(*) as rezultate FROM ( "
-                                      + Interogari.queryCautare(textCautat) + " ) as inregistrari";
-                
-               
-                Statement st = c.createStatement();
-                ResultSet rsRezultate = st.executeQuery(sqlRezultate); 
-                rsRezultate.next();
-                rsRezultate.close();
-                
-                ResultSet rs = st.executeQuery(Interogari.queryCautare(textCautat));
-               
-                while(rs.next()){
-                    String nume = rs.getString("nume");
-                    String prenume = rs.getString("prenume");
-                    String CNP = rs.getString("CNP");
-                    String nrFix = rs.getString("Numar_Fix");
-                    String nrMobil = rs.getString("Numar_Mobil");
-                    abonat = new Abonat(nume, prenume, CNP, nrFix, nrMobil);
-                    lista_abonati.add(abonat);
-                }
-                int rezultate = lista_abonati.size();
-                if(rezultate > 1){
-                   JOptionPane.showMessageDialog(null, "Am gasit: " + rezultate + " rezultate."); 
-                }else{
-                   JOptionPane.showMessageDialog(null, "Niciun rezultat gasit!");
-                }
-
-            }else{
-                JOptionPane.showMessageDialog(null, "Completati campul de cautare");
-                }
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-            JOptionPane.showMessageDialog(null, "Eroare: " + ex.getMessage());
-        }
+        cautareAbonat();     
     }//GEN-LAST:event_bCautareActionPerformed
 
     private void tabelaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaMouseClicked
         int i = tabela.getSelectedRow();
         TableModel model = tabela.getModel();
+        String nume = tabela.getModel().getValueAt(i, 0).toString();
+        String prenume = tabela.getModel().getValueAt(i, 1).toString();
+        String CNP = tabela.getModel().getValueAt(i, 2).toString();
+        String numar_fix = tabela.getModel().getValueAt(i, 2).toString();
+        String numar_mobil = tabela.getModel().getValueAt(i, 3).toString();
+        tNume.setText(nume);
+        tPrenume.setText(prenume);
+        tCNP.setText(CNP);
+        tNumarFix.setText(numar_fix);
+        tNumarMobil.setText(numar_mobil);
     }//GEN-LAST:event_tabelaMouseClicked
 
     private void bEditareActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bEditareActionPerformed
         try{
             Connection c = verifyConnection();
             int row = tabela.getSelectedRow();
-            //String value = (tabela.getModel().getValueAt(row, 0).toString());
             String nume = tabela.getModel().getValueAt(row, 0).toString();
             String prenume = tabela.getModel().getValueAt(row, 1).toString();
-            String CNP = tabela.getModel().getValueAt(row, 2).toString();                        
+            String CNP = tabela.getModel().getValueAt(row, 2).toString();   
+            String numar_fix = tabela.getModel().getValueAt(row, 3).toString();
+            String numar_mobil = tabela.getModel().getValueAt(row, 4).toString();
             PreparedStatement pst = c.prepareStatement(Interogari.queryEditare(nume, prenume, CNP));
 
-            Abonat abonat = new Abonat(tNume.getText(), tPrenume.getText(), tCNP.getText());
+            Abonat abonat = new Abonat(nume, tPrenume.getText(), tCNP.getText());
             NrMobil mobil = new NrMobil(tNumarMobil.getText());
             NrFix fix = new NrFix(tNumarFix.getText());
 
@@ -714,6 +726,7 @@ public class CarteDeTelefon extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Username si parola corecte! Bine ati venit!");
                 loginPanel.setVisible(false);
                 getActionListenerFactory().getActivareInput().activareInput();
+                afiseaza_tabela(extrageDinBazadeDate());
             }
             else{
                 JOptionPane.showMessageDialog(null, "Username si parola incorecte!");
