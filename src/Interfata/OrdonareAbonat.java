@@ -92,133 +92,23 @@ public class OrdonareAbonat extends javax.swing.JFrame{
     private void initComponents() {
 
         buttonGroup = new javax.swing.ButtonGroup();
-        jPanel1 = new javax.swing.JPanel();
-        rNume = new javax.swing.JRadioButton();
-        rPrenume = new javax.swing.JRadioButton();
-        rCNP = new javax.swing.JRadioButton();
-        rTelefonFix = new javax.swing.JRadioButton();
-        rTelefonMobil = new javax.swing.JRadioButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        buttonGroup.add(rNume);
-        rNume.setText("Nume");
-        rNume.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rNumeActionPerformed(evt);
-            }
-        });
-
-        buttonGroup.add(rPrenume);
-        rPrenume.setText("Prenume");
-        rPrenume.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rPrenumeActionPerformed(evt);
-            }
-        });
-
-        buttonGroup.add(rCNP);
-        rCNP.setText("CNP");
-        rCNP.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rCNPActionPerformed(evt);
-            }
-        });
-
-        buttonGroup.add(rTelefonFix);
-        rTelefonFix.setActionCommand("Numar fix");
-        rTelefonFix.setLabel("Numar fix");
-        rTelefonFix.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rTelefonFixActionPerformed(evt);
-            }
-        });
-
-        buttonGroup.add(rTelefonMobil);
-        rTelefonMobil.setActionCommand("Numar fix");
-        rTelefonMobil.setLabel("Numar mobil");
-        rTelefonMobil.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rTelefonMobilActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(rTelefonMobil, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel1Layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(rNume)
-                        .addComponent(rPrenume)
-                        .addComponent(rCNP)
-                        .addComponent(rTelefonFix, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(105, Short.MAX_VALUE)
-                .addComponent(rTelefonMobil))
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel1Layout.createSequentialGroup()
-                    .addGap(8, 8, 8)
-                    .addComponent(rNume)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(rPrenume)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                    .addComponent(rCNP)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(rTelefonFix)
-                    .addContainerGap(25, Short.MAX_VALUE)))
-        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(18, Short.MAX_VALUE))
+            .addGap(0, 144, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(15, 15, 15)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+            .addGap(0, 154, Short.MAX_VALUE)
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void rNumeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rNumeActionPerformed
-        ordoneaza(CriteriuOrdonare.DUPA_NUME);
-    }//GEN-LAST:event_rNumeActionPerformed
-
-    private void rPrenumeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rPrenumeActionPerformed
-        ordoneaza(CriteriuOrdonare.DUPA_PRENUME);
-    }//GEN-LAST:event_rPrenumeActionPerformed
-
-    private void rCNPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rCNPActionPerformed
-        ordoneaza(CriteriuOrdonare.DUPA_CNP);
-    }//GEN-LAST:event_rCNPActionPerformed
-
-    private void rTelefonFixActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rTelefonFixActionPerformed
-        ordoneaza(CriteriuOrdonare.DUPA_FIX);
-    }//GEN-LAST:event_rTelefonFixActionPerformed
-
-    private void rTelefonMobilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rTelefonMobilActionPerformed
-        ordoneaza(CriteriuOrdonare.DUPA_MOBIL);
-    }//GEN-LAST:event_rTelefonMobilActionPerformed
 
     /**
      * @param args the command line arguments
@@ -257,11 +147,5 @@ public class OrdonareAbonat extends javax.swing.JFrame{
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JRadioButton rCNP;
-    private javax.swing.JRadioButton rNume;
-    private javax.swing.JRadioButton rPrenume;
-    private javax.swing.JRadioButton rTelefonFix;
-    private javax.swing.JRadioButton rTelefonMobil;
     // End of variables declaration//GEN-END:variables
 }

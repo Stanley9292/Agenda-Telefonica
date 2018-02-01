@@ -12,9 +12,9 @@ import agenda.telefonica.Abonat;
  * @author Stan
  */
 public class Interogari {
-    public static String queryEditare(String nume, String prenume, String CNP){
-        return "UPDATE agenda SET nume=?, prenume=?, CNP =?, Numar_Mobil=?, Numar_Fix=? WHERE nume= '" 
-                            + nume + "' AND prenume=  '" + prenume + "' AND cnp= '" + CNP + "'";
+    public static String queryEditare(String nume, String prenume, String CNP, String nr_fix, String nr_mobil){
+        return "UPDATE agenda SET nume=?, prenume=?, CNP =?, Numar_Mobil=?, Numar_Fix=? WHERE "
+                + "nume= '"  + nume + "' AND prenume=  '" + prenume + "' AND cnp= '" + CNP + "' AND Numar_Mobil= '" + nr_mobil + "' AND Numar_Fix= '" + nr_fix + "';" ;                
     }
     
     public static String queryAdaugare(){

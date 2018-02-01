@@ -24,5 +24,9 @@ public class ActionListenerFactory {
         return new DezactivareInput(carteDeTelefon);
     }
     
+    public CautaAbonat getCautaAbonat(){
+        return new CautaAbonat(carteDeTelefon);
+    }
+    
     
 }
