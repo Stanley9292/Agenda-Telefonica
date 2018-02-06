@@ -22,7 +22,7 @@ import javax.swing.JOptionPane;
  *
  * @author AGStan
  */
-public class CautaAbonat extends AbstractCarteDeTelefonActionListener implements ActionListener{
+public class CautaAbonat extends CarteDeTelefonActionListener implements ActionListener{
 
     public CautaAbonat(CarteDeTelefon carteDeTelefon) {
         super(carteDeTelefon);
@@ -30,50 +30,7 @@ public class CautaAbonat extends AbstractCarteDeTelefonActionListener implements
 
     @Override
     public void actionPerformed(ActionEvent e) {
-    
-        try{
-            String textCautat = getCarteDeTelefon().gettCautare().getText();        
-            ArrayList<agenda.telefonica.Abonat> lista_abonati = new ArrayList<>();
-            agenda.telefonica.Abonat abonat;
-            
-            if(textCautat != null & textCautat.length() > 0){            
-                Connection c = verifyConnection();
-                PreparedStatement pst = c.prepareStatement(Interogari.queryCautare(textCautat));
-                String sqlRezultate = "SELECT COUNT(*) as rezultate FROM ( "
-                                      + Interogari.queryCautare(textCautat) + " ) as inregistrari";
-                
-               
-                Statement st = c.createStatement();
-                ResultSet rsRezultate = st.executeQuery(sqlRezultate); 
-                rsRezultate.next();
-                rsRezultate.close();
-                
-                ResultSet rs = st.executeQuery(Interogari.queryCautare(textCautat));
-               
-                while(rs.next()){
-                    String nume = rs.getString("nume");
-                    String prenume = rs.getString("prenume");
-                    String CNP = rs.getString("CNP");
-                    String nrFix = rs.getString("Numar_Fix");
-                    String nrMobil = rs.getString("Numar_Mobil");
-                    abonat = new Abonat(nume, prenume, CNP, nrFix, nrMobil);
-                    lista_abonati.add(abonat);
-                }
-                int rezultate = lista_abonati.size();
-                if(rezultate >= 1){
-                   JOptionPane.showMessageDialog(null, "Am gasit: " + rezultate + " rezultate."); 
-                }else{
-                   JOptionPane.showMessageDialog(null, "Niciun rezultat gasit!");
-                }
-            }else{
-                JOptionPane.showMessageDialog(null, "Completati campul de cautare");
-                }
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-            JOptionPane.showMessageDialog(null, "Eroare: " + ex.getMessage());
-        }
-        //refreshTabela();
-        //afiseaza_tabela(lista_abonati);
+        cautareAbonat();
     }
     
 }

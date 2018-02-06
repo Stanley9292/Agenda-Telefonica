@@ -10,17 +10,17 @@ import java.awt.event.ActionListener;
 
 /**
  *
- * @author AGStan
+ * @author Stan
  */
-public class DezactivareInput extends CarteDeTelefonActionListener implements ActionListener{
+public class LoginAbonat extends CarteDeTelefonActionListener implements ActionListener{
 
-    public DezactivareInput(CarteDeTelefon carteDeTelefon){
+    public LoginAbonat(CarteDeTelefon carteDeTelefon) {
         super(carteDeTelefon);
-    }
+    } 
     
     @Override
     public void actionPerformed(ActionEvent e) {
-        dezactivareInput();
+        loginAbonat();
     }
     
 }

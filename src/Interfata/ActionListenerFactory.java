@@ -28,5 +28,8 @@ public class ActionListenerFactory {
         return new CautaAbonat(carteDeTelefon);
     }
     
+    public LoginAbonat getLoginAbonat(){
+        return new LoginAbonat(carteDeTelefon);
+    }
     
 }

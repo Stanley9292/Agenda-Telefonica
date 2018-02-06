@@ -27,7 +27,9 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import bazadedate.Interogari;
 import javax.swing.JButton;
-import Interfata.AbstractCarteDeTelefonActionListener;
+import Interfata.CarteDeTelefonActionListener;
+import java.util.List;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.table.AbstractTableModel;
 
@@ -43,6 +45,8 @@ public class CarteDeTelefon extends javax.swing.JFrame {
     
     private final ActionListenerFactory actionListenerFactory;
     private int randSelectat = 0;
+    OrdonareAbonat o = new OrdonareAbonat();
+    public List<Abonat> lista_abonati = extrageDinBazadeDate();
     
       public CarteDeTelefon() {
         initComponents();     
@@ -53,10 +57,10 @@ public class CarteDeTelefon extends javax.swing.JFrame {
         return actionListenerFactory;
     }
     
-    public void afiseaza_tabela(ArrayList lista_abonati){
-        ArrayList<Abonat> list = lista_abonati;
+    public void afiseaza_tabela(List lista_abonati){
+        List<Abonat> list = lista_abonati;
         DefaultTableModel model = (DefaultTableModel) tabela.getModel();
-        tabela.setAutoCreateRowSorter(true);
+        //tabela.setAutoCreateRowSorter(true);
         Object[] row = new Object[5];
         
         for(int i = 0; i<list.size(); i++){
@@ -74,53 +78,6 @@ public class CarteDeTelefon extends javax.swing.JFrame {
         model.setRowCount(0);
     }
         
-    public void cautareAbonat(){
-        String textCautat = tCautare.getText();
-        ArrayList<agenda.telefonica.Abonat> lista_abonati = new ArrayList<>();
-        agenda.telefonica.Abonat abonat;
-        
-        try{
-            
-            if(textCautat != null & textCautat.length() > 0){            
-                Connection c = verifyConnection();
-                PreparedStatement pst = c.prepareStatement(Interogari.queryCautare(textCautat));
-                String sqlRezultate = "SELECT COUNT(*) as rezultate FROM ( "
-                                      + Interogari.queryCautare(textCautat) + " ) as inregistrari";
-                
-               
-                Statement st = c.createStatement();
-                ResultSet rsRezultate = st.executeQuery(sqlRezultate); 
-                rsRezultate.next();
-                rsRezultate.close();
-                
-                ResultSet rs = st.executeQuery(Interogari.queryCautare(textCautat));
-               
-                while(rs.next()){
-                    String nume = rs.getString("nume");
-                    String prenume = rs.getString("prenume");
-                    String CNP = rs.getString("CNP");
-                    String nrFix = rs.getString("Numar_Fix");
-                    String nrMobil = rs.getString("Numar_Mobil");
-                    abonat = new Abonat(nume, prenume, CNP, nrFix, nrMobil);
-                    lista_abonati.add(abonat);
-                }
-                int rezultate = lista_abonati.size();
-                if(rezultate >= 1){
-                   JOptionPane.showMessageDialog(null, "Am gasit: " + rezultate + " rezultate."); 
-                }else{
-                   JOptionPane.showMessageDialog(null, "Niciun rezultat gasit!");
-                }
-            }else{
-                JOptionPane.showMessageDialog(null, "Completati campul de cautare");
-                }
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-            JOptionPane.showMessageDialog(null, "Eroare: " + ex.getMessage());
-        }
-        refreshTabela();
-        afiseaza_tabela(lista_abonati);
-    }
-    
     
     public ArrayList<Abonat> extrageDinBazadeDate(){      
             ArrayList<agenda.telefonica.Abonat> lista_abonati = new ArrayList<>();
@@ -185,7 +142,6 @@ public class CarteDeTelefon extends javax.swing.JFrame {
         tabela = new javax.swing.JTable();
         butoanePrincipale = new javax.swing.JPanel();
         bAdauga = new javax.swing.JButton();
-        bOrdonare = new javax.swing.JButton();
         bStergere = new javax.swing.JButton();
         bActualizare = new javax.swing.JButton();
         tCautare = new javax.swing.JTextField();
@@ -260,14 +216,6 @@ public class CarteDeTelefon extends javax.swing.JFrame {
             }
         });
 
-        bOrdonare.setText("Ordonare");
-        bOrdonare.setEnabled(false);
-        bOrdonare.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bOrdonareActionPerformed(evt);
-            }
-        });
-
         bStergere.setText("Stergere");
         bStergere.setEnabled(false);
         bStergere.addActionListener(new java.awt.event.ActionListener() {
@@ -301,12 +249,10 @@ public class CarteDeTelefon extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(bAdauga)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(bOrdonare)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(bStergere)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(bActualizare)
-                .addGap(76, 76, 76)
+                .addGap(161, 161, 161)
                 .addComponent(tCautare, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(bCautare, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -322,7 +268,6 @@ public class CarteDeTelefon extends javax.swing.JFrame {
                         .addComponent(bCautare))
                     .addGroup(butoanePrincipaleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(bAdauga)
-                        .addComponent(bOrdonare)
                         .addComponent(bStergere)
                         .addComponent(bActualizare)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -334,12 +279,6 @@ public class CarteDeTelefon extends javax.swing.JFrame {
         bEditare.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bEditareActionPerformed(evt);
-            }
-        });
-
-        tCNP.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tCNPActionPerformed(evt);
             }
         });
 
@@ -404,12 +343,6 @@ public class CarteDeTelefon extends javax.swing.JFrame {
         );
 
         lUser.setText("User");
-
-        tUser.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tUserActionPerformed(evt);
-            }
-        });
 
         lParola.setText("Parola");
 
@@ -483,6 +416,7 @@ public class CarteDeTelefon extends javax.swing.JFrame {
 
         loginPanel.setVisible(false);
 
+        bGroup.add(rNume);
         rNume.setText("Nume");
         rNume.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -490,6 +424,7 @@ public class CarteDeTelefon extends javax.swing.JFrame {
             }
         });
 
+        bGroup.add(rPrenume);
         rPrenume.setText("Prenume");
         rPrenume.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -497,6 +432,7 @@ public class CarteDeTelefon extends javax.swing.JFrame {
             }
         });
 
+        bGroup.add(rCNP);
         rCNP.setText("CNP");
         rCNP.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -504,6 +440,7 @@ public class CarteDeTelefon extends javax.swing.JFrame {
             }
         });
 
+        bGroup.add(rTelefonFix);
         rTelefonFix.setActionCommand("Numar fix");
         rTelefonFix.setLabel("Numar fix");
         rTelefonFix.addActionListener(new java.awt.event.ActionListener() {
@@ -512,6 +449,7 @@ public class CarteDeTelefon extends javax.swing.JFrame {
             }
         });
 
+        bGroup.add(rTelefonMobil);
         rTelefonMobil.setActionCommand("Numar fix");
         rTelefonMobil.setLabel("Numar mobil");
         rTelefonMobil.addActionListener(new java.awt.event.ActionListener() {
@@ -692,11 +630,6 @@ public class CarteDeTelefon extends javax.swing.JFrame {
         afiseaza_tabela(extrageDinBazadeDate());
     }//GEN-LAST:event_bActualizareActionPerformed
 
-    private void bOrdonareActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bOrdonareActionPerformed
-        //tabela.setAutoCreateRowSorter(true);
-        new Interfata.OrdonareAbonat().setVisible(true);
-    }//GEN-LAST:event_bOrdonareActionPerformed
-
     private void ExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExitActionPerformed
         System.exit(0);
     }//GEN-LAST:event_ExitActionPerformed
@@ -755,27 +688,7 @@ public class CarteDeTelefon extends javax.swing.JFrame {
     }//GEN-LAST:event_bEditareActionPerformed
 
     private void bLogareActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bLogareActionPerformed
-        try{
-            Connection c = verifyConnection();
-            String sql = "Select * from user where username = ? and password = ?";
-            PreparedStatement pst = c.prepareStatement(sql);
-            pst.setString(1, tUser.getText());
-            pst.setString(2, tParola.getText());
-            ResultSet rs = pst.executeQuery();
-            if(rs.next()){
-                JOptionPane.showMessageDialog(null, "Username si parola corecte! Bine ati venit!");
-                loginPanel.setVisible(false);
-                getActionListenerFactory().getActivareInput().activareInput();
-                afiseaza_tabela(extrageDinBazadeDate());
-            }
-            else{
-                JOptionPane.showMessageDialog(null, "Username si parola incorecte!");
-            }
-            c.close();
-        }
-        catch(SQLException e){
-            JOptionPane.showMessageDialog(null, e);
-        }
+        getActionListenerFactory().getLoginAbonat().loginAbonat();
     }//GEN-LAST:event_bLogareActionPerformed
 
     private void bRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bRefreshActionPerformed
@@ -787,36 +700,33 @@ public class CarteDeTelefon extends javax.swing.JFrame {
         setVisible(false);
     }//GEN-LAST:event_bIesireActionPerformed
 
-    private void tCNPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tCNPActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tCNPActionPerformed
-
-    private void tUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tUserActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tUserActionPerformed
-
     private void rNumeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rNumeActionPerformed
-        //ordoneaza(CriteriuOrdonare.DUPA_NUME);
+        lista_abonati = o.ordoneaza(OrdonareAbonat.CriteriuOrdonare.DUPA_NUME);
+        afiseaza_tabela(lista_abonati);
     }//GEN-LAST:event_rNumeActionPerformed
 
     private void rPrenumeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rPrenumeActionPerformed
-        //ordoneaza(CriteriuOrdonare.DUPA_PRENUME);
+        lista_abonati = o.ordoneaza(OrdonareAbonat.CriteriuOrdonare.DUPA_PRENUME);
+        afiseaza_tabela(lista_abonati);
     }//GEN-LAST:event_rPrenumeActionPerformed
 
     private void rCNPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rCNPActionPerformed
-        //ordoneaza(CriteriuOrdonare.DUPA_CNP);
+        lista_abonati = o.ordoneaza(OrdonareAbonat.CriteriuOrdonare.DUPA_CNP);
+        afiseaza_tabela(lista_abonati);
     }//GEN-LAST:event_rCNPActionPerformed
 
     private void rTelefonFixActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rTelefonFixActionPerformed
-        //ordoneaza(CriteriuOrdonare.DUPA_FIX);
+        lista_abonati = o.ordoneaza(OrdonareAbonat.CriteriuOrdonare.DUPA_FIX);
+        afiseaza_tabela(lista_abonati);
     }//GEN-LAST:event_rTelefonFixActionPerformed
 
     private void rTelefonMobilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rTelefonMobilActionPerformed
-        //ordoneaza(CriteriuOrdonare.DUPA_MOBIL);
+        lista_abonati = o.ordoneaza(OrdonareAbonat.CriteriuOrdonare.DUPA_MOBIL);
+        afiseaza_tabela(lista_abonati);
     }//GEN-LAST:event_rTelefonMobilActionPerformed
 
     private void bCautareActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCautareActionPerformed
-        // TODO add your handling code here:
+        getActionListenerFactory().getCautaAbonat().cautareAbonat();
     }//GEN-LAST:event_bCautareActionPerformed
 
      public JButton getbCautare(){
@@ -839,10 +749,6 @@ public class CarteDeTelefon extends javax.swing.JFrame {
         return bActualizare;
     }
 
-    public JButton getbOrdonare() {
-        return bOrdonare;
-    }
-
     public JButton getbAdauga() {
         return bAdauga;
     }
@@ -857,6 +763,18 @@ public class CarteDeTelefon extends javax.swing.JFrame {
     
     public JTable getTabela(){
         return tabela;
+    }
+    
+    public JPanel getloginPanel(){
+        return loginPanel;
+    }
+    
+    public JTextField getUser(){
+        return tUser;
+    }
+    
+    public JTextField getParola(){
+        return tParola;
     }
     
     public void setTabela(JTable tabela){
@@ -934,7 +852,6 @@ public class CarteDeTelefon extends javax.swing.JFrame {
     private javax.swing.ButtonGroup bGroup;
     private javax.swing.JButton bIesire;
     private javax.swing.JButton bLogare;
-    private javax.swing.JButton bOrdonare;
     private javax.swing.JButton bRefresh;
     private javax.swing.JButton bStergere;
     private javax.swing.JPanel butoanePrincipale;

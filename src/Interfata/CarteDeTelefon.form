@@ -206,12 +206,10 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="bAdauga" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="bOrdonare" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
                   <Component id="bStergere" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="bActualizare" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="76" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="161" max="-2" attributes="0"/>
                   <Component id="tCautare" min="-2" pref="107" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="bCautare" min="-2" pref="87" max="-2" attributes="0"/>
@@ -230,7 +228,6 @@
                       </Group>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="bAdauga" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="bOrdonare" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="bStergere" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="bActualizare" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
@@ -248,15 +245,6 @@
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bAdaugaActionPerformed"/>
-          </Events>
-        </Component>
-        <Component class="javax.swing.JButton" name="bOrdonare">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Ordonare"/>
-            <Property name="enabled" type="boolean" value="false"/>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bOrdonareActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JButton" name="bStergere">
@@ -371,9 +359,6 @@
         <Component class="javax.swing.JTextField" name="tPrenume">
         </Component>
         <Component class="javax.swing.JTextField" name="tCNP">
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tCNPActionPerformed"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="tNumarMobil">
         </Component>
@@ -480,9 +465,6 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="tUser">
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tUserActionPerformed"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="lParola">
           <Properties>
@@ -566,6 +548,9 @@
       <SubComponents>
         <Component class="javax.swing.JRadioButton" name="rNume">
           <Properties>
+            <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+              <ComponentRef name="bGroup"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Nume"/>
           </Properties>
           <Events>
@@ -574,6 +559,9 @@
         </Component>
         <Component class="javax.swing.JRadioButton" name="rPrenume">
           <Properties>
+            <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+              <ComponentRef name="bGroup"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Prenume"/>
           </Properties>
           <Events>
@@ -582,6 +570,9 @@
         </Component>
         <Component class="javax.swing.JRadioButton" name="rCNP">
           <Properties>
+            <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+              <ComponentRef name="bGroup"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="CNP"/>
           </Properties>
           <Events>
@@ -590,6 +581,9 @@
         </Component>
         <Component class="javax.swing.JRadioButton" name="rTelefonFix">
           <Properties>
+            <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+              <ComponentRef name="bGroup"/>
+            </Property>
             <Property name="actionCommand" type="java.lang.String" value="Numar fix"/>
             <Property name="label" type="java.lang.String" value="Numar fix"/>
           </Properties>
@@ -599,6 +593,9 @@
         </Component>
         <Component class="javax.swing.JRadioButton" name="rTelefonMobil">
           <Properties>
+            <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+              <ComponentRef name="bGroup"/>
+            </Property>
             <Property name="actionCommand" type="java.lang.String" value="Numar fix"/>
             <Property name="label" type="java.lang.String" value="Numar mobil"/>
           </Properties>

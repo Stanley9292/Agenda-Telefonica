@@ -12,7 +12,7 @@ import java.awt.event.ActionListener;
  *
  * @author AGStan
  */
-public class ActivareInput extends AbstractCarteDeTelefonActionListener implements ActionListener{
+public class ActivareInput extends CarteDeTelefonActionListener implements ActionListener{
 
     public ActivareInput(CarteDeTelefon carteDeTelefon){
         super(carteDeTelefon);

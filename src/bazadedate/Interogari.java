@@ -33,4 +33,8 @@ public class Interogari {
                             + "OR Numar_Fix like '%" + textCautat + "%'"
                             + "OR Numar_Mobil like '%" + textCautat + "%'";
     }
+    
+    public static String queryLogin(String user, String parola){
+        return "Select * from user WHERE username= '" + user + "' and parola= '" + parola + "';";
+    }
 }
