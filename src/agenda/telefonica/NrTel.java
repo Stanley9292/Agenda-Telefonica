@@ -11,9 +11,9 @@ package agenda.telefonica;
  */
 public abstract class NrTel {
     private String numar;
-    static final int lungimeNumar = 10;
-    static final String formatMobil = "07";
-    static final String formatFix = "021";
+    protected static final int lungimeNumar = 10;
+    protected static final String formatMobil = "07";
+    protected static final String formatFix = "021";
     
     public abstract boolean verificareNrTel(String numar);
     
@@ -32,17 +32,9 @@ public abstract class NrTel {
         this.numar = numar;
     }
 
-    
-    
     //override metoda toString
     @Override
     public String toString(){
         return "Numarul de telefon este " + numar;
-    }
-
-    public int compareTo(NrTel nrTel) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-        
-    
+    } 
 }

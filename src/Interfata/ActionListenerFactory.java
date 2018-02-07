@@ -32,4 +32,12 @@ public class ActionListenerFactory {
         return new LoginAbonat(carteDeTelefon);
     }
     
+    public StergeAbonat getStergeAbonat(){
+        return new StergeAbonat(carteDeTelefon);
+    }
+    
+    public EditareAbonat getEditareAbonat(){
+        return new EditareAbonat(carteDeTelefon);
+    }
+    
 }

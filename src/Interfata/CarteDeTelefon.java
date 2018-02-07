@@ -57,28 +57,6 @@ public class CarteDeTelefon extends javax.swing.JFrame {
         return actionListenerFactory;
     }
     
-    public void afiseaza_tabela(List lista_abonati){
-        List<Abonat> list = lista_abonati;
-        DefaultTableModel model = (DefaultTableModel) tabela.getModel();
-        //tabela.setAutoCreateRowSorter(true);
-        Object[] row = new Object[5];
-        
-        for(int i = 0; i<list.size(); i++){
-            row[0] = list.get(i).getNume();
-            row[1] = list.get(i).getPrenume();
-            row[2] = list.get(i).getCNP();
-            row[3] = list.get(i).getNrFix();
-            row[4] = list.get(i).getNrMobil();
-            model.addRow(row);
-        }
-    }
-   
-    public void refreshTabela(){
-        DefaultTableModel model = (DefaultTableModel)tabela.getModel();
-        model.setRowCount(0);
-    }
-        
-    
     public ArrayList<Abonat> extrageDinBazadeDate(){      
             ArrayList<agenda.telefonica.Abonat> lista_abonati = new ArrayList<>();
             agenda.telefonica.Abonat abonat;
@@ -103,6 +81,30 @@ public class CarteDeTelefon extends javax.swing.JFrame {
             }
             return lista_abonati;
     }
+    
+    public void afiseaza_tabela(List lista_abonati){
+        List<Abonat> list = lista_abonati;
+        DefaultTableModel model = (DefaultTableModel) tabela.getModel();
+        //tabela.setAutoCreateRowSorter(true);
+        Object[] row = new Object[5];
+        
+        for(int i = 0; i<list.size(); i++){
+            row[0] = list.get(i).getNume();
+            row[1] = list.get(i).getPrenume();
+            row[2] = list.get(i).getCNP();
+            row[3] = list.get(i).getNrFix();
+            row[4] = list.get(i).getNrMobil();
+            model.addRow(row);
+        }
+    }
+   
+    public void refreshTabela(){
+        DefaultTableModel model = (DefaultTableModel)tabela.getModel();
+        model.setRowCount(0);
+    }
+        
+    
+    
     
     
     
@@ -598,31 +600,7 @@ public class CarteDeTelefon extends javax.swing.JFrame {
     }//GEN-LAST:event_InregistrareActionPerformed
 
     private void bStergereActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bStergereActionPerformed
-         try{
-             Connection c = verifyConnection();      
-             int row = tabela.getSelectedRow();            
-             int valoareMesaj = JOptionPane.showConfirmDialog(rootPane, "Doriti stergerea abonatului?", "Confirmati stergerea?", JOptionPane.YES_NO_OPTION);				
-             
-             if (valoareMesaj == JOptionPane.YES_OPTION) {
-                String nume = tabela.getModel().getValueAt(row, 0).toString();
-                String prenume = tabela.getModel().getValueAt(row, 1).toString();
-                String CNP = tabela.getModel().getValueAt(row, 2).toString();
-                PreparedStatement pst = c.prepareStatement(Interogari.queryStergere(nume, prenume, CNP));
-                pst.executeUpdate();
-                JOptionPane.showMessageDialog(null, "Stergere reusita!");
-             }
-             else{
-                 JOptionPane.showMessageDialog(null, "Abonatul nu a fost sters!");
-             }
-             
-             refreshTabela();
-            
-         }
-         catch(Exception e){
-             JOptionPane.showMessageDialog(null, e);
-         }
-      
-         
+        getActionListenerFactory().getStergeAbonat().stergeAbonat();
     }//GEN-LAST:event_bStergereActionPerformed
 
     private void bActualizareActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bActualizareActionPerformed
@@ -650,41 +628,7 @@ public class CarteDeTelefon extends javax.swing.JFrame {
     }//GEN-LAST:event_tabelaMouseClicked
 
     private void bEditareActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bEditareActionPerformed
-        try{
-            Connection c = verifyConnection();
-            int row = tabela.getSelectedRow();
-            String nume = tabela.getModel().getValueAt(row, 0).toString();
-            String prenume = tabela.getModel().getValueAt(row, 1).toString();
-            String CNP = tabela.getModel().getValueAt(row, 2).toString();   
-            String numar_fix = tabela.getModel().getValueAt(row, 3).toString();
-            String numar_mobil = tabela.getModel().getValueAt(row, 4).toString();
-            PreparedStatement pst = c.prepareStatement(Interogari.queryEditare(nume, prenume, CNP, numar_fix, numar_mobil));
-
-            Abonat abonat = new Abonat(nume, tPrenume.getText(), tCNP.getText());
-            NrMobil mobil = new NrMobil(tNumarMobil.getText());
-            NrFix fix = new NrFix(tNumarFix.getText());
-
-            pst.setString(1, tNume.getText());
-            pst.setString(2, tPrenume.getText());
-            pst.setString(3, tCNP.getText());
-            pst.setString(4, tNumarMobil.getText());
-            pst.setString(5, tNumarFix.getText());
-
-            if(fix.verificareNrTel(tNumarFix.getText()) && mobil.verificareNrTel(tNumarMobil.getText())){
-                pst.executeUpdate();
-                JOptionPane.showMessageDialog(null, "Randul " + row + " a fost editat cu succes.");
-                refreshTabela();
-            }else{
-                JOptionPane.showMessageDialog(null, "Date nu au fost inserate! Ceva ati gresit!");
-            }
-
-        }
-        catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, ex);
-        }
-        catch (Exception ex) {
-            Logger.getLogger(AdaugareAbonat.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        getActionListenerFactory().getEditareAbonat().editareAbonat();
     }//GEN-LAST:event_bEditareActionPerformed
 
     private void bLogareActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bLogareActionPerformed
@@ -735,6 +679,26 @@ public class CarteDeTelefon extends javax.swing.JFrame {
      
     public JTextField gettCautare(){
         return tCautare;
+    }
+    
+    public JTextField gettNume(){
+        return tNume; 
+    }
+    
+    public JTextField gettPrenume(){
+        return tPrenume;
+    }
+    
+    public JTextField gettCNP(){
+     return tCNP;   
+    }
+    
+    public JTextField gettNumarMobil(){
+        return tNumarMobil;
+    }
+    
+    public JTextField gettNumarFix(){
+        return tNumarFix;
     }
     
     public JButton getbEditare() {

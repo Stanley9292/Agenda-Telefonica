@@ -49,4 +49,8 @@ public class NrMobil extends NrTel {
             return false;
         }
     }
+
+    public int compareTo(NrMobil nrMobil) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

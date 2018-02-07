@@ -49,5 +49,9 @@ public class NrFix extends NrTel {
             return false;
         }
     }
+
+    public int compareTo(NrFix nrFix) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }

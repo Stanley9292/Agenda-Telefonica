@@ -20,7 +20,7 @@ import javax.swing.JOptionPane;
  */
 public class Conectare {
     
-    private static String db = "jdbc:mysql://localhost/agenda_telefonica";
+    private static String db = "jdbc:mysql://localhost/global";
     private static String user = "root";
     private static String pass = "root";
     private static String url = "" + db;

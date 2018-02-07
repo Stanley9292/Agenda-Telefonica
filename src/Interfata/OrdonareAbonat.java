@@ -67,7 +67,6 @@ public class OrdonareAbonat {
      
     public List<Abonat> ordoneaza(CriteriuOrdonare c){
            Collections.sort(lista, comparatori.get(c));
-           return lista;
-           
+           return lista;   
     }
 }

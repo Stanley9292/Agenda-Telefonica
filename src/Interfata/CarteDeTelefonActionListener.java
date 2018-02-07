@@ -6,6 +6,8 @@
 package Interfata;
 
 import agenda.telefonica.Abonat;
+import agenda.telefonica.NrFix;
+import agenda.telefonica.NrMobil;
 import static bazadedate.Conectare.verifyConnection;
 import bazadedate.Interogari;
 import java.sql.Connection;
@@ -14,6 +16,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -21,7 +25,12 @@ import javax.swing.JOptionPane;
  * @author AGStan
  */
 public class CarteDeTelefonActionListener {
+    
     private final CarteDeTelefon carteDeTelefon;
+    private String NrFix;
+    private String NrMobil;
+    private NrFix nrFix = new NrFix(NrFix);
+    private NrMobil nrMobil = new NrMobil(NrMobil);
     
     public CarteDeTelefonActionListener(CarteDeTelefon carteDeTelefon){
         this.carteDeTelefon = carteDeTelefon;
@@ -100,8 +109,6 @@ public class CarteDeTelefonActionListener {
             String user = getCarteDeTelefon().getUser().getText();
             String parola = getCarteDeTelefon().getParola().getText();
             PreparedStatement pst = c.prepareStatement(Interogari.queryLogin(user, parola));
-            pst.setString(1, getCarteDeTelefon().getUser().getText());
-            pst.setString(2, getCarteDeTelefon().getParola().getText());
             ResultSet rs = pst.executeQuery();
             if(rs.next()){
                 JOptionPane.showMessageDialog(null, "Username si parola corecte! Bine ati venit!");
@@ -116,6 +123,71 @@ public class CarteDeTelefonActionListener {
         }
         catch(SQLException e){
             JOptionPane.showMessageDialog(null, e);
+        }
+    }
+    
+    public void stergeAbonat(){
+         try{
+             Connection c = verifyConnection();      
+             int row = getCarteDeTelefon().getTabela().getSelectedRow();            
+             int valoareMesaj = JOptionPane.showConfirmDialog(null, "Doriti stergerea abonatului?", "Confirmati stergerea?", JOptionPane.YES_NO_OPTION);				
+             
+             if (valoareMesaj == JOptionPane.YES_OPTION) {
+                String nume = getCarteDeTelefon().getTabela().getModel().getValueAt(row, 0).toString();
+                String prenume = getCarteDeTelefon().getTabela().getModel().getValueAt(row, 1).toString();
+                String CNP = getCarteDeTelefon().getTabela().getModel().getValueAt(row, 2).toString();
+                PreparedStatement pst = c.prepareStatement(Interogari.queryStergere(nume, prenume, CNP));
+                pst.executeUpdate();
+                JOptionPane.showMessageDialog(null, "Stergere reusita!");
+             }
+             else{
+                 JOptionPane.showMessageDialog(null, "Abonatul nu a fost sters!");
+             }            
+             getCarteDeTelefon().refreshTabela();
+            
+         }
+         catch(Exception e){
+             JOptionPane.showMessageDialog(null, e);
+         }    
+    }
+    
+    public void editareAbonat(){
+        try{
+            Connection c = verifyConnection();
+            int row = getCarteDeTelefon().getTabela().getSelectedRow();
+            if(!getCarteDeTelefon().getTabela().isRowSelected(row)){
+                JOptionPane.showMessageDialog(null, "Va rog selectati un camp");
+            }
+            String nume = getCarteDeTelefon().getTabela().getModel().getValueAt(row, 0).toString();
+            String prenume = getCarteDeTelefon().getTabela().getModel().getValueAt(row, 1).toString();
+            String CNP = getCarteDeTelefon().getTabela().getModel().getValueAt(row, 2).toString();   
+            String numar_fix = getCarteDeTelefon().getTabela().getModel().getValueAt(row, 3).toString();
+            String numar_mobil = getCarteDeTelefon().getTabela().getModel().getValueAt(row, 4).toString();
+            PreparedStatement pst = c.prepareStatement(Interogari.queryEditare(nume, prenume, CNP, numar_fix, numar_mobil));
+
+            Abonat abonat = new Abonat(nume, prenume, CNP, numar_fix, numar_mobil);
+            
+
+            pst.setString(1, getCarteDeTelefon().gettNume().getText());
+            pst.setString(2, getCarteDeTelefon().gettPrenume().getText());
+            pst.setString(3, getCarteDeTelefon().gettCNP().getText());
+            pst.setString(4, getCarteDeTelefon().gettNumarMobil().getText());
+            pst.setString(5, getCarteDeTelefon().gettNumarFix().getText());
+
+            if(nrFix.verificareNrTel(getCarteDeTelefon().gettNumarFix().getText()) && nrMobil.verificareNrTel(getCarteDeTelefon().gettNumarMobil().getText())){
+                pst.executeUpdate();
+                JOptionPane.showMessageDialog(null, "Randul " + row + " a fost editat cu succes.");
+                getCarteDeTelefon().refreshTabela();
+            }else{
+                JOptionPane.showMessageDialog(null, "Date nu au fost inserate! Ceva ati gresit!");
+            }
+
+        }
+        catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, ex);
+        }
+        catch (Exception ex) {
+            Logger.getLogger(AdaugareAbonat.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
