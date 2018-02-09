@@ -28,9 +28,16 @@ import javax.swing.table.TableModel;
 import bazadedate.Interogari;
 import javax.swing.JButton;
 import Interfata.CarteDeTelefonActionListener;
+import java.awt.Color;
+import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.Time;
 import java.util.List;
+import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.Timer;
 import javax.swing.table.AbstractTableModel;
 
 /**
@@ -48,9 +55,41 @@ public class CarteDeTelefon extends javax.swing.JFrame {
     OrdonareAbonat o = new OrdonareAbonat();
     public List<Abonat> lista_abonati = extrageDinBazadeDate();
     
+    Timer tm;
+    int x = 0;
+    String[] poze = {
+        "C:/Users/agstan/Desktop/Curs Java/Proiect Agenda Telefonica/Agenda-Telefonica-master/src/Interfata/r1.jpg",
+        "C:/Users/agstan/Desktop/Curs Java/Proiect Agenda Telefonica/Agenda-Telefonica-master/src/Interfata/r2.jpg"
+    };
+    
+    public void setImageSize(int i){
+        ImageIcon icon = new ImageIcon(poze[i]);
+        Image img = icon.getImage();
+        Image newImg = img.getScaledInstance(lReclame.getWidth(), lReclame.getHeight(), Image.SCALE_SMOOTH);
+        ImageIcon newImc = new ImageIcon(newImg);
+        lReclame.setIcon(newImc);
+        
+    }
+       
       public CarteDeTelefon() {
         initComponents();     
         actionListenerFactory = new ActionListenerFactory(this);
+        tm = new Timer(2000, new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                setImageSize(x);
+                x += 1;
+                if(x >= poze.length ){
+                    x =0;
+                }
+            }
+        });
+        add(lReclame);
+        tm.start();
+        //setLayout(null);
+        //setSize(800, 400);
+        //getContentPane().setBackground(Color.red);
     }
        
     public ActionListenerFactory getActionListenerFactory() {
@@ -174,6 +213,7 @@ public class CarteDeTelefon extends javax.swing.JFrame {
         rCNP = new javax.swing.JRadioButton();
         rTelefonFix = new javax.swing.JRadioButton();
         rTelefonMobil = new javax.swing.JRadioButton();
+        lReclame = new javax.swing.JLabel();
         MenuBar = new javax.swing.JMenuBar();
         File = new javax.swing.JMenu();
         Save = new javax.swing.JMenuItem();
@@ -558,7 +598,8 @@ public class CarteDeTelefon extends javax.swing.JFrame {
                             .addComponent(butoanePrincipale, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(38, 38, 38)
                         .addComponent(pOrdonare, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(26, 26, 26)))
+                        .addGap(26, 26, 26))
+                    .addComponent(lReclame, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -575,10 +616,12 @@ public class CarteDeTelefon extends javax.swing.JFrame {
                             .addComponent(interfataEditare, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(loginPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(pOrdonare, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(158, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lReclame, javax.swing.GroupLayout.DEFAULT_SIZE, 291, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
-        setSize(new java.awt.Dimension(1019, 663));
+        setSize(new java.awt.Dimension(1019, 813));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -826,6 +869,7 @@ public class CarteDeTelefon extends javax.swing.JFrame {
     private javax.swing.JLabel lNume;
     private javax.swing.JLabel lParola;
     private javax.swing.JLabel lPrenume;
+    private javax.swing.JLabel lReclame;
     private javax.swing.JLabel lTelefonFix;
     private javax.swing.JLabel lTelefonMobil;
     private javax.swing.JLabel lUser;
