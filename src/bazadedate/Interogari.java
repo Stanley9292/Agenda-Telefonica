@@ -11,6 +11,8 @@ import agenda.telefonica.Abonat;
  *
  * @author Stan
  */
+
+//clasa care contine metode statice pentru query-urile importante
 public class Interogari {
     public static String queryEditare(String nume, String prenume, String CNP, String nr_fix, String nr_mobil){
         return "UPDATE agenda SET nume=?, prenume=?, CNP =?, Numar_Mobil=?, Numar_Fix=? WHERE "

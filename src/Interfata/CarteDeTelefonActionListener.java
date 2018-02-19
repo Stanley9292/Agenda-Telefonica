@@ -24,6 +24,9 @@ import javax.swing.JOptionPane;
  *
  * @author AGStan
  */
+
+//clasa care contine metodele de manipulare a datelor din baza de date
+//si metodele de dezactivare si activare butoane
 public class CarteDeTelefonActionListener {
     
     private final CarteDeTelefon carteDeTelefon;
@@ -177,7 +180,7 @@ public class CarteDeTelefonActionListener {
             if(nrFix.verificareNrTel(getCarteDeTelefon().gettNumarFix().getText()) && nrMobil.verificareNrTel(getCarteDeTelefon().gettNumarMobil().getText())){
                 pst.executeUpdate();
                 JOptionPane.showMessageDialog(null, "Randul " + row + " a fost editat cu succes.");
-                getCarteDeTelefon().refreshTabela();
+                getCarteDeTelefon().extrageDinBazadeDate();
             }else{
                 JOptionPane.showMessageDialog(null, "Date nu au fost inserate! Ceva ati gresit!");
             }
@@ -186,8 +189,13 @@ public class CarteDeTelefonActionListener {
         catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, ex);
         }
-        catch (Exception ex) {
-            Logger.getLogger(AdaugareAbonat.class.getName()).log(Level.SEVERE, null, ex);
+        catch (IllegalArgumentException e) {
+            JOptionPane.showMessageDialog(
+                    null,
+                    e.getMessage(),
+                    "EROARE",
+                    JOptionPane.ERROR_MESSAGE
+            );
         }
     }
     

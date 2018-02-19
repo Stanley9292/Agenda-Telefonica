@@ -18,9 +18,11 @@ import javax.swing.JOptionPane;
  *
  * @author Stan
  */
+
+//clasa care realizeaza conexiunea la baza de date
 public class Conectare {
     
-    private static String db = "jdbc:mysql://localhost/global";
+    private static String db = "jdbc:mysql://localhost/agenda_telefonica";
     private static String user = "root";
     private static String pass = "root";
     private static String url = "" + db;

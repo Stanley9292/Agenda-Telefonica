@@ -17,6 +17,8 @@ import java.util.Map;
  *
  * @author Stan
  */
+
+//clasa care realizeaza ordonarea dupa un anumit criteriu
 public class OrdonareAbonat {
     ArrayList<Abonat> lista= new ArrayList<Abonat>();
     public enum CriteriuOrdonare{DUPA_NUME, DUPA_PRENUME, DUPA_CNP, DUPA_FIX, DUPA_MOBIL};

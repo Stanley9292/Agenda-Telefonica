@@ -22,6 +22,8 @@ import javax.swing.JOptionPane;
  *
  * @author AGStan
  */
+//clasa care mosteneste CarteDeTelefonActionListener si implementeaza ActionListener
+//care ne obliga sa facem override metodei ActionPerformed pentru a apela metoda specifica acestei clase
 public class CautaAbonat extends CarteDeTelefonActionListener implements ActionListener{
 
     public CautaAbonat(CarteDeTelefon carteDeTelefon) {

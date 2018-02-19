@@ -198,16 +198,20 @@ public class AdaugareAbonat extends javax.swing.JFrame {
                  JOptionPane.showMessageDialog(null, "Datele au fost inserate cu succes!");                 
                  
              }else{
-                 JOptionPane.showMessageDialog(null, "Date nu au fost inserate! Ceva ati gresit!");
-             }
-             
+                 JOptionPane.showMessageDialog(null, "Numarul de telefon introdus este");
+             }            
         }
         catch (SQLException ex) {
                 JOptionPane.showMessageDialog(null, ex);
             }   
-        catch (Exception ex) {                       
-            Logger.getLogger(AdaugareAbonat.class.getName()).log(Level.SEVERE, null, ex);
-        }                       
+        catch (IllegalArgumentException e) {
+            JOptionPane.showMessageDialog(
+                   this,
+                    e.getMessage(),
+                    "EROARE",
+                    JOptionPane.ERROR_MESSAGE
+            );
+        }
     }//GEN-LAST:event_bAdaugareActionPerformed
 
     private void bRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bRefreshActionPerformed

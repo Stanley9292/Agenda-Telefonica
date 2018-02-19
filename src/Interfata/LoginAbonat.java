@@ -12,6 +12,8 @@ import java.awt.event.ActionListener;
  *
  * @author Stan
  */
+//clasa care mosteneste CarteDeTelefonActionListener si implementeaza ActionListener
+//care ne obliga sa facem override metodei ActionPerformed pentru a apela metoda specifica acestei clase
 public class LoginAbonat extends CarteDeTelefonActionListener implements ActionListener{
 
     public LoginAbonat(CarteDeTelefon carteDeTelefon) {

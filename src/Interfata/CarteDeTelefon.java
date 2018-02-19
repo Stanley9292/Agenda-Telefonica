@@ -39,6 +39,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.Timer;
 import javax.swing.table.AbstractTableModel;
+import sun.util.resources.sr.CurrencyNames_sr_Latn_ME;
 
 /**
  *
@@ -50,52 +51,52 @@ public class CarteDeTelefon extends javax.swing.JFrame {
      * Creates new form Fereastra
      */ 
     
+    OrdonareAbonat o = new OrdonareAbonat();
     private final ActionListenerFactory actionListenerFactory;
     private int randSelectat = 0;
-    OrdonareAbonat o = new OrdonareAbonat();
     public List<Abonat> lista_abonati = extrageDinBazadeDate();
-    
+   
+    //elementele folosite pentru a realiza reclama
     Timer tm;
     int x = 0;
-    String[] poze = {
-        "C:/Users/agstan/Desktop/Curs Java/Proiect Agenda Telefonica/Agenda-Telefonica-master/src/Interfata/r1.jpg",
-        "C:/Users/agstan/Desktop/Curs Java/Proiect Agenda Telefonica/Agenda-Telefonica-master/src/Interfata/r2.jpg"
-    };
+    ImageIcon reclama1 = new ImageIcon(getClass().getResource("r1.jpg"));
+    ImageIcon reclama2 = new ImageIcon(getClass().getResource("r2.jpg"));
+    ImageIcon reclama3 = new ImageIcon(getClass().getResource("r3.jpg"));
+    ImageIcon reclama4 = new ImageIcon(getClass().getResource("r4.jpg"));
+    ImageIcon reclame[] = {reclama1, reclama2, reclama3, reclama4};
     
-    public void setImageSize(int i){
-        ImageIcon icon = new ImageIcon(poze[i]);
-        Image img = icon.getImage();
+    public void setareImagine(ImageIcon i){
+        Image img = i.getImage();
         Image newImg = img.getScaledInstance(lReclame.getWidth(), lReclame.getHeight(), Image.SCALE_SMOOTH);
         ImageIcon newImc = new ImageIcon(newImg);
         lReclame.setIcon(newImc);
-        
     }
-       
+    
+    //constructorul CarteDeTelefon care instantiaza un obiect de tip ActionListener
+    //folosirea obiectului de tip timer pentru a creea slideshow-ul de reclame 
       public CarteDeTelefon() {
         initComponents();     
         actionListenerFactory = new ActionListenerFactory(this);
-        tm = new Timer(2000, new ActionListener() {
-
+        tm = new Timer(3000, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                setImageSize(x);
+                setareImagine(reclame[x]);
                 x += 1;
-                if(x >= poze.length ){
-                    x =0;
+                if(x >= reclame.length){
+                    x=0;
                 }
             }
         });
         add(lReclame);
         tm.start();
-        //setLayout(null);
-        //setSize(800, 400);
-        //getContentPane().setBackground(Color.red);
     }
        
+    //getter pentru obiectul actionListenerFactory
     public ActionListenerFactory getActionListenerFactory() {
         return actionListenerFactory;
     }
     
+    //metoda prin care se extrage din baza de date si returneaza o lista cu abonatii
     public ArrayList<Abonat> extrageDinBazadeDate(){      
             ArrayList<agenda.telefonica.Abonat> lista_abonati = new ArrayList<>();
             agenda.telefonica.Abonat abonat;
@@ -121,6 +122,7 @@ public class CarteDeTelefon extends javax.swing.JFrame {
             return lista_abonati;
     }
     
+    //metoda prin care se populeaza tabela, primind ca parametru o lista de abonati
     public void afiseaza_tabela(List lista_abonati){
         List<Abonat> list = lista_abonati;
         DefaultTableModel model = (DefaultTableModel) tabela.getModel();
@@ -141,33 +143,7 @@ public class CarteDeTelefon extends javax.swing.JFrame {
         DefaultTableModel model = (DefaultTableModel)tabela.getModel();
         model.setRowCount(0);
     }
-        
-    
-    
-    
-    
-    
-    public void SlideShow_Reclame(){
-        new Thread(){
-            int count;
-            public void run(){
-                try{
-                    while(true){
-                        switch(count){
-                            //case :
-                        }
-                    }
-                }
-                catch(Exception e){
-                    
-                }
-            }
-        }.start();
-    }
-    
-   
-    
-    
+       
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -216,8 +192,6 @@ public class CarteDeTelefon extends javax.swing.JFrame {
         lReclame = new javax.swing.JLabel();
         MenuBar = new javax.swing.JMenuBar();
         File = new javax.swing.JMenu();
-        Save = new javax.swing.JMenuItem();
-        Open = new javax.swing.JMenuItem();
         Exit = new javax.swing.JMenuItem();
         Help = new javax.swing.JMenu();
         Inregistrare = new javax.swing.JMenuItem();
@@ -538,24 +512,6 @@ public class CarteDeTelefon extends javax.swing.JFrame {
 
         File.setText("File");
 
-        Save.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
-        Save.setText("Save");
-        Save.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                SaveActionPerformed(evt);
-            }
-        });
-        File.add(Save);
-
-        Open.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_MASK));
-        Open.setText("Open");
-        Open.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                OpenActionPerformed(evt);
-            }
-        });
-        File.add(Open);
-
         Exit.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_E, java.awt.event.InputEvent.CTRL_MASK));
         Exit.setText("Exit");
         Exit.addActionListener(new java.awt.event.ActionListener() {
@@ -626,14 +582,6 @@ public class CarteDeTelefon extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     
-    private void SaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaveActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_SaveActionPerformed
-
-    private void OpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OpenActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_OpenActionPerformed
-
     private void bAdaugaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAdaugaActionPerformed
         new Interfata.AdaugareAbonat().setVisible(true);
     }//GEN-LAST:event_bAdaugaActionPerformed
@@ -644,6 +592,7 @@ public class CarteDeTelefon extends javax.swing.JFrame {
 
     private void bStergereActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bStergereActionPerformed
         getActionListenerFactory().getStergeAbonat().stergeAbonat();
+        afiseaza_tabela(extrageDinBazadeDate());
     }//GEN-LAST:event_bStergereActionPerformed
 
     private void bActualizareActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bActualizareActionPerformed
@@ -655,6 +604,7 @@ public class CarteDeTelefon extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_ExitActionPerformed
 
+    //metoda prin care se seteaza valoarea in JtextField-uri la apasarea unui rand in tabela
     private void tabelaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaMouseClicked
         int i = tabela.getSelectedRow();
         TableModel model = tabela.getModel();
@@ -788,18 +738,6 @@ public class CarteDeTelefon extends javax.swing.JFrame {
         this.tabela = tabela;
     }
     
-    public int getRandSelectat(){
-        int rand = getTabela().getSelectedRow();
-        if (rand == -1) {
-			rand = randSelectat;
-		}
-		return rand;
-    }
-    
-    public void setRandSelectat(int randSelectat){
-        this.randSelectat = randSelectat;
-    }
-    
     /**
      * @param args the command line arguments
      */
@@ -850,8 +788,6 @@ public class CarteDeTelefon extends javax.swing.JFrame {
     private javax.swing.JMenu Help;
     private javax.swing.JMenuItem Inregistrare;
     private javax.swing.JMenuBar MenuBar;
-    private javax.swing.JMenuItem Open;
-    private javax.swing.JMenuItem Save;
     private javax.swing.JButton bActualizare;
     private javax.swing.JButton bAdauga;
     private javax.swing.JButton bCautare;

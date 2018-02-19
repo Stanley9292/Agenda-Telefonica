@@ -23,13 +23,15 @@ public class Abonat {
     //constructor cu parametrii
     public Abonat(String nume, String prenume, String CNP){
          if (nume == null || nume.length() == 0 || prenume == null || prenume.length() == 0) {
-            JOptionPane.showMessageDialog(null, "Numele si prenumele nu pot lipsi!");        
+            throw new IllegalArgumentException("Numele si prenumele nu pot lipsi!");      
         }
         if(!nume.matches("[A-Za-z \\-]+") || !prenume.matches("[A-Za-z \\-]+")){
-            JOptionPane.showMessageDialog(null, "Numele nu pare de om!");
+            //JOptionPane.showMessageDialog(null, "Numele nu pare de om!");
+            throw new IllegalArgumentException("Numele nu pare de om!");  
         }
         if(CNP.length() != 13){
-            JOptionPane.showMessageDialog(null, "CNP-ul introdus trebuie sa aiba 13 caractere");
+            //JOptionPane.showMessageDialog(null, "CNP-ul introdus trebuie sa aiba 13 caractere");
+            throw new IllegalArgumentException("CNP-ul introdus trebuie sa aiba 13 caractere");  
         }
         this.nume = nume;
         this.prenume = prenume;

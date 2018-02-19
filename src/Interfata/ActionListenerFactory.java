@@ -9,6 +9,8 @@ package Interfata;
  *
  * @author AGStan
  */
+
+//clasa dedicata returnarii fiecarei clase
 public class ActionListenerFactory {
     private final CarteDeTelefon carteDeTelefon;
     
