@@ -55,6 +55,7 @@ public class CarteDeTelefon extends javax.swing.JFrame {
     private final ActionListenerFactory actionListenerFactory;
     private int randSelectat = 0;
     public List<Abonat> lista_abonati = extrageDinBazadeDate();
+    
    
     //elementele folosite pentru a realiza reclama
     Timer tm;
@@ -64,10 +65,10 @@ public class CarteDeTelefon extends javax.swing.JFrame {
     ImageIcon reclama3 = new ImageIcon(getClass().getResource("r3.jpg"));
     ImageIcon reclama4 = new ImageIcon(getClass().getResource("r4.jpg"));
     ImageIcon reclame[] = {reclama1, reclama2, reclama3, reclama4};
-    
+
     public void setareImagine(ImageIcon i){
         Image img = i.getImage();
-        Image newImg = img.getScaledInstance(lReclame.getWidth(), lReclame.getHeight(), Image.SCALE_SMOOTH);
+        Image newImg = img.getScaledInstance(lReclame.getWidth(), lReclame.getHeight(), Image.SCALE_DEFAULT);
         ImageIcon newImc = new ImageIcon(newImg);
         lReclame.setIcon(newImc);
     }
@@ -77,14 +78,15 @@ public class CarteDeTelefon extends javax.swing.JFrame {
       public CarteDeTelefon() {
         initComponents();     
         actionListenerFactory = new ActionListenerFactory(this);
-        tm = new Timer(3000, new ActionListener() {
+        tm = new Timer(4000, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 setareImagine(reclame[x]);
                 x += 1;
-                if(x >= reclame.length){
+                if(x >= reclame.length-1){
                     x=0;
                 }
+                //afiseaza_tabela(extrageDinBazadeDate());
             }
         });
         add(lReclame);
@@ -124,8 +126,10 @@ public class CarteDeTelefon extends javax.swing.JFrame {
     
     //metoda prin care se populeaza tabela, primind ca parametru o lista de abonati
     public void afiseaza_tabela(List lista_abonati){
+        refreshTabela();
         List<Abonat> list = lista_abonati;
         DefaultTableModel model = (DefaultTableModel) tabela.getModel();
+        model.fireTableDataChanged();
         //tabela.setAutoCreateRowSorter(true);
         Object[] row = new Object[5];
         
@@ -160,7 +164,7 @@ public class CarteDeTelefon extends javax.swing.JFrame {
         butoanePrincipale = new javax.swing.JPanel();
         bAdauga = new javax.swing.JButton();
         bStergere = new javax.swing.JButton();
-        bActualizare = new javax.swing.JButton();
+        bRefreshTabela = new javax.swing.JButton();
         tCautare = new javax.swing.JTextField();
         bCautare = new javax.swing.JButton();
         interfataEditare = new javax.swing.JPanel();
@@ -240,11 +244,11 @@ public class CarteDeTelefon extends javax.swing.JFrame {
             }
         });
 
-        bActualizare.setText("Refresh tabela");
-        bActualizare.setEnabled(false);
-        bActualizare.addActionListener(new java.awt.event.ActionListener() {
+        bRefreshTabela.setText("Refresh tabela");
+        bRefreshTabela.setEnabled(false);
+        bRefreshTabela.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bActualizareActionPerformed(evt);
+                bRefreshTabelaActionPerformed(evt);
             }
         });
 
@@ -267,7 +271,7 @@ public class CarteDeTelefon extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(bStergere)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(bActualizare)
+                .addComponent(bRefreshTabela)
                 .addGap(161, 161, 161)
                 .addComponent(tCautare, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -285,7 +289,7 @@ public class CarteDeTelefon extends javax.swing.JFrame {
                     .addGroup(butoanePrincipaleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(bAdauga)
                         .addComponent(bStergere)
-                        .addComponent(bActualizare)))
+                        .addComponent(bRefreshTabela)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -595,10 +599,10 @@ public class CarteDeTelefon extends javax.swing.JFrame {
         afiseaza_tabela(extrageDinBazadeDate());
     }//GEN-LAST:event_bStergereActionPerformed
 
-    private void bActualizareActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bActualizareActionPerformed
+    private void bRefreshTabelaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bRefreshTabelaActionPerformed
         refreshTabela();
         afiseaza_tabela(extrageDinBazadeDate());
-    }//GEN-LAST:event_bActualizareActionPerformed
+    }//GEN-LAST:event_bRefreshTabelaActionPerformed
 
     private void ExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExitActionPerformed
         System.exit(0);
@@ -639,6 +643,7 @@ public class CarteDeTelefon extends javax.swing.JFrame {
 
     private void rNumeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rNumeActionPerformed
         lista_abonati = o.ordoneaza(OrdonareAbonat.CriteriuOrdonare.DUPA_NUME);
+        refreshTabela();
         afiseaza_tabela(lista_abonati);
     }//GEN-LAST:event_rNumeActionPerformed
 
@@ -703,7 +708,7 @@ public class CarteDeTelefon extends javax.swing.JFrame {
     }
 
     public JButton getbActualizare() {
-        return bActualizare;
+        return bRefreshTabela;
     }
 
     public JButton getbAdauga() {
@@ -788,7 +793,6 @@ public class CarteDeTelefon extends javax.swing.JFrame {
     private javax.swing.JMenu Help;
     private javax.swing.JMenuItem Inregistrare;
     private javax.swing.JMenuBar MenuBar;
-    private javax.swing.JButton bActualizare;
     private javax.swing.JButton bAdauga;
     private javax.swing.JButton bCautare;
     private javax.swing.JButton bEditare;
@@ -796,6 +800,7 @@ public class CarteDeTelefon extends javax.swing.JFrame {
     private javax.swing.JButton bIesire;
     private javax.swing.JButton bLogare;
     private javax.swing.JButton bRefresh;
+    private javax.swing.JButton bRefreshTabela;
     private javax.swing.JButton bStergere;
     private javax.swing.JPanel butoanePrincipale;
     private javax.swing.JPanel interfataEditare;

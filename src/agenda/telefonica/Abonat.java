@@ -25,12 +25,10 @@ public class Abonat {
          if (nume == null || nume.length() == 0 || prenume == null || prenume.length() == 0) {
             throw new IllegalArgumentException("Numele si prenumele nu pot lipsi!");      
         }
-        if(!nume.matches("[A-Za-z \\-]+") || !prenume.matches("[A-Za-z \\-]+")){
-            //JOptionPane.showMessageDialog(null, "Numele nu pare de om!");
+        if(!nume.matches("[A-Za-z \\-]+") || !prenume.matches("[A-Za-z \\-]+")){          
             throw new IllegalArgumentException("Numele nu pare de om!");  
         }
-        if(CNP.length() != 13){
-            //JOptionPane.showMessageDialog(null, "CNP-ul introdus trebuie sa aiba 13 caractere");
+        if(CNP.length() != 13){         
             throw new IllegalArgumentException("CNP-ul introdus trebuie sa aiba 13 caractere");  
         }
         this.nume = nume;

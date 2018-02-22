@@ -16,6 +16,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -28,11 +30,24 @@ import javax.swing.table.DefaultTableModel;
  */
 public class AdaugareAbonat extends javax.swing.JFrame {
 
+    
+    private final CarteDeTelefon carteDeTelefon;
+    //private List<Abonat> lista_abonati;  
+    
     /**
      * Creates new form AdaugareAbonat
      */
     public AdaugareAbonat() {
         initComponents();
+        carteDeTelefon = new CarteDeTelefon();
+    }
+    
+    public AdaugareAbonat(CarteDeTelefon carteDeTelefon){
+        this.carteDeTelefon = carteDeTelefon;
+    }
+    
+    protected CarteDeTelefon getCarteDeTelefon(){
+        return carteDeTelefon;
     }
 
     /**
@@ -195,10 +210,12 @@ public class AdaugareAbonat extends javax.swing.JFrame {
              
              if(fix.verificareNrTel(tNumarFix.getText()) && mobil.verificareNrTel(tNumarMobil.getText())){
                  pst.executeUpdate();
-                 JOptionPane.showMessageDialog(null, "Datele au fost inserate cu succes!");                 
-                 
+                 JOptionPane.showMessageDialog(null, "Datele au fost inserate cu succes!");  
+                 getCarteDeTelefon().refreshTabela();
+                 getCarteDeTelefon().afiseaza_tabela(getCarteDeTelefon().extrageDinBazadeDate()); 
+                 //getCarteDeTelefon().getTabela()
              }else{
-                 JOptionPane.showMessageDialog(null, "Numarul de telefon introdus este");
+                 JOptionPane.showMessageDialog(null, "Datele nu au fost inserate.");
              }            
         }
         catch (SQLException ex) {
@@ -224,6 +241,8 @@ public class AdaugareAbonat extends javax.swing.JFrame {
 
     private void bIesireActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bIesireActionPerformed
         setVisible(false);
+        //lista_abonati = getCarteDeTelefon().extrageDinBazadeDate();
+        //getCarteDeTelefon().afiseaza_tabela(lista_abonati);
     }//GEN-LAST:event_bIesireActionPerformed
 
     /**

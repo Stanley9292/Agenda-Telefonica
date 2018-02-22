@@ -27,13 +27,18 @@ import javax.swing.JOptionPane;
 
 //clasa care contine metodele de manipulare a datelor din baza de date
 //si metodele de dezactivare si activare butoane
-public class CarteDeTelefonActionListener {
+public class CarteDeTelefonActionListener extends javax.swing.JFrame {
     
+    private boolean isLogged = false;
     private final CarteDeTelefon carteDeTelefon;
     private String NrFix;
     private String NrMobil;
     private NrFix nrFix = new NrFix(NrFix);
     private NrMobil nrMobil = new NrMobil(NrMobil);
+    
+    public CarteDeTelefonActionListener(){
+        carteDeTelefon = new CarteDeTelefon();
+    }
     
     public CarteDeTelefonActionListener(CarteDeTelefon carteDeTelefon){
         this.carteDeTelefon = carteDeTelefon;
@@ -107,7 +112,12 @@ public class CarteDeTelefonActionListener {
     }
     
     public void loginAbonat(){
-        try{
+        
+        if (isLogged == true){
+            JOptionPane.showMessageDialog(null, "Sunteti deja logat!");
+        }
+        else{
+            try{
             Connection c = verifyConnection();
             String user = getCarteDeTelefon().getUser().getText();
             String parola = getCarteDeTelefon().getParola().getText();
@@ -115,9 +125,10 @@ public class CarteDeTelefonActionListener {
             ResultSet rs = pst.executeQuery();
             if(rs.next()){
                 JOptionPane.showMessageDialog(null, "Username si parola corecte! Bine ati venit!");
+                isLogged = true;
                 getCarteDeTelefon().getloginPanel().setVisible(false);
                 activareInput();
-                this.getCarteDeTelefon().afiseaza_tabela(this.getCarteDeTelefon().extrageDinBazadeDate());
+                this.getCarteDeTelefon().afiseaza_tabela(this.getCarteDeTelefon().extrageDinBazadeDate());              
             }
             else{
                 JOptionPane.showMessageDialog(null, "Username si parola incorecte!");
@@ -126,6 +137,7 @@ public class CarteDeTelefonActionListener {
         }
         catch(SQLException e){
             JOptionPane.showMessageDialog(null, e);
+        }
         }
     }
     
@@ -161,26 +173,28 @@ public class CarteDeTelefonActionListener {
             if(!getCarteDeTelefon().getTabela().isRowSelected(row)){
                 JOptionPane.showMessageDialog(null, "Va rog selectati un camp");
             }
-            String nume = getCarteDeTelefon().getTabela().getModel().getValueAt(row, 0).toString();
-            String prenume = getCarteDeTelefon().getTabela().getModel().getValueAt(row, 1).toString();
-            String CNP = getCarteDeTelefon().getTabela().getModel().getValueAt(row, 2).toString();   
-            String numar_fix = getCarteDeTelefon().getTabela().getModel().getValueAt(row, 3).toString();
-            String numar_mobil = getCarteDeTelefon().getTabela().getModel().getValueAt(row, 4).toString();
-            PreparedStatement pst = c.prepareStatement(Interogari.queryEditare(nume, prenume, CNP, numar_fix, numar_mobil));
-
-            Abonat abonat = new Abonat(nume, prenume, CNP, numar_fix, numar_mobil);
             
+            //extragere date din jtable
+            String nume = getCarteDeTelefon().gettNume().getText();
+            String prenume = getCarteDeTelefon().gettPrenume().getText();
+            String CNP = getCarteDeTelefon().gettCNP().getText();
+            String numar_fix = getCarteDeTelefon().gettNumarFix().getText();
+            String numar_mobil = getCarteDeTelefon().gettNumarMobil().getText();
+            
+            Abonat abonat = new Abonat(nume, prenume, CNP);
 
-            pst.setString(1, getCarteDeTelefon().gettNume().getText());
-            pst.setString(2, getCarteDeTelefon().gettPrenume().getText());
-            pst.setString(3, getCarteDeTelefon().gettCNP().getText());
-            pst.setString(4, getCarteDeTelefon().gettNumarMobil().getText());
-            pst.setString(5, getCarteDeTelefon().gettNumarFix().getText());
+            PreparedStatement pst = c.prepareStatement(Interogari.queryEditare(nume, prenume, CNP, numar_fix, numar_mobil));      
+
+            pst.setString(1, nume);
+            pst.setString(2, prenume);
+            pst.setString(3, CNP);
+            pst.setString(4, numar_fix);
+            pst.setString(5, numar_mobil);
 
             if(nrFix.verificareNrTel(getCarteDeTelefon().gettNumarFix().getText()) && nrMobil.verificareNrTel(getCarteDeTelefon().gettNumarMobil().getText())){
                 pst.executeUpdate();
-                JOptionPane.showMessageDialog(null, "Randul " + row + " a fost editat cu succes.");
-                getCarteDeTelefon().extrageDinBazadeDate();
+                JOptionPane.showMessageDialog(null, "Randul " + row + " a fost editat cu succes.");                
+                getCarteDeTelefon().afiseaza_tabela(getCarteDeTelefon().extrageDinBazadeDate());            
             }else{
                 JOptionPane.showMessageDialog(null, "Date nu au fost inserate! Ceva ati gresit!");
             }
@@ -191,12 +205,13 @@ public class CarteDeTelefonActionListener {
         }
         catch (IllegalArgumentException e) {
             JOptionPane.showMessageDialog(
-                    null,
+                   this,
                     e.getMessage(),
                     "EROARE",
                     JOptionPane.ERROR_MESSAGE
             );
         }
+       
     }
     
 }
