@@ -48,6 +48,8 @@ public class CarteDeTelefonActionListener extends javax.swing.JFrame {
         return carteDeTelefon;
     }
     
+    
+    
     public void activareInput(){
         carteDeTelefon.getbCautare().setEnabled(true);
         carteDeTelefon.getbEditare().setEnabled(true);

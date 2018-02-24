@@ -46,7 +46,7 @@ import sun.util.resources.sr.CurrencyNames_sr_Latn_ME;
  * @author Stan
  */
 public class CarteDeTelefon extends javax.swing.JFrame {
-
+    private CarteTelefon model = ...;
     /**
      * Creates new form Fereastra
      */ 
@@ -76,7 +76,8 @@ public class CarteDeTelefon extends javax.swing.JFrame {
     //constructorul CarteDeTelefon care instantiaza un obiect de tip ActionListener
     //folosirea obiectului de tip timer pentru a creea slideshow-ul de reclame 
       public CarteDeTelefon() {
-        initComponents();     
+        initComponents();    
+        tabela.setModel(model);
         actionListenerFactory = new ActionListenerFactory(this);
         tm = new Timer(4000, new ActionListener() {
             @Override
@@ -629,6 +630,7 @@ public class CarteDeTelefon extends javax.swing.JFrame {
     }//GEN-LAST:event_bEditareActionPerformed
 
     private void bLogareActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bLogareActionPerformed
+
         getActionListenerFactory().getLoginAbonat().loginAbonat();
     }//GEN-LAST:event_bLogareActionPerformed
 
