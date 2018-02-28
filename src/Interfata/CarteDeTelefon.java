@@ -28,6 +28,7 @@ import javax.swing.table.TableModel;
 import bazadedate.Interogari;
 import javax.swing.JButton;
 import Interfata.CarteDeTelefonActionListener;
+import agenda.telefonica.CarteModel;
 import java.awt.Color;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -46,7 +47,8 @@ import sun.util.resources.sr.CurrencyNames_sr_Latn_ME;
  * @author Stan
  */
 public class CarteDeTelefon extends javax.swing.JFrame {
-    private CarteTelefon model = ...;
+    
+    private CarteModel model = new CarteModel();
     /**
      * Creates new form Fereastra
      */ 
@@ -77,7 +79,7 @@ public class CarteDeTelefon extends javax.swing.JFrame {
     //folosirea obiectului de tip timer pentru a creea slideshow-ul de reclame 
       public CarteDeTelefon() {
         initComponents();    
-        tabela.setModel(model);
+        //tabela.setModel(model);
         actionListenerFactory = new ActionListenerFactory(this);
         tm = new Timer(4000, new ActionListener() {
             @Override
@@ -670,7 +672,8 @@ public class CarteDeTelefon extends javax.swing.JFrame {
     }//GEN-LAST:event_rTelefonMobilActionPerformed
 
     private void bCautareActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCautareActionPerformed
-        getActionListenerFactory().getCautaAbonat().cautareAbonat();
+        //getActionListenerFactory().getCautaAbonat().cautareAbonat();
+        model.cautare(tCautare.getText());
     }//GEN-LAST:event_bCautareActionPerformed
 
      public JButton getbCautare(){
