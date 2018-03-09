@@ -25,16 +25,16 @@ import javax.swing.table.AbstractTableModel;
  */
 public class CarteModel extends AbstractTableModel{
     
-    private final CarteDeTelefon carteDeTelefon;
+    //private final CarteDeTelefon carteDeTelefon;
     private List<Abonat> lista_abonati;
     
-    public CarteModel(){
-        carteDeTelefon = new CarteDeTelefon();
-    }
+    //public CarteModel(){
+    //    carteDeTelefon = new CarteDeTelefon();
+    //}
     
-    protected CarteDeTelefon getCarteDeTelefon(){
-        return carteDeTelefon;
-    }
+    //protected CarteDeTelefon getCarteDeTelefon(){
+    //    return carteDeTelefon;
+    //}
     
     public void adaugare(Abonat a){
        
@@ -96,16 +96,19 @@ public class CarteModel extends AbstractTableModel{
 
     @Override
     public int getRowCount() {
-       return carteDeTelefon.getTabela().getRowCount();
+       return 1;
+               //carteDeTelefon.getTabela().getRowCount();
     }
 
     @Override
     public int getColumnCount() {
-       return carteDeTelefon.getTabela().getColumnCount();
+       return 1;
+               //carteDeTelefon.getTabela().getColumnCount();
     }
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        return carteDeTelefon.getTabela().getValueAt(rowIndex, columnIndex);
+        return 1;
+                //carteDeTelefon.getTabela().getValueAt(rowIndex, columnIndex);
     }
 }
