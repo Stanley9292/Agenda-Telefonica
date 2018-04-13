@@ -184,9 +184,7 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Component id="bAdauga" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="85" max="-2" attributes="0"/>
                   <Component id="bStergere" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="bRefreshTabela" min="-2" max="-2" attributes="0"/>
@@ -208,7 +206,6 @@
                           <Component id="bCautare" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="bAdauga" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="bStergere" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="bRefreshTabela" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
@@ -219,15 +216,6 @@
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JButton" name="bAdauga">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Adauga"/>
-            <Property name="enabled" type="boolean" value="false"/>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bAdaugaActionPerformed"/>
-          </Events>
-        </Component>
         <Component class="javax.swing.JButton" name="bStergere">
           <Properties>
             <Property name="text" type="java.lang.String" value="Stergere"/>
@@ -285,34 +273,50 @@
                       <Component id="tNume" alignment="1" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="bEditare" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Component id="bRefresh2" alignment="0" max="32767" attributes="0"/>
+                      <Component id="bAdauga" alignment="0" max="32767" attributes="0"/>
+                      <Component id="bEditare" alignment="0" max="32767" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="lNume" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="tNume" alignment="3" max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" attributes="0">
+                          <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="lNume" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="tNume" alignment="3" max="32767" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="tPrenume" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="lPrenume" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="tCNP" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="lCNP" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
+                              <Component id="bEditare" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <Group type="102" attributes="0">
+                          <EmptySpace max="32767" attributes="0"/>
+                          <Component id="bAdauga" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="tPrenume" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="lPrenume" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="tCNP" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="lCNP" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
-                      <Component id="bEditare" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="tNumarMobil" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="lTelefonMobil" alignment="0" pref="23" max="32767" attributes="0"/>
+                      <Group type="103" alignment="0" groupAlignment="3" attributes="0">
+                          <Component id="tNumarMobil" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="bRefresh2" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <Component id="lTelefonMobil" alignment="0" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
@@ -369,6 +373,23 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Telefon Fix"/>
           </Properties>
+        </Component>
+        <Component class="javax.swing.JButton" name="bAdauga">
+          <Properties>
+            <Property name="toolTipText" type="java.lang.String" value=""/>
+            <Property name="label" type="java.lang.String" value="Adauga"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bAdaugaActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="bRefresh2">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Refresh"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bRefresh2ActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

@@ -109,8 +109,8 @@ public class CarteDeTelefonActionListener extends javax.swing.JFrame {
             ex.printStackTrace();
             JOptionPane.showMessageDialog(null, "Eroare: " + ex.getMessage());
         }
-        this.getCarteDeTelefon().refreshTabela();
-        this.getCarteDeTelefon().afiseaza_tabela(lista_abonati);
+//        this.getCarteDeTelefon().refreshTabela();
+//        this.getCarteDeTelefon().afiseaza_tabela(lista_abonati);
     }
     
     public void loginAbonat(){
@@ -130,7 +130,7 @@ public class CarteDeTelefonActionListener extends javax.swing.JFrame {
                 isLogged = true;
                 getCarteDeTelefon().getloginPanel().setVisible(false);
                 activareInput();
-                this.getCarteDeTelefon().afiseaza_tabela(this.getCarteDeTelefon().extrageDinBazadeDate());              
+                //this.getCarteDeTelefon().afiseaza_tabela(this.getCarteDeTelefon().extrageDinBazadeDate());              
             }
             else{
                 JOptionPane.showMessageDialog(null, "Username si parola incorecte!");
@@ -160,7 +160,7 @@ public class CarteDeTelefonActionListener extends javax.swing.JFrame {
              else{
                  JOptionPane.showMessageDialog(null, "Abonatul nu a fost sters!");
              }            
-             getCarteDeTelefon().refreshTabela();
+             //getCarteDeTelefon().refreshTabela();
             
          }
          catch(Exception e){
@@ -196,7 +196,7 @@ public class CarteDeTelefonActionListener extends javax.swing.JFrame {
             if(nrFix.verificareNrTel(getCarteDeTelefon().gettNumarFix().getText()) && nrMobil.verificareNrTel(getCarteDeTelefon().gettNumarMobil().getText())){
                 pst.executeUpdate();
                 JOptionPane.showMessageDialog(null, "Randul " + row + " a fost editat cu succes.");                
-                getCarteDeTelefon().afiseaza_tabela(getCarteDeTelefon().extrageDinBazadeDate());            
+                //getCarteDeTelefon().afiseaza_tabela(getCarteDeTelefon().extrageDinBazadeDate());            
             }else{
                 JOptionPane.showMessageDialog(null, "Date nu au fost inserate! Ceva ati gresit!");
             }

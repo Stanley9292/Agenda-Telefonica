@@ -5,110 +5,101 @@
  */
 package agenda.telefonica;
 
-import Interfata.CarteDeTelefon;
+
 import static bazadedate.Conectare.verifyConnection;
 import bazadedate.Interogari;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
-import javax.swing.JOptionPane;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.table.AbstractTableModel;
+import Interfata.CarteDeTelefon;
 
 /**
  *
  * @author Octavian
  */
-public class CarteModel extends AbstractTableModel{
+public class CarteModel extends AbstractTableModel {
+
+    Statement s;
+    private final String q = "SELECT * FROM agenda";
+    private String filtru = "";
+    private CarteDeTelefon carte;
     
-    //private final CarteDeTelefon carteDeTelefon;
-    private List<Abonat> lista_abonati;
     
-    //public CarteModel(){
-    //    carteDeTelefon = new CarteDeTelefon();
-    //}
-    
-    //protected CarteDeTelefon getCarteDeTelefon(){
-    //    return carteDeTelefon;
-    //}
-    
-    public void adaugare(Abonat a){
-       
+    //Abonat abonat = new Abonat(carte.gettNume().getText(), carte.gettPrenume().getText(), carte.gettCNP().getText(), carte.gettNumarFix().getText(), carte.gettNumarMobil().getText());
+    //NrMobil mobil = new NrMobil(carte.gettNumarMobil().getText());
+    //NrFix fix = new NrFix(carte.gettNumarFix().getText());
+
+    public CarteModel() throws SQLException {
+        Connection c = verifyConnection();
+        s = c.createStatement();
+        carte = new CarteDeTelefon();
     }
-    public void stergere(Abonat a){
-        
+
+    public void adaugare() throws SQLException {
+      s.executeUpdate(bazadedate.Interogari.queryAdaugare());
+      fireTableDataChanged();
     }
-    public void editare(Abonat a){
-        
+
+    public void stergere(String nume, String prenume, String CNP) throws SQLException {
+        s.executeUpdate(Interogari.queryStergere(nume, prenume, CNP));
         fireTableDataChanged();
     }
-    public void cautare(String textCautat){
-        //String textCautat = getCarteDeTelefon().gettCautare().getText();
-        //ArrayList<agenda.telefonica.Abonat> lista_abonati = new ArrayList<>();
-        agenda.telefonica.Abonat abonat;
-        
-        try{           
-            if(textCautat != null & textCautat.length() > 0){            
-                Connection c = verifyConnection();
-                PreparedStatement pst = c.prepareStatement(Interogari.queryCautare(textCautat));
-                String sqlRezultate = "SELECT COUNT(*) as rezultate FROM ( "
-                                      + Interogari.queryCautare(textCautat) + " ) as inregistrari";
-                
-               
-                Statement st = c.createStatement();
-                ResultSet rsRezultate = st.executeQuery(sqlRezultate); 
-                rsRezultate.next();
-                rsRezultate.close();
-                
-                ResultSet rs = st.executeQuery(Interogari.queryCautare(textCautat));
-               
-                while(rs.next()){
-                    String nume = rs.getString("nume");
-                    String prenume = rs.getString("prenume");
-                    String CNP = rs.getString("CNP");
-                    String nrFix = rs.getString("Numar_Fix");
-                    String nrMobil = rs.getString("Numar_Mobil");
-                    abonat = new Abonat(nume, prenume, CNP, nrFix, nrMobil);
-                    lista_abonati.add(abonat);
-                }
-                int rezultate = lista_abonati.size();
-                if(rezultate >= 1){
-                   JOptionPane.showMessageDialog(null, "Am gasit: " + rezultate + " rezultate."); 
-                }else{
-                   JOptionPane.showMessageDialog(null, "Niciun rezultat gasit!");
-                }
-            }else{
-                JOptionPane.showMessageDialog(null, "Completati campul de cautare");
-                }
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-            JOptionPane.showMessageDialog(null, "Eroare: " + ex.getMessage());
-        }
+
+    public void modificare(Abonat a) {
+//      s.executeUpdate("UPDATE.....");
         fireTableDataChanged();
     }
-    public void ordonare(Abonat a){
-        
+
+    public void cautare(String textCautat) {
+        filtru = " WHERE Nume like '%" + textCautat + "%'"
+                + "OR Prenume like '%" + textCautat + "%'"
+                + "OR CNP like '%" + textCautat + "%'"
+                + "OR Numar_Fix like '%" + textCautat + "%'"
+                + "OR Numar_Mobil like '%" + textCautat + "%'";
+        fireTableDataChanged();
+    }
+
+    public void ordonare(Abonat a) {
+
     }
 
     @Override
     public int getRowCount() {
-       return 1;
-               //carteDeTelefon.getTabela().getRowCount();
+        try {
+            String countSql = "SELECT COUNT(*) as rezultate FROM agenda " + filtru;
+            ResultSet r = s.executeQuery(countSql);
+            r.first();
+            return r.getInt(1);
+        } catch (SQLException ex) {
+            Logger.getLogger(CarteModel.class.getName()).log(Level.SEVERE, null, ex);
+            return 0;
+        }
     }
 
     @Override
     public int getColumnCount() {
-       return 1;
-               //carteDeTelefon.getTabela().getColumnCount();
+        return 6;
+        //carteDeTelefon.getTabela().getColumnCount();
     }
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        return 1;
-                //carteDeTelefon.getTabela().getValueAt(rowIndex, columnIndex);
+        try {
+            // extragerea valorii unei celule din baza de date
+            String sql = q + " " + filtru;
+            ResultSet r = s.executeQuery(sql);
+            r.absolute(rowIndex + 1);
+            return r.getString(columnIndex + 1);
+
+            //carteDeTelefon.getTabela().getValueAt(rowIndex, columnIndex);
+        } catch (SQLException ex) {
+            Logger.getLogger(CarteModel.class.getName()).log(Level.SEVERE, null, ex);
+            return "eroare";
+        }
     }
+
 }
