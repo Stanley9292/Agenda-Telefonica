@@ -15,6 +15,8 @@ public class Abonat {
     private String nume;
     private String prenume;
     private String CNP;
+    private String nr_Fix;
+    private String nr_Mobil;
     private NrFix nrFix;
     private NrMobil nrMobil;
     private NrTel nrTel;
@@ -47,7 +49,7 @@ public class Abonat {
         if(CNP.length() != 13){         
             throw new IllegalArgumentException("CNP-ul introdus trebuie sa aiba 13 caractere");  
         }
-        if(!nrTel.verificareNrTel(nrFix) || !nrTel.verificareNrTel(nrMobil)){
+        if(!nrTel.verificareNrTel(nr_Fix) || !nrTel.verificareNrTel(nr_Mobil)){
             throw new IllegalArgumentException("Formatul sau dimensiunea numarului este gresita."); 
          } 
         

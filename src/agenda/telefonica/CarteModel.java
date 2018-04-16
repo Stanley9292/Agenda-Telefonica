@@ -26,8 +26,11 @@ public class CarteModel extends AbstractTableModel {
     Statement s;
     private final String q = "SELECT * FROM agenda";
     private String filtru = "";
-    private CarteDeTelefon carte;
-    
+//    String nume;
+//    String prenume;
+//    String CNP;
+//    String nr_Fix;
+//    String nr_mobil;
     
     //Abonat abonat = new Abonat(carte.gettNume().getText(), carte.gettPrenume().getText(), carte.gettCNP().getText(), carte.gettNumarFix().getText(), carte.gettNumarMobil().getText());
     //NrMobil mobil = new NrMobil(carte.gettNumarMobil().getText());
@@ -36,12 +39,13 @@ public class CarteModel extends AbstractTableModel {
     public CarteModel() throws SQLException {
         Connection c = verifyConnection();
         s = c.createStatement();
-        carte = new CarteDeTelefon();
+        
     }
 
-    public void adaugare() throws SQLException {
-      s.executeUpdate(bazadedate.Interogari.queryAdaugare());
-      fireTableDataChanged();
+    public void adaugare(String nume, String prenume, String CNP, String Numar_Mobil,String Numar_Fix) throws SQLException {
+        Abonat a =new Abonat(nume, prenume, CNP, Numar_Mobil, Numar_Fix);
+        s.executeUpdate(bazadedate.Interogari.queryAdaugare(nume, prenume, CNP, Numar_Mobil, Numar_Fix));
+        fireTableDataChanged();
     }
 
     public void stergere(String nume, String prenume, String CNP) throws SQLException {

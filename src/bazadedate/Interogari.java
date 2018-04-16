@@ -14,13 +14,13 @@ import agenda.telefonica.Abonat;
 
 //clasa care contine metode statice pentru query-urile importante
 public class Interogari {
-    public static String queryEditare(String nume, String prenume, String CNP, String nr_fix, String nr_mobil){
+    public static String queryEditare(String nume, String prenume, String CNP, String nr_mobil, String nr_fix){
         return "UPDATE agenda SET nume=?, prenume=?, CNP =?, Numar_Mobil=?, Numar_Fix=? WHERE "
                 + "nume= '"  + nume + "' AND prenume=  '" + prenume + "' AND cnp= '" + CNP + "' AND Numar_Mobil= '" + nr_mobil + "' AND Numar_Fix= '" + nr_fix + "';" ;                
     }
     
-    public static String queryAdaugare(){
-        return  "INSERT INTO agenda(nume, prenume, CNP, Numar_Mobil, Numar_Fix)values(?,?,?,?,?);";
+    public static String queryAdaugare(String nume, String prenume, String CNP, String nr_mobil, String nr_fix){
+        return  "INSERT INTO agenda(nume, prenume, CNP, Numar_Mobil, Numar_Fix)values('"+nume+"','"+prenume+"','"+CNP+"','"+nr_mobil+"','"+nr_fix+"');";
     }
     
     public static String queryStergere(String nume, String prenume, String CNP){

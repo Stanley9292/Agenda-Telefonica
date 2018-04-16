@@ -20,7 +20,6 @@ public class NrFix extends NrTel {
         this.fix = fix;
         
     }
-    
     //getter pentru clasa Fix
     public String getFix(){
         return fix;

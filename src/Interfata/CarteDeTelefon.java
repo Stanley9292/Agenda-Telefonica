@@ -9,7 +9,6 @@ import agenda.telefonica.Abonat;
 import static bazadedate.Conectare.verifyConnection;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -42,16 +41,15 @@ import sun.util.resources.sr.CurrencyNames_sr_Latn_ME;
  */
 public class CarteDeTelefon extends javax.swing.JFrame {
     
-    private CarteModel model ;
+   
     /**
      * Creates new form Fereastra
      */ 
     
-    OrdonareAbonat o = new OrdonareAbonat();
+    //OrdonareAbonat o = new OrdonareAbonat();
     private final ActionListenerFactory actionListenerFactory;
     private int randSelectat = 0;
-    //public List<Abonat> lista_abonati = extrageDinBazadeDate();
-    
+    private CarteModel model ;
    
     //elementele folosite pentru a realiza reclama
     Timer tm;
@@ -101,56 +99,6 @@ public class CarteDeTelefon extends javax.swing.JFrame {
         return actionListenerFactory;
     }
     
-    //metoda prin care se extrage din baza de date si returneaza o lista cu abonatii
-//    public ArrayList<Abonat> extrageDinBazadeDate(){      
-//            ArrayList<agenda.telefonica.Abonat> lista_abonati = new ArrayList<>();
-//            agenda.telefonica.Abonat abonat;
-//            
-//            try {
-//                Connection c = verifyConnection();
-//                String query1 = "Select * FROM agenda";
-//                Statement st = c.createStatement();
-//                ResultSet rs = st.executeQuery(query1);  
-//
-//                while(rs.next()){
-//                    String nume = rs.getString("nume");
-//                    String prenume = rs.getString("prenume");
-//                    String CNP = rs.getString("CNP");
-//                    String nrFix = rs.getString("Numar_Fix");
-//                    String nrMobil = rs.getString("Numar_Mobil");
-//                    abonat = new Abonat(nume, prenume, CNP, nrFix, nrMobil);
-//                    lista_abonati.add(abonat);
-//                }
-//            } catch (SQLException ex) {
-//                JOptionPane.showMessageDialog(null, ex);
-//            }
-//            return lista_abonati;
-//    }
-    
-    //metoda prin care se populeaza tabela, primind ca parametru o lista de abonati
-//    public void afiseaza_tabela(List lista_abonati){
-//        refreshTabela();
-//        List<Abonat> list = lista_abonati;
-//        //DefaultTableModel model = (DefaultTableModel) tabela.getModel();
-//        model.fireTableDataChanged();
-//        //tabela.setAutoCreateRowSorter(true);
-//        Object[] row = new Object[5];
-//        
-//        for(int i = 0; i<list.size(); i++){
-//            row[0] = list.get(i).getNume();
-//            row[1] = list.get(i).getPrenume();
-//            row[2] = list.get(i).getCNP();
-//            row[3] = list.get(i).getNrFix();
-//            row[4] = list.get(i).getNrMobil();
-//            model.addRow(row);
-//        }
-//    }
-   
-//    public void refreshTabela(){
-//        //DefaultTableModel model = (DefaultTableModel)tabela.getModel();
-//        model.setRowCount(0);
-//    }
-       
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -595,15 +543,15 @@ public class CarteDeTelefon extends javax.swing.JFrame {
                             .addComponent(interfataEditare, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(loginPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(pOrdonare, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lReclame, javax.swing.GroupLayout.DEFAULT_SIZE, 291, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGap(17, 17, 17)
+                .addComponent(lReclame, javax.swing.GroupLayout.DEFAULT_SIZE, 291, Short.MAX_VALUE))
         );
 
         setSize(new java.awt.Dimension(1019, 813));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+   
     
     private void InregistrareActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InregistrareActionPerformed
       loginPanel.setVisible(true);
@@ -659,8 +607,7 @@ public class CarteDeTelefon extends javax.swing.JFrame {
     }//GEN-LAST:event_bEditareActionPerformed
 
     private void bLogareActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bLogareActionPerformed
-
-        getActionListenerFactory().getLoginAbonat().loginAbonat();
+       getActionListenerFactory().getLoginAbonat().loginAbonat();
     }//GEN-LAST:event_bLogareActionPerformed
 
     private void bRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bRefreshActionPerformed
@@ -703,8 +650,9 @@ public class CarteDeTelefon extends javax.swing.JFrame {
     }//GEN-LAST:event_bCautareActionPerformed
 
     private void bAdaugaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAdaugaActionPerformed
-
-        //        try{
+        try {
+            model.adaugare(tNume.getText(), tPrenume.getText(), tCNP.getText(), tNumarMobil.getText(), tNumarFix.getText());
+            //        try{
             //             Connection c = verifyConnection();
             //             PreparedStatement pst = c.prepareStatement(Interogari.queryAdaugare());
             //
@@ -719,26 +667,32 @@ public class CarteDeTelefon extends javax.swing.JFrame {
             //             pst.setString(5, tNumarFix.getText());
             //
             //             if(fix.verificareNrTel(tNumarFix.getText()) && mobil.verificareNrTel(tNumarMobil.getText())){
-                //                 pst.executeUpdate();
-                //                 JOptionPane.showMessageDialog(null, "Datele au fost inserate cu succes!");
-                //                 //getCarteDeTelefon().refreshTabela();
-                //                 //getCarteDeTelefon().afiseaza_tabela(getCarteDeTelefon().extrageDinBazadeDate());
-                //                 //getCarteDeTelefon().getTabela()
-                //             }else{
-                //                 JOptionPane.showMessageDialog(null, "Datele nu au fost inserate.");
-                //             }
+            //                 pst.executeUpdate();
+            //                 JOptionPane.showMessageDialog(null, "Datele au fost inserate cu succes!");
+            //                 //getCarteDeTelefon().refreshTabela();
+            //                 //getCarteDeTelefon().afiseaza_tabela(getCarteDeTelefon().extrageDinBazadeDate());
+            //                 //getCarteDeTelefon().getTabela()
+            //             }else{
+            //                 JOptionPane.showMessageDialog(null, "Datele nu au fost inserate.");
+            //             }
             //        }
-        //        catch (SQLException ex) {
+            //        catch (SQLException ex) {
             //                JOptionPane.showMessageDialog(null, ex);
             //            }
-        //        catch (IllegalArgumentException e) {
+            //        catch (IllegalArgumentException e) {
             //            JOptionPane.showMessageDialog(
-                //                   this,
-                //                    e.getMessage(),
-                //                    "EROARE",
-                //                    JOptionPane.ERROR_MESSAGE
-                //            );
+            //                   this,
+            //                    e.getMessage(),
+            //                    "EROARE",
+            //                    JOptionPane.ERROR_MESSAGE
+            //            );
             //        }
+        } catch (SQLException ex) {
+            Logger.getLogger(CarteDeTelefon.class.getName()).log(Level.SEVERE, null, ex);
+        }
+          catch (IllegalArgumentException ex){
+            JOptionPane.showMessageDialog(null, ex);
+          }
     }//GEN-LAST:event_bAdaugaActionPerformed
 
     private void bRefresh2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bRefresh2ActionPerformed
